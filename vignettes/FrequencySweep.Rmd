@@ -1,0 +1,52 @@
+---
+title: "FrequencySweep"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FrequencySweep}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.width = 6,
+  comment = "#>"
+)
+```
+
+Find all the frequency sweep files:
+
+```{r setup}
+library(nanoAFMr)
+filesAFM = AFM.getSampleImages()
+freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) == 'frequency') })]
+```
+
+## Frequency Sweep Graph
+
+You can import the frequency file as an `AFMdata` file using the standard import function. Graphing also works with the `plot.AFMdata()` function.
+
+```{r}
+a = AFM.import(freqAFM[1])
+plot(a)
+```
+
+
+## Frequency Sweep Info
+
+```{r}
+print(a)
+summary(a)
+```
+
+
+## Frequency Sweep Data
+
+You can extract the data from the graph using the `AFM.raster()` function:
+
+
+```{r}
+d = AFM.raster(a)
+head(d)
+```

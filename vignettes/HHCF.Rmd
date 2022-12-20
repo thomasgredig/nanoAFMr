@@ -1,0 +1,67 @@
+---
+title: "Height-Height-Correlation-Function"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Height-Height-Correlation-Function}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.width = 6,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(nanoAFMr)
+library(ggplot2)
+```
+
+The Height-Height Correlation Function is discussed in the publication: [Height-Height Correlation Function to Determine Grain Size in Iron Phthalocyanine Thin Films](http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069) *Thomas Gredig, Evan A. Silverstein, Matthew P Byrne*, Journal: **J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).**
+
+It defines a correlation function $g(r)$ as follows:
+
+$$
+g(r) = <| (h(\vec{x}) - h(\vec{x}-\vec{r}) |^2 >
+$$
+
+where $h(\vec{x})$ is the height at a particular location. The height difference is computed for all possible height pairs that are separated by a distance $|\vec{r}|$. Immediately, if follows that $g(0)=0$.
+
+For a set of images, the correlation function can be interpreted as follows:
+
+$$
+g'(r) = 2\sigma^2 \left[ 1- e^{- \left(\frac{r}{\xi}\right)^{2\alpha}} \right]
+$$
+
+which has 3 fitting parameters, the long-range roughness $\sigma$, the short-range roughness $\alpha$ (Hurst parameter), and the correlation length $\xi$.
+
+## Example: HHCF
+
+The computation is implemented in this package as follows, the image is flattened, then HHCF is computed and the curve is fit. Choosing a large number of iterations is crucial. The computation is executed with the `AFM.hhcf()` function.
+
+
+```{r}
+filename = AFM.getSampleImages(type='tiff')
+a = AFM.import(filename)
+a = AFM.flatten(a)
+AFM.hhcf(a, numIterations= 3e5)
+```
+
+The correlation function data can be further analyzed, after exporting the data to a data frame:
+
+```{r, message=FALSE, warning=FALSE}
+hhcf.DF = AFM.hhcf(a, numIterations= 2e5, dataOnly = TRUE)
+
+ggplot(rbind(hhcf.DF,c(0,0,0)),
+       aes(r.nm, g )) + 
+  geom_smooth(size=1, col='pink') + 
+  geom_point(size=4, col='black') +
+  geom_point(size=3, col='red') +
+  xlab('r (nm)') + 
+  ylab(expression(paste('g (nm'^2,')'))) + 
+  scale_x_continuous(limits = c(0,150)) +
+  theme_bw()
+```

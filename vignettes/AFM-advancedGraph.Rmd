@@ -1,0 +1,52 @@
+---
+title: "Advanced AFM Image Graphing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced AFM Image Graphing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(nanoAFMr)
+library(ggplot2)
+library(scales)
+filename = AFM.getSampleImages(type='tiff')
+afmd = AFM.import(filename)
+plot(afmd)
+```
+ 
+In order to get more contrast, we can trim 1 percent of the data points as the image may not be in the middle, see the histogram.
+
+```{r}
+AFM.histogram(afmd)
+```
+
+Using the `trimPeaks` option in `plot()`, we can remove half from the top and bottom of the histogram and bunch those data points up, so that the contrast enhances.
+
+
+```{r}
+plot(afmd, trimPeaks = 0.01)
+```
+
+## Raster Graph
+
+Graphing a subset of the data points using the `AFM.raster()` function to obtain the 3D data point set.
+
+```{r}
+dr = AFM.raster(afmd)
+head(dr)
+# data points higher than 90% of peak
+lowerBound = -0.3
+upperBound = 0.8
+dr1 =dr[which(dr$z>lowerBound & dr$z<upperBound),]
+plot(afmd, trimPeaks = 0.01) + 
+  geom_raster(data=dr1,fill='white')
+```

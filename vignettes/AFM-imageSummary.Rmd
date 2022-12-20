@@ -1,0 +1,44 @@
+---
+title: "AFM Image Summary"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{AFM Image Summary}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Summary Data for AFM Images
+
+Each instrument uses a different set of parameters for describing the systems. Here are a few examples.
+
+```{r setup}
+library(nanoAFMr)
+file.list = AFM.getSampleImages()
+for(filename in file.list) {
+  print(basename(filename))
+  print(summary(AFM.import(filename)))
+}
+```
+
+# AFMinfo class
+
+Additional information can be found using the `AFMinfo` object:
+
+```{r}
+for(filename in file.list[1:3]) {
+  print(basename(filename))
+  h = AFMinfo(filename)
+  h$data$value = substr(h$data$value,1,32)
+  print(h)
+}
+```
+
+
+

@@ -1,0 +1,56 @@
+---
+title: "ForceCurves"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ForceCurves}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(nanoAFMr)
+library(ggplot2)
+```
+
+## Force versus Distance Curves
+
+This example illustrates how to extract force versus distance spectroscopy data from Park AFM images:
+
+```{r}
+f = AFM.getSampleImages('force')
+a = AFM.import(f)
+a = AFM.flatten(a)
+plot(a) + labs(fill="z (nm)")
+```
+
+Spectroscopy data files are recognized as such:
+
+```{r}
+AFM.dataType(a)
+```
+
+
+The file can be graphed like a regular AFM file, but additionally, it contains the spectroscopy data. Several channels are recorded:
+
+```{r}
+AFM.specHeader(a)
+```
+
+
+The data from these channels is extracted as follows:
+
+```{r}
+df = AFM.specData(a)
+ggplot(df, aes(`Z Scan`, Force, col=factor(Point))) + 
+  geom_point() + 
+  theme_bw() +
+  theme(legend.position = c(0.95,0.99),
+        legend.justification = c(1,1))
+```

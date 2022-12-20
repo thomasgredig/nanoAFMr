@@ -1,0 +1,51 @@
+---
+title: "Setpoint"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setpoint}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Finding the Setpoint
+
+You can find the setpoint and other information about an AFM image by retrieving the `AFMinfo`. Here is an example:
+
+```{r}
+library(nanoAFMr)
+
+# loading the test file 
+filename = AFM.getSampleImages('ibw')
+# retrieving an AFMinfo object
+h = AFMinfo(filename)
+```
+
+
+Basic information about an image can also be viewed, once you have an `AFMinfo` object:
+
+```{r}
+# generate a summary of the AFMinfo object
+summary(h)
+```
+
+
+Finding additional special information, using the function `AFMinfo.item`; note that the search string is case-sensitive.
+
+```{r}
+sp =  AFMinfo.item(h, 'Setpoint')
+print(paste("Setpoint:",sp,"V"))
+```
+
+The names of the items can be found with the same function; here is a list of the first few item names that can be used:
+
+```{r}
+allNames = AFMinfo.item(h)
+print(allNames[1:50])
+```

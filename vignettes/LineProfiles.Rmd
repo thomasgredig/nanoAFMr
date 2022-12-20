@@ -1,0 +1,47 @@
+---
+title: "Line Profiles"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Line Profiles}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 6
+)
+```
+
+```{r setup}
+library(nanoAFMr)
+```
+
+# Line Profiles
+
+It can be useful to look at a line profile, for example in the height data. You can use `AFM.lineProfile()` to get an arbitrary line, or `AFM.getLine()`, if you want to select a horizontal line. In the example below, we provide the coordinates in units of [nm], however, you can also provide the coordinates in pixels, if you set `unitPixels` to `TRUE`. Alternatively, if you are not providing any coordinates, you can click on two points to select a profile line.
+
+```{r}
+library(ggplot2)
+library(scales)
+filename = AFM.getSampleImages(type='tiff')
+afmd = AFM.import(filename)
+# afmd2 = AFM.lineProfile(afmd)  # click on two points on the image
+afmd2 = AFM.lineProfile(afmd, 200,2050, 800,2050, verbose = TRUE)
+afmd2 = AFM.lineProfile(afmd2, 200,2080, 800,2080)
+
+plot(afmd2, addLines = TRUE, trimPeaks = 0.01)
+```
+
+This shows where the profile line is measured; the units are in `nm`, according to the AFM image.
+
+```{r}
+AFM.linePlot(afmd2)
+dLine = AFM.linePlot(afmd2, dataOnly = TRUE)
+head(dLine)
+```
+
+The line plot has a lowest point at `r signif(min(dLine$z),3)` nm, and a maximum at `r signif(max(dLine$z),3)` nm.
