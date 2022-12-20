@@ -7,7 +7,7 @@ citEntry(
   entry       = "Manual",
   title       = "R:nanoAFMr - AFM analysis tool",
   author      = "Thomas Gredig",
-  year        = 2021,
+  year        = 2022,
   publisher   = "Zenodo",
   version     = "v2.1",
   journal     = "",
@@ -15,8 +15,8 @@ citEntry(
   number      = "",
   pages       = "",
   note        = note,
-  url         = "https://doi.org/10.5281/zenodo.5770772",
-  doi         = "10.5281/zenodo.5770772",
+  url         = "https://doi.org/10.5281/zenodo.7464877",
+  doi         = "10.5281/zenodo.7464877",
   textVersion = sprintf(
     "Thomas Gredig (%s). nanoAFMr - visualization and analysis of atomic force microscopy images. %s.", note, meta$Date
   )

@@ -2,8 +2,8 @@
 library(nanoAFMr)
 library(ggplot2)
 da = AFM.import(AFM.getSampleImages(type='ibw'))
-plot(da, graphType=2, trimPeaks = 0.01)
-ggsave('man/figures/logo2.png', width=3,height=3)
+plot(da, graphType=2, trimPeaks = 0.02)
+ggsave('man/figures/logo2.png', width=3.2,height=3.2)
 
 library(hexSticker) # Create Hexagon Sticker in R
 library(showtext)   # Using Fonts More Easily in R Graphs

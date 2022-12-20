@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/184698455.svg)](https://zenodo.org/badge/latestdoi/184698455)
+[![DOI](https://zenodo.org/badge/580499036.svg)](https://zenodo.org/badge/latestdoi/580499036)
 
 # nanoAFMr  <img src="man/figures/logo.png" align="right" alt="" width="250" />
 
@@ -42,7 +42,7 @@ Use this package to generate `AFMdata` S4 data objects, which can be used to qui
 Creating an `AFMdata` data object, then output a graph and output a summary of characteristics:
 
 ```R
-fileAFM = AFM.getSampleImages(type='ibw')[1]
+fileAFM = AFM.getSampleImages('ibw')
 d = AFM.import(fileAFM)
 class(d)
 plot(d)
