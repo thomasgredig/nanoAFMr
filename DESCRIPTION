@@ -12,7 +12,8 @@ Description: Read and display atomic force microscopy (AFM) image files
     files, Bruker and VEECO NanoScope files, Park AFM files, and Asylum 
     Research Igor Wavefiles. It can also flatten images, perform height-height 
     correlation function analysis, line profiles, and other basic data analysis. 
-    Use to analyze spectroscopy data for Park AFM files.
+    Use to analyze spectroscopy data for Park AFM files. Created 
+    with the support of NSF Grant No. 2018653
 License: GPL-3
 URL: https://thomasgredig.github.io/nanoAFMr/
 BugReports: https://github.com/thomasgredig/nanoAFMr/issues
