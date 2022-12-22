@@ -5,7 +5,7 @@ note <- sprintf("R package version %s", meta$Version)
 
 citEntry(
   entry       = "Manual",
-  title       = "R:nanoAFMr - AFM analysis tool",
+  title       = "R:nanoAFMr - AFM Import and Analysis Tool",
   author      = "Thomas Gredig",
   year        = 2022,
   publisher   = "Zenodo",
