@@ -261,6 +261,20 @@ summary.AFMdata <- function(object,...) {
       z.max = (which.max(object@data$freq)-1)*object@x.conv + object@z.conv,
       z.units = object@z.units
     )
+  } else {
+    # probably dataType is "noImage"
+    if (dataType != "noImage") warning("AFM data type is not noImage.")
+    r = data.frame(
+      objectect = paste(object@instrument,dataType),
+      description = paste(object@description),
+      resolution = paste(object@x.pixels),
+      size = paste(object@z.conv,"-",(object@x.pixels)),
+      channel = paste(object@channel),
+      history = paste(object@history),
+      z.min = 0,
+      z.max = 0,
+      z.units = object@z.units
+    )
   }
   r$dataType = dataType
   r

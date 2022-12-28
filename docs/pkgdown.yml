@@ -1,5 +1,5 @@
-pandoc: '2.18'
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   AFM-advancedGraph: AFM-advancedGraph.html
@@ -10,5 +10,5 @@ articles:
   FrequencySweep: FrequencySweep.html
   HHCF: HHCF.html
   LineProfiles: LineProfiles.html
-last_built: 2022-12-22T00:55Z
+last_built: 2022-12-28T01:19Z
 
