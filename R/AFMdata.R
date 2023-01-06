@@ -328,7 +328,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param x AFMdata object
 #' @param no channel number of the image
 #' @param mpt midpoint for coloring
-#' @param graphType 1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale
+#' @param graphType 1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale, 5 = legend only
 #' @param trimPeaks value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image
 #' @param addLines if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example
 #' @param redBlue if \code{TRUE} output red / blue color scheme
@@ -346,6 +346,7 @@ AFM.raster <- function(obj,no=1) {
 #' @importFrom ggplot2 ggplot aes geom_raster geom_line theme_bw scale_fill_gradient2 xlab ylab labs scale_y_continuous scale_x_continuous coord_equal geom_text theme element_blank
 #' @importFrom ggplot2 scale_fill_viridis_c
 #' @importFrom viridis scale_fill_viridis
+#' @importFrom ggpubr get_legend as_ggplot
 #' @seealso \code{\link{AFM.lineProfile}}
 #'
 #' @examples
@@ -363,7 +364,8 @@ AFM.raster <- function(obj,no=1) {
 #' plot(d) + labs(fill = "h(nm)")
 #' @export
 plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis',
-                         addLines=FALSE, redBlue = FALSE, verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
+                         addLines=FALSE, redBlue = FALSE, 
+                         verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
   y <- z <- myLabel <- freq.Hz <- z.V <- NULL
   # check parameters
   if (no>length(x@channel)) stop("imageNo out of bounds.")
@@ -501,6 +503,20 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
               axis.text.y = element_blank(),
               axis.ticks.y = element_blank())
     } else stop('graphType is not supported.')
+  } else if (graphType==5) {
+    # only display scales without the image
+    g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
+      geom_raster() +
+      sFill +
+      xlab(xlab) +
+      ylab(expression(paste('y (',mu,'m)'))) +
+      labs(fill=zLab) +
+      scale_y_continuous(expand=c(0,0))+
+      scale_x_continuous(expand=c(0,0))+
+      coord_equal() +
+      theme_bw()
+    ggpubr::get_legend(g1) -> g1l
+    g1 <- as_ggplot(g1l)
   } else if (AFM.dataType(x) == 'frequency') {
     ## graph the frequency
     d = AFM.raster(x)
@@ -509,7 +525,6 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       xlab('f (kHz)') +
       ylab('V (V)') +
       theme_bw()
-
   }
 
   g1
@@ -581,6 +596,3 @@ AFM.isFileValid <- function(filename) {
   validFile
 }
 
-.onAttach <- function(libname, pkgname) {
-  if (runif(1) > 0.7) packageStartupMessage(paste("Please cite", pkgname,',see https://doi.org/10.5281/zenodo.7464877'))
-}

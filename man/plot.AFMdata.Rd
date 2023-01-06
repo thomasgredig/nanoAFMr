@@ -26,7 +26,7 @@
 
 \item{mpt}{midpoint for coloring}
 
-\item{graphType}{1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale}
+\item{graphType}{1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale, 5 = legend only}
 
 \item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
 
