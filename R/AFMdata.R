@@ -502,8 +502,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
               axis.ticks.x = element_blank(),
               axis.text.y = element_blank(),
               axis.ticks.y = element_blank())
-    } else stop('graphType is not supported.')
-  } else if (graphType==5) {
+    } else if (graphType==5) {
     # only display scales without the image
     g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
       geom_raster() +
@@ -517,6 +516,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       theme_bw()
     ggpubr::get_legend(g1) -> g1l
     g1 <- as_ggplot(g1l)
+  } else stop('graphType is not supported.')
   } else if (AFM.dataType(x) == 'frequency') {
     ## graph the frequency
     d = AFM.raster(x)
