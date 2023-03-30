@@ -120,7 +120,24 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoAFMr/" class="external-link">nanoAFMr</a></span><span class="op">)</span></span>
 <span><span class="va">filesAFM</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">freqAFM</span> <span class="op">=</span> <span class="va">filesAFM</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">filesAFM</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span> <span class="op">(</span><span class="fu"><a href="../reference/AFM.dataType.html">AFM.dataType</a></span><span class="op">(</span><span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'frequency'</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">freqAFM</span> <span class="op">=</span> <span class="va">filesAFM</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">filesAFM</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span> <span class="op">(</span><span class="fu"><a href="../reference/AFM.dataType.html">AFM.dataType</a></span><span class="op">(</span><span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'frequency'</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="frequency-sweep-graph">Frequency Sweep Graph<a class="anchor" aria-label="anchor" href="#frequency-sweep-graph"></a>
 </h2>
@@ -129,6 +146,14 @@ using the standard import function. Graphing also works with the
 <code><a href="../reference/plot.AFMdata.html">plot.AFMdata()</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">freqAFM</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in Sys.setlocale("LC_ALL", "en_US"): OS reports request to set locale</span></span>
+<span><span class="co">#&gt; to "en_US" cannot be honored</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Graphing: Frequency sweep</span></span></code></pre></div>
 <p><img src="FrequencySweep_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
@@ -143,7 +168,7 @@ using the standard import function. Graphing also works with the
 <span><span class="co">#&gt; Channel     : Frequency sweep</span></span>
 <span><span class="co">#&gt; Resolution  : 177935 Hz  -  180935 Hz</span></span>
 <span><span class="co">#&gt; History     : </span></span>
-<span><span class="co">#&gt; Filename    : /private/var/folders/bb/zm_z32n92831n4t56cr3tcdw0000gp/T/Rtmpeg8Xik/temp_libpath154156f121b8/nanoAFMr/extdata/NanoSurf_resonancePeak.nid</span></span>
+<span><span class="co">#&gt; Filename    : C:/Users/Rmizu/AppData/Local/Temp/RtmpMtFr9H/temp_libpath3b646a37cd4/nanoAFMr/extdata/NanoSurf_resonancePeak.nid</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            objectect                                               description</span></span>
 <span><span class="co">#&gt; 1 NanoSurf frequency Aspire CT170R-25; 179.405kHz; 284mV; 15-02-2012; 21:23:59</span></span>
@@ -187,7 +212,7 @@ using the standard import function. Graphing also works with the
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

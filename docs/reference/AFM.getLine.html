@@ -143,7 +143,8 @@ line; this is also an easy way to reiterate through all lines of an image</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">afmd</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (grepl("ibw$", filename)) obj = read.AR_file.v2(filename) else if (grepl("tiff$",     filename)) obj = read.Park_file.v2(filename) else if (grepl("nid$",     filename)) obj = read.NanoSurf_file.v2(filename) else {    d = AFM.read(filename)    z.conv = 1    if (d$z[1] != 0)         z.conv = d$z.nm[1]/d$z[1]    d1 = list(d$z.nm)    if (is.null(attr(d, "note")))         attr(d, "note") = "none"    obj = AFMdata(data = list(z = d1), channel = attr(d, "channel"),         x.conv = max(d$x.nm)/(max(d$x) - 1), y.conv = max(d$y.nm)/(max(d$y) -             1), x.pixels = max(d$x), y.pixels = max(d$y), z.conv = z.conv,         z.units = .getChannelUnits(attr(d, "channel")), instrument = attr(d,             "instrument"), history = "", description = attr(d,             "note"), fullFilename = filename)}:</span> the condition has length &gt; 1</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>the condition has length &gt; 1 and only the first element will be used</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(wavefile, "rb", encoding = "macintosh"):</span> invalid 'description' argument</span>
 <span class="r-in"><span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu">AFM.getLine</span><span class="op">(</span><span class="va">afmd</span>, <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in AFM.getLine(afmd, 50):</span> object 'afmd' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd2</span>, addLines <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -166,7 +167,7 @@ line; this is also an easy way to reiterate through all lines of an image</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
