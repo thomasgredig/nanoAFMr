@@ -292,6 +292,7 @@ tiff.getAFMversion <- function(tiffTags) {
 getStrip <- function(q, X,len) {
   A1 = floor(X/4)+1
   A2 = A1 + ceiling(len/4)
+  A2 = min(length(q), A2) # cannot exceed file length
   n = q[A1:A2]
   # convert n -> n8, so from 32-bits into 8-bit pieces
   n1 = n %% 2^8

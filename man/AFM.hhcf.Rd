@@ -13,6 +13,7 @@ AFM.hhcf(
   degRes = 100,
   r.percentage = 80,
   xi.percentage = 70,
+  allResults = FALSE,
   verbose = FALSE
 )
 }
@@ -35,10 +36,13 @@ is no fit, the value can be reduced to 70 or 60.}
 
 \item{xi.percentage}{a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)}
 
+\item{allResults}{if \code{TRUE} returns graph, data and fit parameters as list}
+
 \item{verbose}{output time if \code{TRUE}}
 }
 \value{
-graph or data frame with g(r) and $num indicating number of computations used for r
+graph, data frame with g(r) and $num indicating number of computations used for r, or
+   a list with the {graph, data.frame, fit parameters}
 }
 \description{
 Computes height-height correlation function for and AFM data object; note
@@ -62,9 +66,11 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-r = AFM.hhcf(a, numIterations = 5e5, dataOnly = TRUE)
-head(r)                          # output HHCF data
-AFM.hhcf(a, numIterations = 5e5)    # output graph
+r = AFM.hhcf(a, numIterations = 5e5, allResults = TRUE)
+head(r$data)        # output HHCF data
+head(r$fitData).    # fit data curve data
+head(r$fitParams)   # output fit parameters
+r$graph             # output ggplot2 graph
 
 }
 \author{

@@ -47,21 +47,19 @@ The computation is implemented in this package as follows, the image is flattene
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-AFM.hhcf(a, numIterations= 3e5)
+AFM.hhcf(a, numIterations= 2e5)
 ```
 
-The correlation function data can be further analyzed, after exporting the data to a data frame:
+You can see the fit parameters, and make a custom plot from the data, if you export all results from the function
 
 ```{r, message=FALSE, warning=FALSE}
-hhcf.DF = AFM.hhcf(a, numIterations= 2e5, dataOnly = TRUE)
+library(pander)
+h = AFM.hhcf(a, numIterations= 2e5, allResults = TRUE)
 
-ggplot(rbind(hhcf.DF,c(0,0,0)),
-       aes(r.nm, g )) + 
-  geom_smooth(size=1, col='pink') + 
-  geom_point(size=4, col='black') +
-  geom_point(size=3, col='red') +
-  xlab('r (nm)') + 
-  ylab(expression(paste('g (nm'^2,')'))) + 
-  scale_x_continuous(limits = c(0,150)) +
-  theme_bw()
+## show the fit parameters
+pander(h$fitParams)
+## show the HHCF data
+head(h$data)
+## display the entire graph
+h$graph
 ```

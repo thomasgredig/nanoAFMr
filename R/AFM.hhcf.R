@@ -32,21 +32,25 @@
 #'    square, there are not as many points that are separated by the full length, 80 is a good value, if there
 #'    is no fit, the value can be reduced to 70 or 60.
 #' @param xi.percentage a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)
+#' @param allResults if \code{TRUE} returns graph, data and fit parameters as list
 #' @param dataOnly if \code{TRUE} returns data frame, otherwise returns a graph
 #' @param verbose output time if \code{TRUE}
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_path scale_x_log10 scale_y_log10 theme_bw geom_label theme
-#' @importFrom stats runif nls predict coef
+#' @importFrom stats runif nls predict coef 
 #'
-#' @return graph or data frame with g(r) and $num indicating number of computations used for r
+#' @return graph, data frame with g(r) and $num indicating number of computations used for r, or
+#'    a list with the {graph, data.frame, fit parameters}
 #'
 #' @examples
 #' filename = AFM.getSampleImages(type='tiff')
 #' a = AFM.import(filename)
 #' a = AFM.flatten(a)
-#' r = AFM.hhcf(a, numIterations = 5e5, dataOnly = TRUE)
-#' head(r)                          # output HHCF data
-#' AFM.hhcf(a, numIterations = 5e5)    # output graph
+#' r = AFM.hhcf(a, numIterations = 5e5, allResults = TRUE)
+#' head(r$data)        # output HHCF data
+#' head(r$fitData).    # fit data curve data
+#' head(r$fitParams)   # output fit parameters
+#' r$graph             # output ggplot2 graph
 #'
 ##################################################
 #' @export
@@ -57,8 +61,10 @@ AFM.hhcf <- function(obj, no=1,
                      degRes = 100,
                      r.percentage = 80,
                      xi.percentage = 70,
+                     allResults = FALSE,
                      verbose=FALSE) {
   r.nm <- myLabel <- NULL
+  results = list()  # keeps track of all results
 
   if (!is(obj, "AFMdata")) return(NULL)
   if (obj@x.conv != obj@y.conv) warning('AFM image is distorted in x- and y-direction; HHCF is not correct.')
@@ -104,7 +110,8 @@ AFM.hhcf <- function(obj, no=1,
     g = lg,
     num = lq
   )
-  if (dataOnly) return(r)
+  results$data = r # add HHCF data to the results list
+  if ((dataOnly) & (!allResults)) return(r)
 
   if (addFit) {
     # starting fit parameters
@@ -141,6 +148,14 @@ AFM.hhcf <- function(obj, no=1,
         g = r$g[1:3],
         myLabel = paste(fitNames,'=',signif(fitParams,4),fitNamesUnits)
       )
+      
+      # add fit to the results list
+      results$fitData = dFit
+      
+      # add fitting parameters
+      fitParams = data.frame(rbind(summary(fit)$coef[1:6]))
+      names(fitParams) = c('2ss','xi','H','2ss.err','xi.err','H.err')
+      results$fitParams = fitParams
     } else {
       if (verbose) print("Cannot fit data => setting addFit=FALSE")
       addFit = FALSE
@@ -161,6 +176,10 @@ AFM.hhcf <- function(obj, no=1,
                fontface = "bold", hjust=-0.1) +
     theme(legend.position = 'none')
 
+  results$graph = g
+  
+  if (allResults) return(results)
+  
   g
 }
 

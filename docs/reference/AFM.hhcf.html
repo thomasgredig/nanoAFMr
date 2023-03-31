@@ -13,7 +13,7 @@ Publication: http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069
 Title: Height-Height Correlation Function to Determine Grain
        Size in Iron Phthalocyanine Thin Films
 Authors: Thomas Gredig, Evan A. Silverstein, Matthew P Byrne
-Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -31,7 +31,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -121,6 +121,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).</p>
 <span>  degRes <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  r.percentage <span class="op">=</span> <span class="fl">80</span>,</span>
 <span>  xi.percentage <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  allResults <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -161,6 +162,10 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 <dd><p>a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)</p></dd>
 
 
+<dt>allResults</dt>
+<dd><p>if <code>TRUE</code> returns graph, data and fit parameters as list</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>output time if <code>TRUE</code></p></dd>
 
@@ -169,7 +174,10 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
     <h2>Value</h2>
     
 
-<p>graph or data frame with g(r) and $num indicating number of computations used for r</p>
+<p>graph, data frame with g(r) and $num indicating number of computations used for r, or
+   a list with the graph, data.frame, fit parameters</p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -178,22 +186,7 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'tiff'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.flatten.html">AFM.flatten</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span>, dataOnly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>                          <span class="co"># output HHCF data</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g    num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08529406 498713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21739674 496545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36763764 494288</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50661049 491910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.62179862 489574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.70715911 487132</span>
-<span class="r-in"><span><span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span><span class="op">)</span>    <span class="co"># output graph</span></span></span>
-<span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-</code></pre></div>
+    
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

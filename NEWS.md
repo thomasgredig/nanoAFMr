@@ -1,3 +1,8 @@
+# nanoAFMr 2.1.2
+
+* update the `AFM.hhcf` documentation
+* allow HHCF to export fit information, using `AFM.hhcf(allResults=TRUE)`
+
 # nanoAFMr 2.1.1
 
 * add graphType=5 for `plot` to only show legend
