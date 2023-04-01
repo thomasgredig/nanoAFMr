@@ -1,7 +1,7 @@
 #' Write AFM object to SQL DB
 #'
 #' @description
-#' AFM S4 image is written to an SQL database in the form
+#' AFMdata S4 image is written to an SQL database in the form
 #' of a data.frame; the ID will save it in a particular table
 #' in the database, if another AFM image with the same ID
 #' exists, it will be overwritten. 
@@ -13,8 +13,9 @@
 #' @param verbose if \code{TRUE} outputs verbose comments
 #'
 #' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable
+#' @author Thomas Gredig
 #'
-#' @seealso [AFM.readDB()]
+#' @seealso [\code{\link{AFM.readDB()}}]
 #'
 #' @export
 AFM.writeDB <- function(obj, mydb, ID, verbose=TRUE) {

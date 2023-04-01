@@ -7,7 +7,7 @@
 AFM.readDB(mydb, ID, verbose = TRUE)
 }
 \arguments{
-\item{mydb}{database connection from DBI pacakge}
+\item{mydb}{database connection from DBI package}
 
 \item{ID}{unique object file ID}
 
@@ -17,19 +17,26 @@ AFM.readDB(mydb, ID, verbose = TRUE)
 S4 AFM object from nanoAFMr package
 }
 \description{
-Reads AFM object from SQL DB
+AFMdata S4 images can be read from an SQL database using their unique ID.
+Since the database can only store tables, the image is split into two tables,
+one for the data and one for the metadata that contains the description, units
+and size of the image. This function puts the image back together using specific
+tables in the database; this function only works with \code{\link{AFM.writeDB()}}
 }
 \examples{
 fname = file.path(tempdir(), "afm.sqlite")
 mydb <- DBI::dbConnect(RSQLite::SQLite(), fname)
 afmFile = AFM.getSampleImages(type='tiff')[1]
 a = AFM.import(afmFile)
-AFM.writeDB(a, mydb, 45)
+AFM.writeDB(a, mydb, 45, verbose=FALSE)
 b = AFM.readDB(mydb, 45)
 DBI::dbDisconnect(mydb)
 plot(b)
 
 }
 \seealso{
-[AFM.writeDB()]
+[\code{\link{AFM.writeDB()}}]
+}
+\author{
+Thomas Gredig
 }

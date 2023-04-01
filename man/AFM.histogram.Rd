@@ -20,7 +20,8 @@ data is returned}
 data frame or ggplot
 }
 \description{
-Histogram of AFM image
+Histogram for the AFMdata object is generated. You can set the number of bins
+and either output an image or a data table.
 }
 \examples{
 d = AFM.import(AFM.getSampleImages(type='ibw'))

@@ -1,6 +1,8 @@
 # nanoAFMr 2.1.3
 
-* Support database export and import
+* update helper functions and see-also
+* update to new ggplot2 3.3+ conventions with `after_stat`
+* Support database export and import using `AFM.writeDB` and `AFM.readDB`
 
 # nanoAFMr 2.1.2
 

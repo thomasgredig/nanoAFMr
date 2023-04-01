@@ -1,10 +1,16 @@
 #' Histogram of AFM image
+#' 
+#' @description
+#' Histogram for the AFMdata object is generated. You can set the number of bins
+#' and either output an image or a data table.
+#' 
 #'
 #' @param obj AFMdata object
 #' @param no channel number of the image
 #' @param binNo number of bins in the histogram
 #' @param dataOnly logical, if \code{TRUE} a data frame with the histogram
 #' data is returned
+#' 
 #' @return data frame or ggplot
 #'
 #' @author Thomas Gredig
@@ -16,7 +22,7 @@
 #'
 #' @seealso \code{\link{plot.AFMdata}}
 #'
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_density
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_density after_stat
 #' @importFrom graphics hist
 #'
 #' @export
@@ -30,7 +36,7 @@ AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
   } else {
     result =
       ggplot(dr, aes(x=z)) +
-      geom_histogram(aes(y=..density..),
+      geom_histogram(aes(y=after_stat(density)),
                      colour="black", fill="pink", bins=binNo)+
       geom_density(alpha=0.2, fill='red') +
       theme_bw()
@@ -38,4 +44,4 @@ AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
   result
 }
 
-globalVariables(c("..density.."))
+## globalVariables(c("..density.."))

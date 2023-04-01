@@ -1,6 +1,15 @@
 #' Reads AFM object from SQL DB
+#' 
+#' @description
+#' AFMdata S4 images can be read from an SQL database using their unique ID.
+#' Since the database can only store tables, the image is split into two tables,
+#' one for the data and one for the metadata that contains the description, units
+#' and size of the image. This function puts the image back together using specific
+#' tables in the database; this function only works with \code{\link{AFM.writeDB()}}
+#' 
+#' @author Thomas Gredig
 #'
-#' @param mydb database connection from DBI pacakge
+#' @param mydb database connection from DBI package
 #' @param ID unique object file ID
 #' @param verbose if \code{TRUE} outputs verbose comments
 #'
@@ -8,7 +17,7 @@
 #'
 #' @returns S4 AFM object from nanoAFMr package
 #' 
-#' @seealso [AFM.writeDB()]
+#' @seealso [\code{\link{AFM.writeDB()}}]
 #'
 #' @examples
 #' fname = file.path(tempdir(), "afm.sqlite")

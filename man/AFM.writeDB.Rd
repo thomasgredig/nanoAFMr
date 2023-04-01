@@ -16,11 +16,14 @@ AFM.writeDB(obj, mydb, ID, verbose = TRUE)
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
 \description{
-AFM S4 image is written to an SQL database in the form
+AFMdata S4 image is written to an SQL database in the form
 of a data.frame; the ID will save it in a particular table
 in the database, if another AFM image with the same ID
 exists, it will be overwritten.
 }
 \seealso{
-[AFM.readDB()]
+[\code{\link{AFM.readDB()}}]
+}
+\author{
+Thomas Gredig
 }
