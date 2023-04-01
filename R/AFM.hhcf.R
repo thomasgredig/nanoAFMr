@@ -48,7 +48,7 @@
 #' a = AFM.flatten(a)
 #' r = AFM.hhcf(a, numIterations = 5e5, allResults = TRUE)
 #' head(r$data)        # output HHCF data
-#' head(r$fitData).    # fit data curve data
+#' head(r$fitData)     # fit data curve data
 #' head(r$fitParams)   # output fit parameters
 #' r$graph             # output ggplot2 graph
 #'

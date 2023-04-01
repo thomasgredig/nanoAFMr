@@ -97,6 +97,9 @@
     <loc>/reference/AFM.raster.html</loc>
   </url>
   <url>
+    <loc>/reference/AFM.readDB.html</loc>
+  </url>
+  <url>
     <loc>/reference/AFM.selectChannel.html</loc>
   </url>
   <url>
@@ -104,6 +107,9 @@
   </url>
   <url>
     <loc>/reference/AFM.specHeader.html</loc>
+  </url>
+  <url>
+    <loc>/reference/AFM.writeDB.html</loc>
   </url>
   <url>
     <loc>/reference/AFMdata.html</loc>

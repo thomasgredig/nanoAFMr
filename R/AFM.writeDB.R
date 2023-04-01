@@ -1,0 +1,72 @@
+#' Write AFM object to SQL DB
+#'
+#' @description
+#' AFM S4 image is written to an SQL database in the form
+#' of a data.frame; the ID will save it in a particular table
+#' in the database, if another AFM image with the same ID
+#' exists, it will be overwritten. 
+#' 
+#'
+#' @param obj S4 AFM object from nanoAFMr package
+#' @param mydb database connection from DBI package
+#' @param ID unique object file ID
+#' @param verbose if \code{TRUE} outputs verbose comments
+#'
+#' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable
+#'
+#' @seealso [AFM.readDB()]
+#'
+#' @export
+AFM.writeDB <- function(obj, mydb, ID, verbose=TRUE) {
+  # define table names in DB
+  myTableAFMname = paste0('afm',ID)
+  myTableDataName = paste0('afmData')
+  
+  t1 <- dbListTables(mydb)
+  # remove AFM image data from DB, if it exists
+  if (myTableAFMname %in% t1) {
+    dbRemoveTable(mydb, myTableAFMname)
+    if (verbose) print(paste("Removed existing table:", myTableAFMname))
+  }
+  # save the image data
+  if (obj@instrument == "Park") {
+    z = obj@data$z[[1]]
+    dfZ = as.data.frame(z)
+  } else if (obj@instrument == "Cypher") {
+    dfZ = as.data.frame(sapply(obj@data$z, rbind))
+  } else {
+    warning(paste("File format",
+                  obj@instrument,
+                  "is not supported for database output."))
+    return(NULL)
+  }
+  dbWriteTable(mydb, myTableAFMname, dfZ)
+  
+  if (!myTableDataName %in% t1) {
+    DFempty = data.frame(ID = integer(),
+                         channel = character(),
+                         x.conv = integer(),
+                         y.conv = integer(),
+                         x.pixels = integer(),
+                         y.pixels = integer(),
+                         z.units = character(),
+                         instrument = character(),
+                         history = character(),
+                         description = character(),
+                         fullFilename = character())
+    dbCreateTable(mydb, myTableDataName, DFempty)
+    if (verbose) print(paste("Created data table:",myTableDataName))
+  }
+  dfData = data.frame(ID = ID,
+                      channel = paste(obj@channel, collapse = ','),
+                      x.conv = obj@x.conv,
+                      y.conv = obj@y.conv,
+                      x.pixels = obj@x.pixels,
+                      y.pixels = obj@y.pixels,
+                      z.units = paste(obj@z.units, collapse = ','),
+                      instrument = obj@instrument,
+                      description = obj@description,
+                      fullFilename = obj@fullFilename
+  )
+  dbAppendTable(mydb, myTableDataName, dfData)
+}
