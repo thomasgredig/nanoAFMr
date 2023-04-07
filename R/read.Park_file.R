@@ -67,6 +67,7 @@ read.Park_file.v2 <- function(filename) {
   # read TIFF tags
   tiffTags = tagReader(filename)
   afm.params = as.numeric(strsplit(tiffTags[16,'valueStr'],',')[[1]])
+  if (length(afm.params)<2) return(NULL) # XML header in num 17
   params = get.ParkAFM.header(afm.params)
 
   # check if it contains spectroscopy data
