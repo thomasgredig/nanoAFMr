@@ -417,16 +417,14 @@ get.ParkAFM.header <- function(afm.params) {
   )
 }
 
-
+# convert units, where unitZ is a string, such as "mm"
 units2nanometer <- function(unitZ) {
-  power = 1e3
-  if(unitZ=='um') { power = 1e3 }
-  else if (unitZ=='nm') { power = 1 }
-  else if (unitZ=='deg') { power = 1 }
-
-  else if (unitZ=='mm') { power = 1e6 }
-  else { warning(paste("Unknown UnitZ:",unitZ)) }
-  power
+  if (unitZ=='um') { power = 1e3; unit = "nm" }
+  else if (unitZ=='nm') { power = 1; unit = "nm" }
+  else if (unitZ=='deg') { power = 1; unit = "deg" }
+  else if (unitZ=='mm') { power = 1e6; unit = "nm" }
+  else { power = 1; unit = unitZ }
+  list(power = power, unit = unit)
 }
 
 

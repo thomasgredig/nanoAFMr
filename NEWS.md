@@ -1,3 +1,8 @@
+# nanoAFMr 2.1.4
+
+* fix units for Park images (showed um instead of nm)
+
+
 # nanoAFMr 2.1.3
 
 * update helper functions and see-also

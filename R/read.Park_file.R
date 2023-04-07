@@ -37,7 +37,7 @@ read.Park_file <- function(filename) {
   )
   d1$x.nm = params$dfXScanSizeum * d1$x / max(d1$x)*1000
   d1$y.nm = params$dfYScanSizeum * d1$y / max(d1$y)*1000
-  d1$z.nm = (d1$z * params$dfDataGain) *  units2nanometer(params$UnitZ)
+  d1$z.nm = (d1$z * params$dfDataGain) *  units2nanometer(params$UnitZ)$power
 
   d1
 }
@@ -114,12 +114,12 @@ read.Park_file.v2 <- function(filename) {
     imWidth = imHeight
   }
   channels = params$sourceName
-  units = params$UnitZ
+  units = units2nanometer(params$UnitZ)$unit
   description = params$imageMode
 
   # Park TIFF images only have 1 channel
   z.data = list()
-  z.data[[1]] = (df * params$dfDataGain) *  units2nanometer(params$UnitZ)
+  z.data[[1]] = (df * params$dfDataGain) *  units2nanometer(params$UnitZ)$power
   # return AFMdata object
   AFMdata(
     data = list(z=z.data, specData=spec.data, specHead = spec.head),
