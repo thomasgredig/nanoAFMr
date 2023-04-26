@@ -5,7 +5,7 @@
 #' Since the database can only store tables, the image is split into two tables,
 #' one for the data and one for the metadata that contains the description, units
 #' and size of the image. This function puts the image back together using specific
-#' tables in the database; this function only works with \code{\link{AFM.writeDB()}}
+#' tables in the database; this function only works with \code{\link{AFM.writeDB}}
 #' 
 #' @author Thomas Gredig
 #'
@@ -17,7 +17,7 @@
 #'
 #' @returns S4 AFM object from nanoAFMr package
 #' 
-#' @seealso [\code{\link{AFM.writeDB()}}]
+#' @seealso [\code{\link{AFM.writeDB}}]
 #'
 #' @examples
 #' fname = file.path(tempdir(), "afm.sqlite")

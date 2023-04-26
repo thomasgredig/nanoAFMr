@@ -2,10 +2,13 @@
 % Please edit documentation in R/AFM.math.R
 \name{get.Hsd}
 \alias{get.Hsd}
-\title{computes the standard deviation in height Hsd}
+\title{Computes the standard deviation in height Hsd}
 \usage{
 get.Hsd(z)
 }
+\arguments{
+\item{z}{z component vector}
+}
 \description{
-computes the standard deviation in height Hsd
+Computes the standard deviation in height Hsd
 }

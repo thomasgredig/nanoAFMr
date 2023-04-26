@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.5</span>
       </span>
     </div>
 
@@ -117,7 +117,6 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoAFMr/" class="external-link">nanoAFMr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Please cite nanoAFMr ,see https://doi.org/10.5281/zenodo.7464877</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <p>The Height-Height Correlation Function is discussed in the
 publication: <a href="http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069" class="external-link">Height-Height
@@ -172,32 +171,32 @@ if you export all results from the function</p>
 <col width="13%">
 </colgroup>
 <thead><tr class="header">
-<th align="center">2ss</th>
+<th align="center">sigma</th>
 <th align="center">xi</th>
 <th align="center">H</th>
-<th align="center">2ss.err</th>
+<th align="center">sigma.err</th>
 <th align="center">xi.err</th>
 <th align="center">H.err</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="center">0.8242</td>
-<td align="center">39.77</td>
-<td align="center">1.718</td>
-<td align="center">0.0009714</td>
-<td align="center">0.5174</td>
-<td align="center">0.05542</td>
+<td align="center">0.6364</td>
+<td align="center">39.09</td>
+<td align="center">1.727</td>
+<td align="center">0.0004624</td>
+<td align="center">0.631</td>
+<td align="center">0.06946</td>
 </tr></tbody>
 </table>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## show the HHCF data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">h</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        r.nm          g    num</span></span>
-<span><span class="co">#&gt; 1  9.803922 0.08503002 199488</span></span>
-<span><span class="co">#&gt; 2 19.607843 0.21807794 198621</span></span>
-<span><span class="co">#&gt; 3 29.411765 0.36801837 197670</span></span>
-<span><span class="co">#&gt; 4 39.215686 0.50491011 196693</span></span>
-<span><span class="co">#&gt; 5 49.019608 0.62018717 195710</span></span>
-<span><span class="co">#&gt; 6 58.823529 0.70603160 194744</span></span>
+<span><span class="co">#&gt; 1  9.803922 0.08409641 199449</span></span>
+<span><span class="co">#&gt; 2 19.607843 0.21657314 198558</span></span>
+<span><span class="co">#&gt; 3 29.411765 0.36804988 197547</span></span>
+<span><span class="co">#&gt; 4 39.215686 0.50742206 196575</span></span>
+<span><span class="co">#&gt; 5 49.019608 0.61913464 195574</span></span>
+<span><span class="co">#&gt; 6 58.823529 0.70170317 194566</span></span>
 <span><span class="co">## display the entire graph</span></span>
 <span><span class="va">h</span><span class="op">$</span><span class="va">graph</span></span></code></pre></div>
 <p><img src="HHCF_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>

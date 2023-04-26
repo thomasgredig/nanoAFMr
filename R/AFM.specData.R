@@ -3,6 +3,8 @@
 #' @param obj AFMdata object
 #' @returns channels from spectroscopy header
 #'
+#' @importFrom methods is
+#'
 #' @export
 AFM.specData <- function(obj) {
   if (!is(obj,'AFMdata')) stop("Input must be an AFMdata object.")

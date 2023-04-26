@@ -26,14 +26,15 @@
 #' @param obj AFMdata object
 #' @param no channel number
 #' @param addFit if \code{TRUE} a fit is added to the data
-#' @param numIterations Number of iterations (must be > 1000), but 1e6 recommended
+#' @param dataOnly if \code{TRUE} returns data frame, otherwise returns a graph (OBSOLETE, use allResults)
+#' @param numIterations Number of iterations (must be > 1000), but 10^6 recommended
 #' @param degRes resolution of angle, the higher the better, should be >100, 1000 is also good, but takes more time
 #' @param r.percentage a number from 10 to 100 representing the distance to compute, since the image is
 #'    square, there are not as many points that are separated by the full length, 80 is a good value, if there
 #'    is no fit, the value can be reduced to 70 or 60.
 #' @param xi.percentage a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)
+#' @param randomSeed (optional) a large number, if set, the random numbers are seeded and the results are reproducible
 #' @param allResults if \code{TRUE} returns graph, data and fit parameters as list
-#' @param dataOnly if \code{TRUE} returns data frame, otherwise returns a graph
 #' @param verbose output time if \code{TRUE}
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_path scale_x_log10 scale_y_log10 theme_bw geom_label theme
@@ -61,6 +62,7 @@ AFM.hhcf <- function(obj, no=1,
                      degRes = 100,
                      r.percentage = 80,
                      xi.percentage = 70,
+                     randomSeed = NA,
                      allResults = FALSE,
                      verbose=FALSE) {
   r.nm <- myLabel <- NULL
@@ -79,6 +81,7 @@ AFM.hhcf <- function(obj, no=1,
 
   # generate random numbers to pick starting positions
   # faster than computing all possible locations
+  if (!is.na(randomSeed)) set.seed(randomSeed)
   px1 = round(runif(numIterations, min=1, max=dimx))
   py1 = round(runif(numIterations, min=1, max=dimy))
   theta = round(runif(numIterations, min=0, max=2*pi*degRes))/degRes
@@ -116,8 +119,8 @@ AFM.hhcf <- function(obj, no=1,
   if (addFit) {
     # starting fit parameters
     AFM.math.params(obj) -> m1
-    m1$Rq^2*2 -> ss
-    xi = r$r.nm[min(which(r$g > (xi.percentage*ss)/100))]
+    m1$Rq -> ss
+    xi = r$r.nm[min(which(r$g > (xi.percentage*ss*ss*2)/100))]
 
     # fit the data using
     # 2*sigma^2 = ss, sigma = roughness
@@ -126,7 +129,7 @@ AFM.hhcf <- function(obj, no=1,
     fit <- NULL
     try({
       nls(data=r,
-          g ~ ss * (1 - exp(-(r.nm/xi)^H)),
+          g ~ 2*ss*ss * (1 - exp(-(r.nm/xi)^H)),
           start = list(ss = ss, xi = xi,
                        H=2)) -> fit
     });
@@ -154,7 +157,7 @@ AFM.hhcf <- function(obj, no=1,
       
       # add fitting parameters
       fitParams = data.frame(rbind(summary(fit)$coef[1:6]))
-      names(fitParams) = c('2ss','xi','H','2ss.err','xi.err','H.err')
+      names(fitParams) = c('sigma','xi','H','sigma.err','xi.err','H.err')
       results$fitParams = fitParams
     } else {
       if (verbose) print("Cannot fit data => setting addFit=FALSE")

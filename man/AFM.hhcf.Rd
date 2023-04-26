@@ -13,6 +13,7 @@ AFM.hhcf(
   degRes = 100,
   r.percentage = 80,
   xi.percentage = 70,
+  randomSeed = NA,
   allResults = FALSE,
   verbose = FALSE
 )
@@ -22,11 +23,11 @@ AFM.hhcf(
 
 \item{no}{channel number}
 
-\item{numIterations}{Number of iterations (must be > 1000), but 1e6 recommended}
+\item{numIterations}{Number of iterations (must be > 1000), but 10^6 recommended}
 
 \item{addFit}{if \code{TRUE} a fit is added to the data}
 
-\item{dataOnly}{if \code{TRUE} returns data frame, otherwise returns a graph}
+\item{dataOnly}{if \code{TRUE} returns data frame, otherwise returns a graph (OBSOLETE, use allResults)}
 
 \item{degRes}{resolution of angle, the higher the better, should be >100, 1000 is also good, but takes more time}
 
@@ -35,6 +36,8 @@ square, there are not as many points that are separated by the full length, 80 i
 is no fit, the value can be reduced to 70 or 60.}
 
 \item{xi.percentage}{a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)}
+
+\item{randomSeed}{(optional) a large number, if set, the random numbers are seeded and the results are reproducible}
 
 \item{allResults}{if \code{TRUE} returns graph, data and fit parameters as list}
 

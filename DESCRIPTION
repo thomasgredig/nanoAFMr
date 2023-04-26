@@ -1,7 +1,7 @@
 Type: Package
 Package: nanoAFMr
 Title: Load and Analyze Atomic Force Microscopy Data Files
-Version: 2.1.4
+Version: 2.1.5
 Authors@R: 
     person("Thomas", "Gredig", , "thomas.gredig@csulb.edu", 
           role = c("aut", "cre", "cph"),
@@ -36,8 +36,12 @@ Imports:
     viridis
 Suggests: 
     cowplot,
+    hexSticker,
     knitr,
+    latex2exp,
+    pander,
     rmarkdown,
+    RSQLite,
     scales,
     testthat (>= 2.1.0)
 VignetteBuilder: 

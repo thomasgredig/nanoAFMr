@@ -31,7 +31,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.5</span>
       </span>
     </div>
 
@@ -121,6 +121,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).</p>
 <span>  degRes <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  r.percentage <span class="op">=</span> <span class="fl">80</span>,</span>
 <span>  xi.percentage <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  randomSeed <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  allResults <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -137,7 +138,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).</p>
 
 
 <dt>numIterations</dt>
-<dd><p>Number of iterations (must be &gt; 1000), but 1e6 recommended</p></dd>
+<dd><p>Number of iterations (must be &gt; 1000), but 10^6 recommended</p></dd>
 
 
 <dt>addFit</dt>
@@ -145,7 +146,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).</p>
 
 
 <dt>dataOnly</dt>
-<dd><p>if <code>TRUE</code> returns data frame, otherwise returns a graph</p></dd>
+<dd><p>if <code>TRUE</code> returns data frame, otherwise returns a graph (OBSOLETE, use allResults)</p></dd>
 
 
 <dt>degRes</dt>
@@ -160,6 +161,10 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 
 <dt>xi.percentage</dt>
 <dd><p>a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)</p></dd>
+
+
+<dt>randomSeed</dt>
+<dd><p>(optional) a large number, if set, the random numbers are seeded and the results are reproducible</p></dd>
 
 
 <dt>allResults</dt>
@@ -192,23 +197,23 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 <span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span>, allResults <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>        <span class="co"># output HHCF data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g    num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08519146 498687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21684526 496546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36544430 494211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50351242 491798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61648855 489329</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.70045206 486844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08452306 498699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21620489 496520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36547558 494068</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50361600 491628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61919836 489290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.70584886 486799</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitData</span><span class="op">)</span>     <span class="co"># fit data curve data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.nm          g</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06281123</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07454689</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08693107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.09990214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11340139</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12737261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06004836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07157276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08378527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.09662535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11003465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12395682</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitParams</span><span class="op">)</span>   <span class="co"># output fit parameters</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         2ss       xi        H     2ss.err    xi.err      H.err</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8210304 39.92848 1.698742 0.001391181 0.7496387 0.07826829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       sigma       xi        H    sigma.err    xi.err      H.err</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6402772 39.63359 1.737834 0.0004979563 0.6779398 0.07445197</span>
 <span class="r-in"><span><span class="va">r</span><span class="op">$</span><span class="va">graph</span>             <span class="co"># output ggplot2 graph</span></span></span>
 <span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

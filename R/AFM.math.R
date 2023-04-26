@@ -59,7 +59,10 @@ get.Skewness <- function(z) {
   get.MomentN(z,3)/(get.MomentN(z,2)^1.5)
 }
 
-#' computes the standard deviation in height Hsd
+#' Computes the standard deviation in height Hsd
+#' 
+#' @param z z component vector
+#'
 #' @importFrom stats sd
 #'
 get.Hsd <- function(z) {sd(z)}

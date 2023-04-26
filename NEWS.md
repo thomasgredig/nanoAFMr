@@ -1,3 +1,9 @@
+# nanoAFMr 2.1.5
+
+* update documentation and HHCF return values in table
+* add a random seed to the HHCF, so that results are reproducible
+
+
 # nanoAFMr 2.1.4
 
 * fix units for Park images (showed um instead of nm)

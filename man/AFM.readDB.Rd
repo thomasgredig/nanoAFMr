@@ -21,7 +21,7 @@ AFMdata S4 images can be read from an SQL database using their unique ID.
 Since the database can only store tables, the image is split into two tables,
 one for the data and one for the metadata that contains the description, units
 and size of the image. This function puts the image back together using specific
-tables in the database; this function only works with \code{\link{AFM.writeDB()}}
+tables in the database; this function only works with \code{\link{AFM.writeDB}}
 }
 \examples{
 fname = file.path(tempdir(), "afm.sqlite")
@@ -35,7 +35,7 @@ plot(b)
 
 }
 \seealso{
-[\code{\link{AFM.writeDB()}}]
+[\code{\link{AFM.writeDB}}]
 }
 \author{
 Thomas Gredig
