@@ -15,7 +15,7 @@ test_that("Height height correlation function: reproducibility", {
   h1 = AFM.hhcf(a, numIterations = 1e4, degRes=1000, randomSeed = 45792231, allResults = TRUE)
   # AFM.hhcf(a, numIterations = 4e4, degRes=1000, addFit=TRUE)
   m1 =  h1$fitParams
-  h1 = AFM.hhcf(a, numIterations = 1e4, degRes=1000, randomSeed = 45792231, allResults = TRUE)
+  h2 = AFM.hhcf(a, numIterations = 1e4, degRes=1000, randomSeed = 45792231, allResults = TRUE)
   m2 =  h1$fitParams
   expect_equal(m1,m2)
 })
