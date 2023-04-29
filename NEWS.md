@@ -1,6 +1,6 @@
 # nanoAFMr 2.1.5
 
-* update documentation and HHCF return values in table
+* update documentation and HHCF return values in table, returns Hurst parameter and roughness correctly
 * add a random seed to the HHCF, so that results are reproducible
 
 

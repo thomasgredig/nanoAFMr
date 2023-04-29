@@ -1,18 +1,31 @@
 ###################################################
 #'
-#' Height-Height Correlation Function
+#' Height-Height Correlation Function for AFM Image
 #'
 #' @description
-#' Computes height-height correlation function for and AFM data object; note
+#' Computes the height-height correlation function for an AFM data object; note
 #' that any background should be removed first. Since the full computation would 
-#' be lengthy, but a random subset generally converges to the full result. The
-#' `numIterations` parameter. It should be increased for images with more pixel
-#' resolution. With higher resolution, the `degRes` should also be increased. 
-#' For each iteration a random pixel and a random angle with resolution `degRes`
-#' is selected. Then, the height-height correlation g(r) for that point is computed,
-#' where r stretches from 1 to pixel resolution of the image (scaled by `r.percentage`).
-#' Since the image is square, some locations / angles will not have data for
-#' large r. 
+#' be lengthy, yet a random subset generally converges to the full result, the
+#' \code{numIterations} parameter is used to limit the iterations. It should be 
+#' increased for images with more pixel resolution. With higher resolution, the 
+#' \code{degRes} should also be increased. For each iteration a random pixel 
+#' and a random angle with resolution \code{degRes} is generated Then, the height-height 
+#' correlation \eqn{g(r) = |h(x) - h(x+r)|^2} for that point is computed,
+#' where \eqn{r} stretches from 1 to pixel resolution of the image (scaled by 
+#' \code{r.percentage}). Since the AFM image is generally square, some locations / angles 
+#' will not have data for large r and are ignored. Given the random numbers, slightly
+#' different results may be obtained in different runs. To limit the variation, the 
+#' same random numbers can be used, when the \code{randomSeed} is populated with a
+#' prime number. It is recommended to run with \code{allResults = TRUE}.
+#' 
+#' The resulting data curve \eqn{g(r)} is fit to the following equation:
+#' \eqn{2 \sigma^2  (1 - \exp \left[ -(\frac{r}{\xi})^{2H} \right] ) }
+#' 
+#' \itemize{
+#'   \item \eqn{\sigma}: roughness
+#'   \item \eqn{\xi}: correlation length
+#'   \item \eqn{H}: Hurst parameter, \eqn{\alpha=2H}
+#' }
 #' 
 #' Publication: http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069
 #
@@ -90,7 +103,7 @@ AFM.hhcf <- function(obj, no=1,
   lq = c()
   t.start = as.numeric(Sys.time())
   maxR = round(dimx*r.percentage/100)
-  if (verbose) print("Computing r from 1 pixel to",maxR,"pixels maximum. Adjust with r.percentage parameter.")
+  if (verbose) cat("Computing r from 1 pixel to",maxR,"pixels maximum. Adjust with r.percentage parameter.\n")
   for(r in 1:maxR) {
     # compute second point
     px2 = round(px1+r*cos(theta))
@@ -119,23 +132,21 @@ AFM.hhcf <- function(obj, no=1,
   if (addFit) {
     # starting fit parameters
     AFM.math.params(obj) -> m1
-    m1$Rq -> ss
-    xi = r$r.nm[min(which(r$g > (xi.percentage*ss*ss*2)/100))]
+    m1$Rq -> sigmaGuess
+    xiGuess = r$r.nm[min(which(r$g > (xi.percentage*sigmaGuess*sigmaGuess*2)/100))]
 
     # fit the data using
-    # 2*sigma^2 = ss, sigma = roughness
-    # xi = correlation length
-    # H = 2*Hurst parameter
     fit <- NULL
     try({
       nls(data=r,
-          g ~ 2*ss*ss * (1 - exp(-(r.nm/xi)^H)),
-          start = list(ss = ss, xi = xi,
-                       H=2)) -> fit
+          g ~ 2 * (sigma*sigma) * (1 - exp(-(r.nm/xi)^(2*H))),
+          start = list(sigma = sigmaGuess, xi = xiGuess, H=1)
+          ) -> fit
     });
 
     # fit was successful
     if (!is.null(fit)) {
+      if (verbose) cat("Fit is successful.\n")
       fitRnm = seq(from=round(min(r$r.nm)*0.9), to=max(r$r.nm), by=1)
       dFit = data.frame(
         r.nm = fitRnm,
@@ -144,8 +155,6 @@ AFM.hhcf <- function(obj, no=1,
       fitNames = c('sigma', 'xi','H')
       fitNamesUnits = c('nm','nm','')
       fitParams = coef(fit)
-      fitParams[1]=sqrt(fitParams[1]/2)
-      fitParams[3]=fitParams[3]/2
       dFitLabels = data.frame(
         r.nm = r$r.nm[1:3],
         g = r$g[1:3],
@@ -157,7 +166,7 @@ AFM.hhcf <- function(obj, no=1,
       
       # add fitting parameters
       fitParams = data.frame(rbind(summary(fit)$coef[1:6]))
-      names(fitParams) = c('sigma','xi','H','sigma.err','xi.err','H.err')
+      names(fitParams) = c('sigma','xi','Hurst','sigma.err','xi.err','Hurst.err')
       results$fitParams = fitParams
     } else {
       if (verbose) print("Cannot fit data => setting addFit=FALSE")

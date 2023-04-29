@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.hhcf.R
 \name{AFM.hhcf}
 \alias{AFM.hhcf}
-\title{Height-Height Correlation Function}
+\title{Height-Height Correlation Function for AFM Image}
 \usage{
 AFM.hhcf(
   obj,
@@ -48,16 +48,29 @@ graph, data frame with g(r) and $num indicating number of computations used for 
    a list with the {graph, data.frame, fit parameters}
 }
 \description{
-Computes height-height correlation function for and AFM data object; note
+Computes the height-height correlation function for an AFM data object; note
 that any background should be removed first. Since the full computation would 
-be lengthy, but a random subset generally converges to the full result. The
-`numIterations` parameter. It should be increased for images with more pixel
-resolution. With higher resolution, the `degRes` should also be increased. 
-For each iteration a random pixel and a random angle with resolution `degRes`
-is selected. Then, the height-height correlation g(r) for that point is computed,
-where r stretches from 1 to pixel resolution of the image (scaled by `r.percentage`).
-Since the image is square, some locations / angles will not have data for
-large r. 
+be lengthy, yet a random subset generally converges to the full result, the
+\code{numIterations} parameter is used to limit the iterations. It should be 
+increased for images with more pixel resolution. With higher resolution, the 
+\code{degRes} should also be increased. For each iteration a random pixel 
+and a random angle with resolution \code{degRes} is generated Then, the height-height 
+correlation \eqn{g(r) = |h(x) - h(x+r)|^2} for that point is computed,
+where \eqn{r} stretches from 1 to pixel resolution of the image (scaled by 
+\code{r.percentage}). Since the AFM image is generally square, some locations / angles 
+will not have data for large r and are ignored. Given the random numbers, slightly
+different results may be obtained in different runs. To limit the variation, the 
+same random numbers can be used, when the \code{randomSeed} is populated with a
+prime number. It is recommended to run with \code{allResults = TRUE}.
+
+The resulting data curve \eqn{g(r)} is fit to the following equation:
+\eqn{2 \sigma^2  (1 - \exp \left[ -(\frac{r}{\xi})^{2H} \right] ) }
+
+\itemize{
+  \item \eqn{\sigma}: roughness
+  \item \eqn{\xi}: correlation length
+  \item \eqn{H}: Hurst parameter, \eqn{\alpha=2H}
+}
 
 Publication: http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069
 Title: Height-Height Correlation Function to Determine Grain
