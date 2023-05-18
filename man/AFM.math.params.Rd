@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.math.R
 \name{AFM.math.params}
 \alias{AFM.math.params}
-\title{Various computed AFM image parameters}
+\title{Math Parameters for AFMdata Object}
 \usage{
 AFM.math.params(obj)
 }
@@ -14,9 +14,16 @@ structure with various computed AFM image parameters, such
 as roughness
 }
 \description{
-Various computed AFM image parameters
+Computes various math parameters for an AFM image object.
+Including the arithmetic roughnes (Ra), the geometrical
+roughness (Rq), the skewness (Rsk), the kurtosis (K),
+the Binder cumulant (U4),
+the standard height deviation (Hsd), and the outlier 
+ratio (AR)
 }
 \examples{
 filename = AFM.getSampleImages(type='ibw')
-AFM.math.params(AFM.import(filename))
+AFM.math.params(AFM.import(filename)) -> q
+summary(q)
+
 }

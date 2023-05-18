@@ -1,3 +1,7 @@
+# nanoAFMr 2.1.6
+
+* add Kurtosis
+
 # nanoAFMr 2.1.5
 
 * update documentation and HHCF return values in table, returns Hurst parameter and roughness correctly

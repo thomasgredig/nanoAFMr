@@ -1,17 +1,31 @@
-#' Various computed AFM image parameters
+#' Math Parameters for AFMdata Object
+#' 
+#' @description
+#' Computes various math parameters for an AFM image object.
+#' Including the arithmetic roughnes (Ra), the geometrical
+#' roughness (Rq), the skewness (Rsk), the kurtosis (K),
+#' the Binder cumulant (U4),
+#' the standard height deviation (Hsd), and the outlier 
+#' ratio (AR)
+#' 
 #'
 #' @param obj AFMdata class
 #' @return structure with various computed AFM image parameters, such
 #' as roughness
+#' 
 #' @examples
 #' filename = AFM.getSampleImages(type='ibw')
-#' AFM.math.params(AFM.import(filename))
+#' AFM.math.params(AFM.import(filename)) -> q
+#' summary(q)
+#' 
 #' @export
 AFM.math.params <- function(obj) {
   Ra = get.Ra(obj@data$z[[1]])
   Rq = get.Rq(obj@data$z[[1]])
   Rsk = get.Skewness(obj@data$z[[1]])
   Hsd = get.Hsd(obj@data$z[[1]])
+  K = get.MomentN(obj@data$z[[1]], 4) / (( Rq*Rq)^2)
+  U4 = (1-(K/(3*Rq*Rq)))
   AR = get.AR(obj@data$z[[1]])
   structure(
     list(
@@ -20,6 +34,8 @@ AFM.math.params <- function(obj) {
       Rq = Rq,
       Rsk = Rsk,
       Hsd = Hsd,
+      K = K,
+      U4 = U4,
       AR = AR
     ),
     class = 'AFMmath'
@@ -36,12 +52,14 @@ AFM.math.params <- function(obj) {
 #' summary(AFM.math.params(AFM.import(filename)))
 #' @export
 summary.AFMmath <- function(object, ...) {
-  cat("Basename:      ", object$basename,"\n")
-  cat("Roughness Ra = ", object$Ra," nm \n")
-  cat("Roughness Rq = ", object$Rq," nm \n")
-  cat("Skewness Rsk = ", object$Rsk," \n")
-  cat("Standard Deviation of Height Hsd = ", object$Hsd," nm \n")
-  cat("Deep Area Ratio = ", object$AR,"\n")
+  cat("Basename:", object$basename,"\n")
+  cat("Roughness Ra ............:", object$Ra," nm \n")
+  cat("Roughness Rq ............:", object$Rq," nm \n")
+  cat("Skewness Rsk ............:", object$Rsk," \n")
+  cat("Kurtosis K ..............:", object$K," \n")
+  cat("Binder Cumulant U4 ......:", object$U4," \n")
+  cat("Std. Dev of Height Hsd ..:", object$Hsd," nm \n")
+  cat("Deep Area Ratio .........:", object$AR,"\n")
 }
 
 
@@ -66,6 +84,7 @@ get.Skewness <- function(z) {
 #' @importFrom stats sd
 #'
 get.Hsd <- function(z) {sd(z)}
+
 # computes the ratio of pin hole area (height lower than 3 sigma) to total area through pixel counting
 get.AR <- function(z) {
   count <- 0
