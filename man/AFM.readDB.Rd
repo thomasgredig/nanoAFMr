@@ -4,12 +4,12 @@
 \alias{AFM.readDB}
 \title{Reads AFM object from SQL DB}
 \usage{
-AFM.readDB(mydb, ID, verbose = TRUE)
+AFM.readDB(mydb, ID = NA, verbose = TRUE)
 }
 \arguments{
 \item{mydb}{database connection from DBI package}
 
-\item{ID}{unique object file ID}
+\item{ID}{unique object file ID, if not provided, will return all available IDs in database}
 
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
@@ -29,6 +29,7 @@ mydb <- DBI::dbConnect(RSQLite::SQLite(), fname)
 afmFile = AFM.getSampleImages(type='tiff')[1]
 a = AFM.import(afmFile)
 AFM.writeDB(a, mydb, 45, verbose=FALSE)
+cat("Available IDs in database: ",AFM.readDB(mydb))
 b = AFM.readDB(mydb, 45)
 DBI::dbDisconnect(mydb)
 plot(b)

@@ -35,7 +35,6 @@ Additional information can be found using the `AFMinfo` object:
 for(filename in file.list[1:3]) {
   print(basename(filename))
   h = AFMinfo(filename)
-  h$data$value = substr(h$data$value,1,32)
   print(h)
 }
 ```

@@ -4,14 +4,16 @@
 \alias{AFM.writeDB}
 \title{Write AFM object to SQL DB}
 \usage{
-AFM.writeDB(obj, mydb, ID, verbose = TRUE)
+AFM.writeDB(obj, mydb, ID, vacuum = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{obj}{S4 AFM object from nanoAFMr package}
+\item{obj}{S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database}
 
 \item{mydb}{database connection from DBI package}
 
 \item{ID}{unique object file ID}
+
+\item{vacuum}{vacuums the database, if obj is \code{NULL} and something is deleted; this option saves space}
 
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
@@ -22,7 +24,7 @@ in the database, if another AFM image with the same ID
 exists, it will be overwritten.
 }
 \seealso{
-[\code{\link{AFM.readDB()}}]
+[\code{\link{AFM.readDB}}]
 }
 \author{
 Thomas Gredig

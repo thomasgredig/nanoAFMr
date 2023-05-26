@@ -7,18 +7,19 @@
 #' exists, it will be overwritten. 
 #' 
 #'
-#' @param obj S4 AFM object from nanoAFMr package
+#' @param obj S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database
 #' @param mydb database connection from DBI package
 #' @param ID unique object file ID
+#' @param vacuum vacuums the database, if obj is \code{NULL} and something is deleted; this option saves space
 #' @param verbose if \code{TRUE} outputs verbose comments
 #'
 #' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable
 #' @author Thomas Gredig
 #'
-#' @seealso [\code{\link{AFM.readDB()}}]
+#' @seealso [\code{\link{AFM.readDB}}]
 #'
 #' @export
-AFM.writeDB <- function(obj, mydb, ID, verbose=TRUE) {
+AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
   # define table names in DB
   myTableAFMname = paste0('afm',ID)
   myTableDataName = paste0('afmData')
@@ -29,6 +30,12 @@ AFM.writeDB <- function(obj, mydb, ID, verbose=TRUE) {
     dbRemoveTable(mydb, myTableAFMname)
     if (verbose) print(paste("Removed existing table:", myTableAFMname))
   }
+  # exit if there is no object to be added; this can be used to delete an image
+  if (is.null(obj)) {
+    if (vacuum) dbGetQuery(mydb, "VACUUM;")
+    return(NULL)
+  }
+  
   # save the image data
   if (obj@instrument == "Park") {
     z = obj@data$z[[1]]
@@ -70,4 +77,6 @@ AFM.writeDB <- function(obj, mydb, ID, verbose=TRUE) {
                       fullFilename = obj@fullFilename
   )
   dbAppendTable(mydb, myTableDataName, dfData)
+  
+  invisible(TRUE)
 }

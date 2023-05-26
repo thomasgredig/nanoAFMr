@@ -35,7 +35,7 @@ position given in pixels; either a horizontal or a vertical
 line; this is also an easy way to reiterate through all lines of an image
 }
 \examples{
-filename = AFM.getSampleImages()
+filename = AFM.getSampleImages('ibw')[1]
 afmd = AFM.import(filename)
 afmd2 = AFM.getLine(afmd, 50)
 plot(afmd2, addLines = TRUE)

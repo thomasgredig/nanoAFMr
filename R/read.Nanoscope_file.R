@@ -16,11 +16,12 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE, verbose=FALS
 
 
   # analyze header
-  header = gsub('\\\\','',header)
-  header[grep('^\\*',header)] = paste0(header[grep('^\\*',header)],":NEW SECTION")
+  header = gsub('\\\\','',header,  useBytes = TRUE)
+  header[grep('^\\*',header, useBytes = TRUE)] = 
+    paste0(header[grep('^\\*',header, useBytes = TRUE)],":NEW SECTION")
   HEADER.INFO = data.frame(
-    name = gsub("(.*?):.*","\\1",header),
-    value = gsub(".*?:(.*)","\\1",header),
+    name = gsub("(.*?):.*","\\1",header, useBytes = TRUE),
+    value = gsub(".*?:(.*)","\\1",header, useBytes = TRUE),
     stringsAsFactors = FALSE
   )
   if (verbose) print(paste("Header has", nrow(HEADER.INFO),"items."))
@@ -28,22 +29,22 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE, verbose=FALS
 
   # get version
   version = HEADER.INFO$value[grep('^Version',HEADER.INFO$name)]
-  version = as.numeric(gsub("0x",'',version))/1e6
+  version = as.numeric(gsub("0x",'',version, useBytes = TRUE))/1e6
   if (verbose) print(paste("Header version:",version))
 
   # could be Sens. Zscan or Sens. Zsens (version 8+)
   Volt2nanometer = HEADER.INFO$value[grep('Sens. Zs', HEADER.INFO$name)]
-  Volt2nanometer = as.numeric(gsub(' V(.*)nm/V','\\1',Volt2nanometer))[1] # just use first
+  Volt2nanometer = as.numeric(gsub(' V(.*)nm/V','\\1',Volt2nanometer, useBytes = TRUE))[1] # just use first
   #write.csv(HEADER.INFO, file='VEECO-Header.csv')
 
   # parse out parameters that are relevant to image number no
-  sections = grep('NEW SECTION', HEADER.INFO$value)
-  fileNo = grep('File list$', HEADER.INFO$name[sections])
-  scanNo = grep('Scanner list$', HEADER.INFO$name[sections])
-  ciaoNo = grep('Ciao scan list$', HEADER.INFO$name[sections])
-  eqipNo = grep('Equipment list', HEADER.INFO$name[sections])
-  totalNumberImages = length(grep('Ciao image list$',HEADER.INFO$name[sections]))
-  imNo = grep('Ciao image list$',HEADER.INFO$name[sections])
+  sections = grep('NEW SECTION', HEADER.INFO$value, useBytes = TRUE)
+  fileNo = grep('File list$', HEADER.INFO$name[sections], useBytes = TRUE)
+  scanNo = grep('Scanner list$', HEADER.INFO$name[sections], useBytes = TRUE)
+  ciaoNo = grep('Ciao scan list$', HEADER.INFO$name[sections], useBytes = TRUE)
+  eqipNo = grep('Equipment list', HEADER.INFO$name[sections], useBytes = TRUE)
+  totalNumberImages = length(grep('Ciao image list$',HEADER.INFO$name[sections], useBytes = TRUE))
+  imNo = grep('Ciao image list$',HEADER.INFO$name[sections], useBytes = TRUE)
 
   # Image Header Online
   imageHeader = HEADER.INFO[sections[imNo[no]]:(sections[imNo[no]+1]-1),]

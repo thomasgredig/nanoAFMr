@@ -10,7 +10,7 @@
 #' @author Thomas Gredig
 #'
 #' @param mydb database connection from DBI package
-#' @param ID unique object file ID
+#' @param ID unique object file ID, if not provided, will return all available IDs in database
 #' @param verbose if \code{TRUE} outputs verbose comments
 #'
 #' @importFrom DBI dbReadTable dbGetQuery dbListTables dbConnect dbDisconnect
@@ -25,18 +25,29 @@
 #' afmFile = AFM.getSampleImages(type='tiff')[1]
 #' a = AFM.import(afmFile)
 #' AFM.writeDB(a, mydb, 45, verbose=FALSE)
+#' cat("Available IDs in database: ",AFM.readDB(mydb))
 #' b = AFM.readDB(mydb, 45)
 #' DBI::dbDisconnect(mydb)
 #' plot(b)
 #'
 #' @export
-AFM.readDB <- function(mydb, ID, verbose=TRUE) {
+AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
   # define table names in DB
   myTableAFMname = paste0('afm',ID)
   myTableDataName = paste0('afmData')
+  t1 <- dbListTables(mydb)
+  
+  # check if list of available IDs should be returned?
+  if (is.na(ID)) {
+    # return IDs of AFM images
+    if (myTableDataName %in% t1) {
+      return(as.numeric(gsub('afm','',t1[!t1=='afmData'])))
+    } else {
+      stop("Database is not an AFM SQL database.")
+    }
+  }
   
   # check that database has the tables for this AFM object
-  t1 <- dbListTables(mydb)
   if ((myTableAFMname %in% t1) & (myTableDataName %in% t1)) {
 
     dbGetQuery(mydb, paste('SELECT * FROM ',
@@ -71,5 +82,5 @@ AFM.readDB <- function(mydb, ID, verbose=TRUE) {
     warning("AFM object is not found in database.")
     obj = NULL
   }
-  obj
+  invisible(obj)
 }

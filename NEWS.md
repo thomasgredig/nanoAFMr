@@ -1,3 +1,9 @@
+# nanoAFMr 2.1.7
+
+* fix Unicode issues
+* list all AFM images in database with `AFM.readDB`
+* allow an AFM image to be removed from the database with `AFM.writeDB` and `NULL` object
+
 # nanoAFMr 2.1.6
 
 * add Kurtosis

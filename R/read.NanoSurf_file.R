@@ -19,14 +19,11 @@
 read.NanoSurf_header.v2 <- function(filename) {
   # read the NID header
   k1 = read.NID_header(filename)[[2]]
-  k1 = enc2utf8(k1)
-  gsub('<b5>','\u00b5',k1) -> k1
-  gsub('<b0>','\u00b0',k1) -> k1
 
-  q = grep("=",k1)
+  q = grep("=",k1, useBytes = TRUE)
   data.frame(
-    name = gsub('(.*?)=.*','\\1',k1[q]),
-    value = gsub('(.*?)=(.*)','\\2',k1[q])
+    name = gsub('(.*?)=.*','\\1',k1[q], useBytes = TRUE),
+    value = gsub('(.*?)=(.*)','\\2',k1[q], useBytes = TRUE)
   )
 }
 
@@ -135,7 +132,7 @@ read.NanoSurf_file.v2 <- function(filename) {
 
 
 # laods channel 1 image, deprecated, use read.NanoSurf_file.v2() instead
-read.NanoSurf_file<- function(filename, imageNo=1) {
+read.NanoSurf_file <- function(filename, imageNo=1) {
   if (!file.exists(filename)) warning(paste("File",filename,"does NOT exist."))
   # read header information
   hItems = read.NID_headerItems(filename)
@@ -187,12 +184,12 @@ NULL
 
 
 get.NIDitem <- function(item, name) {
-  n0 = grep(paste0(name,'='),item)
+  n0 = grep(paste0(name,'='),item, useBytes = TRUE)
   gsub(paste0(name,'='),'',item[n0])
 }
 
 get.NIDitem.numeric <- function(item, name) {
-  n0 = grep(paste0(name,'='),item)
+  n0 = grep(paste0(name,'='),item, useBytes = TRUE)
   as.numeric(gsub(paste0(name,'='),'',item[n0]))
 }
 
@@ -200,7 +197,7 @@ NID.getHeaderSet <- function(headerList, imageNo = 1) {
   c1 = switch(imageNo, "Gr0-Ch1","Gr0-Ch2","Gr1-Ch1","Gr1-Ch2",
               "Gr2-Ch1","Gr2-Ch2","Gr3-Ch1","Gr3-Ch2")
   d.set = get.NIDitem(headerList[[2]],c1)
-  k.set = grep(d.set,headerList[[1]])
+  k.set = grep(d.set,headerList[[1]], useBytes = TRUE)
   headerList[[k.set]]
 }
 
@@ -234,40 +231,6 @@ NID.getChannelScale <- function(headerList, imageNo = 1) {
 
 
 
-read.NanoSurf_header <- function(filename, imageNo=1) {
-  # read the NID header
-  k1 = read.NID_header(filename)[[2]]
-  k1 = enc2utf8(k1)
-  gsub('<b5>','\u00b5',k1) -> k1
-  gsub('<b0>','\u00b0',k1) -> k1
-  # k1[grep('<[0-9a-z][0-9a-z]>',k1)]   # <- find any extended ASCII
-  # separate groups
-  from = grep("^\\[.*\\]$",k1)
-  to = c(from[-1]-1, length(k1))
-  itemslist <- mapply(
-    function(x, y) return(k1[x:y]),
-    x = from, y = to - 1,
-    SIMPLIFY = FALSE
-  )
-  # add list with titles
-  allParams = c(list(c('HEADERS',k1[from])),itemslist)
-  p = c()
-
-  # extract specific information
-  dataSet = grep('\\[DataSet\\]',allParams[[1]])
-  p = c(p, allParams[[dataSet]][c(2,3)])
-
-  dataSetInfo = grep('\\[DataSet-Info\\]',allParams[[1]])
-  p = c(p,allParams[[dataSetInfo]][grep('^--\\s',allParams[[dataSetInfo]], invert=TRUE)[-1]])
-
-  # convert to associative array
-  pspl = strsplit(p, '=', useBytes=TRUE)
-  p2=c()
-  p2[sapply(pspl,'[[',1)] = sapply(pspl,'[[',2)
-  p2
-}
-
-
 # > k1[from]
 # [1] "[DataSet]"                           "[DataSet-Info]"                      "[DataSet\\DataSetInfos]"
 # [4] "[DataSet\\DataSetInfos\\Scan]"       "[DataSet\\DataSetInfos\\Feedback]"   "[DataSet\\DataSetInfos\\Global]"
@@ -298,7 +261,7 @@ read.NanoSurf_header <- function(filename, imageNo=1) {
 # [5] "Gr0-ID=0"              "Gr0-Count=21"
 read.NID_header <- function(filename) {
   if (!file.exists(filename)) { return(NULL) }
-  Sys.setlocale('LC_ALL','en_US')
+
   con <- file(filename,"rb")
   rline = ''
   i=0
@@ -324,7 +287,7 @@ read.NID_headerItems <- function(filename) {
   # read the NID header
   k1 = read.NID_header(filename)[[2]]
   # separate groups
-  from = grep("^\\[.*\\]$",k1)
+  from = grep("^\\[.*\\]$",k1, useBytes = TRUE)
   to = c(from[-1]-1, length(k1))
   itemslist <- mapply(
     function(x, y) return(k1[x:y]),
@@ -364,7 +327,7 @@ NID.checkFile <- function(filename) {
 #
 get.NID_imageInfo <- function(header.string) {
   # split data sets
-  from = grep('\\[DataSet-',header.string)
+  from = grep('\\[DataSet-',header.string, useBytes = TRUE)
   to = c(from[-1]-1, length(header.string))
 
   itemslist <- mapply(

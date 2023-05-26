@@ -44,4 +44,3 @@ AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
   result
 }
 
-## globalVariables(c("..density.."))
