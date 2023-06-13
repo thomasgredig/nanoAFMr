@@ -1,3 +1,7 @@
+# nanoAFMr 2.1.8
+
+* fix channel 2 `plot.AFMdata`
+
 # nanoAFMr 2.1.7
 
 * fix Unicode issues
