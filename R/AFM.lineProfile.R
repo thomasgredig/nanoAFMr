@@ -110,7 +110,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     r=c(r, q1)
     r2 = c(r2, q2)
   }
-  if (verbose) print(paste("delta Y:",signif(AFMcopy@y.conv,4),
+  if (verbose) cat(paste("delta Y:",signif(AFMcopy@y.conv,4),
                            "nm/px and delta X:",signif(AFMcopy@x.conv,4),"nm/px"))
 
   if (is.null(AFMcopy@data$line)) AFMcopy@data$line = list()
@@ -118,5 +118,22 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   if (is.null(AFMcopy@data$line.nm)) AFMcopy@data$line.nm = list()
   AFMcopy@data$line.nm = append(AFMcopy@data$line.nm,list(r2))
   AFMcopy
+}
+
+#' Adds a Line Profile with Multiple Lines
+#' 
+#' @seealso [AFM.lineProfile()]
+#' 
+#' @export
+AFM.lineProfileMulti <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA, N=2,
+                            unitPixels = FALSE, verbose=FALSE) {
+  xD = 0
+  N = min(obj@y.pixels, N)
+  for(i in 1:N) {
+    obj = AFM.lineProfile(obj, x1, y1 + xD, x2, y2 + xD, unitPixels, verbose)
+    xD = xD + ceiling(obj@y.conv)
+  }
+  
+  obj
 }
 

@@ -1,6 +1,7 @@
 # nanoAFMr 2.1.8
 
 * fix channel 2 `plot.AFMdata`
+* add thicker lines for `AFM.lineProfile` with addLines option
 
 # nanoAFMr 2.1.7
 

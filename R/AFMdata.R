@@ -399,7 +399,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       # check if there are lines
       if (is.null(x@data$line)) { warning("No lines attached.") }
       else {
-        if (verbose) print("Adding lines using min. value for color.")
+        if (verbose) cat("Adding lines using min. value for color.\n")
         for(zLine in x@data$line) {
           d$z[zLine] = min(d$z)
         }
@@ -408,7 +408,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
 
     if (is.na(mpt)) mean(d$z) -> mpt
 
-    if (verbose) print(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
+    if (verbose) cat(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
     if (redBlue) sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt)
     else sFill = scale_fill_viridis(option=fillOption)
 
