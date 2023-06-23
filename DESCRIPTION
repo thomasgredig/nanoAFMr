@@ -30,6 +30,7 @@ Imports:
     plyr,
     purrr,
     raster,
+    sp,
     stats,
     tools,
     utils,
@@ -43,6 +44,7 @@ Suggests:
     rmarkdown,
     RSQLite,
     scales,
+    showtext,
     testthat (>= 2.1.0)
 VignetteBuilder: 
     knitr

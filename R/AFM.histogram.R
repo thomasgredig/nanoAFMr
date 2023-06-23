@@ -24,6 +24,7 @@
 #'
 #' @importFrom ggplot2 ggplot aes geom_histogram geom_density after_stat 
 #' @importFrom graphics hist
+#' @importFrom stats density
 #'
 #' @export
 AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {

@@ -13,8 +13,8 @@
 #' 
 #' @examples
 #' d <- AFM.import(AFM.getSampleImages('tiff'))
-#' d <- AFM.lineProfile(d, 50,50,75,75, unitPixels = T)
-#' d <- AFM.lineProfile(d, 15,125,75,75, unitPixels = T)
+#' d <- AFM.lineProfile(d, 50,50,75,75, unitPixels = TRUE)
+#' d <- AFM.lineProfile(d, 15,125,75,75, unitPixels = TRUE)
 #' AFM.history(d)
 #'
 #' @importFrom raster rasterFromXYZ click

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
       </span>
     </div>
 
@@ -117,7 +117,14 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoAFMr/" class="external-link">nanoAFMr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Please cite nanoAFMr 2.1.6 , see https://doi.org/10.5281/zenodo.7464877</span></span>
+<span><span class="co">#&gt; The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span></span>
+<span><span class="co">#&gt; which was just loaded, will retire in October 2023.</span></span>
+<span><span class="co">#&gt; Please refer to R-spatial evolution reports for details, especially</span></span>
+<span><span class="co">#&gt; https://r-spatial.org/r/2023/05/15/evolution4.html.</span></span>
+<span><span class="co">#&gt; It may be desirable to make the sf package available;</span></span>
+<span><span class="co">#&gt; package maintainers should consider adding sf to Suggests:.</span></span>
+<span><span class="co">#&gt; The sp package is now running under evolution status 2</span></span>
+<span><span class="co">#&gt;      (status 2 uses the sf package in place of rgdal)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <p>The Height-Height Correlation Function is discussed in the
 publication: <a href="http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069" class="external-link">Height-Height
@@ -180,24 +187,24 @@ if you export all results from the function</p>
 <th align="center">Hurst.err</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="center">0.6407</td>
-<td align="center">39.24</td>
-<td align="center">0.8737</td>
-<td align="center">0.000591</td>
-<td align="center">0.7981</td>
-<td align="center">0.04472</td>
+<td align="center">0.6418</td>
+<td align="center">39.99</td>
+<td align="center">0.8521</td>
+<td align="center">0.0004977</td>
+<td align="center">0.6856</td>
+<td align="center">0.03595</td>
 </tr></tbody>
 </table>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## show the HHCF data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">h</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        r.nm          g    num</span></span>
-<span><span class="co">#&gt; 1  9.803922 0.08584936 199492</span></span>
-<span><span class="co">#&gt; 2 19.607843 0.21971802 198605</span></span>
-<span><span class="co">#&gt; 3 29.411765 0.37005761 197742</span></span>
-<span><span class="co">#&gt; 4 39.215686 0.50837450 196755</span></span>
-<span><span class="co">#&gt; 5 49.019608 0.62426933 195861</span></span>
-<span><span class="co">#&gt; 6 58.823529 0.70856037 194872</span></span>
+<span><span class="co">#&gt; 1  9.803922 0.08547049 199475</span></span>
+<span><span class="co">#&gt; 2 19.607843 0.21801943 198639</span></span>
+<span><span class="co">#&gt; 3 29.411765 0.36590651 197720</span></span>
+<span><span class="co">#&gt; 4 39.215686 0.50328212 196731</span></span>
+<span><span class="co">#&gt; 5 49.019608 0.61579026 195771</span></span>
+<span><span class="co">#&gt; 6 58.823529 0.70198549 194810</span></span>
 <span><span class="co">## display the entire graph</span></span>
 <span><span class="va">h</span><span class="op">$</span><span class="va">graph</span></span></code></pre></div>
 <p><img src="HHCF_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>

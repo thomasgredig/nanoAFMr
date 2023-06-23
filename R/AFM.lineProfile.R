@@ -11,6 +11,7 @@
 #' @param y1 start y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
 #' @param x2 end x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
 #' @param y2 end y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line
+#' @param N thickness of line in pixels, for high-resolution images, increase
 #' @param unitPixels logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm
 #' @param verbose logical, if \code{TRUE}, output additional information
 #' @returns AFMdata object with line data, use \code{AFM.linePlot()} to graph / tabulate data or \code{plot(addLines=TRUE)} to graph image with lines
@@ -26,11 +27,26 @@
 #' AFM.linePlot(afmd2)
 #' head(AFM.linePlot(afmd2, dataOnly=TRUE))
 #'
-#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
+#' @seealso [AFM.getLine(), AFM.liniePlot(), plot.AFMdata()]
 #'
 #' @importFrom raster rasterFromXYZ click
 #' @export
 AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
+                            N=1,
+                            unitPixels = FALSE, verbose=FALSE) {
+  xD = 0
+  N = min(obj@y.pixels, N)
+  for(i in 1:N) {
+    obj = .singleLineProfile(obj, x1, y1 + xD, x2, y2 + xD, unitPixels, verbose)
+    xD = xD + ceiling(obj@y.conv)
+  }
+  
+  obj
+}
+
+
+# ==============================================================
+.singleLineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             unitPixels = FALSE, verbose=FALSE) {
   AFMcopy <- obj
   d = AFM.raster(AFMcopy)
@@ -118,22 +134,5 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   if (is.null(AFMcopy@data$line.nm)) AFMcopy@data$line.nm = list()
   AFMcopy@data$line.nm = append(AFMcopy@data$line.nm,list(r2))
   AFMcopy
-}
-
-#' Adds a Line Profile with Multiple Lines
-#' 
-#' @seealso [AFM.lineProfile()]
-#' 
-#' @export
-AFM.lineProfileMulti <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA, N=2,
-                            unitPixels = FALSE, verbose=FALSE) {
-  xD = 0
-  N = min(obj@y.pixels, N)
-  for(i in 1:N) {
-    obj = AFM.lineProfile(obj, x1, y1 + xD, x2, y2 + xD, unitPixels, verbose)
-    xD = xD + ceiling(obj@y.conv)
-  }
-  
-  obj
 }
 

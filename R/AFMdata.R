@@ -583,7 +583,7 @@ AFM.dataType <- function(obj) {
 #' @return \code{TRUE} if filename is a supported AFM image
 #' @author Thomas Gredig
 #' @examples
-#' AFM.isFileValid(AFM.getSampleImages())
+#' AFM.isFileValid(AFM.getSampleImages()[1])
 #' @export
 AFM.isFileValid <- function(filename) {
   validFile = FALSE

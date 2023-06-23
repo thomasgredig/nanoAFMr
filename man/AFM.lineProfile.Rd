@@ -10,6 +10,7 @@ AFM.lineProfile(
   y1 = NA,
   x2 = NA,
   y2 = NA,
+  N = 1,
   unitPixels = FALSE,
   verbose = FALSE
 )
@@ -24,6 +25,8 @@ AFM.lineProfile(
 \item{x2}{end x position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
 
 \item{y2}{end y position in  units of nm/pixels from bottom left, if \code{NA}, user will need to click on two points to define profile line}
+
+\item{N}{thickness of line in pixels, for high-resolution images, increase}
 
 \item{unitPixels}{logical, if \code{TRUE}, then coordinates are in units of pixels otherwise nm}
 
@@ -50,7 +53,7 @@ head(AFM.linePlot(afmd2, dataOnly=TRUE))
 
 }
 \seealso{
-\code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
+[AFM.getLine(), AFM.liniePlot(), plot.AFMdata()]
 }
 \author{
 Thomas Gredig

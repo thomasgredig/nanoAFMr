@@ -20,7 +20,7 @@ exists, it will be overwritten."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
       </span>
     </div>
 
@@ -90,13 +90,13 @@ exists, it will be overwritten.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.writeDB</span><span class="op">(</span><span class="va">obj</span>, <span class="va">mydb</span>, <span class="va">ID</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.writeDB</span><span class="op">(</span><span class="va">obj</span>, <span class="va">mydb</span>, <span class="va">ID</span>, vacuum <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>obj</dt>
-<dd><p>S4 AFM object from nanoAFMr package</p></dd>
+<dd><p>S4 AFM object from nanoAFMr package, if object is <code>NULL</code>, then ID will be removed from database</p></dd>
 
 
 <dt>mydb</dt>
@@ -107,13 +107,17 @@ exists, it will be overwritten.</p>
 <dd><p>unique object file ID</p></dd>
 
 
+<dt>vacuum</dt>
+<dd><p>vacuums the database, if obj is <code>NULL</code> and something is deleted; this option saves space</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>if <code>TRUE</code> outputs verbose comments</p></dd>
 
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>[<code><a href="AFM.readDB.html">AFM.readDB()</a></code>]</p></div>
+    <div class="dont-index"><p>[<code><a href="AFM.readDB.html">AFM.readDB</a></code>]</p></div>
     </div>
     <div id="author">
     <h2>Author</h2>

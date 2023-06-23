@@ -21,7 +21,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
       </span>
     </div>
 
@@ -98,6 +98,7 @@
 <span>  y1 <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  x2 <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  y2 <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  N <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  unitPixels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -125,6 +126,10 @@
 <dd><p>end y position in  units of nm/pixels from bottom left, if <code>NA</code>, user will need to click on two points to define profile line</p></dd>
 
 
+<dt>N</dt>
+<dd><p>thickness of line in pixels, for high-resolution images, increase</p></dd>
+
+
 <dt>unitPixels</dt>
 <dd><p>logical, if <code>TRUE</code>, then coordinates are in units of pixels otherwise nm</p></dd>
 
@@ -141,7 +146,7 @@
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="AFM.getLine.html">AFM.getLine</a></code>, <code><a href="AFM.linePlot.html">AFM.linePlot</a></code>, <code><a href="plot.AFMdata.html">plot.AFMdata</a></code></p></div>
+    <div class="dont-index"><p>[AFM.getLine(), AFM.liniePlot(), plot.AFMdata()]</p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -161,12 +166,12 @@
 <span class="r-plt img"><img src="AFM.lineProfile-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="AFM.linePlot.html">AFM.linePlot</a></span><span class="op">(</span><span class="va">afmd2</span>, dataOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          x         z type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.00000 3.0280764    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.04854 4.2538899    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 22.09709 4.7864420    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.14563 2.2944348    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 44.19417 4.1747117    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 55.24272 0.3578509    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.00000 3.5068356    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.04854 1.0644433    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 22.09709 3.9992387    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.14563 4.1725414    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 44.19417 2.2431323    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 55.24272 0.7893372    1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -21,7 +21,7 @@ tables in the database; this function only works with AFM.writeDB"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ tables in the database; this function only works with <code><a href="AFM.writeDB
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.readDB</span><span class="op">(</span><span class="va">mydb</span>, <span class="va">ID</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AFM.readDB</span><span class="op">(</span><span class="va">mydb</span>, ID <span class="op">=</span> <span class="cn">NA</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,7 +102,7 @@ tables in the database; this function only works with <code><a href="AFM.writeDB
 
 
 <dt>ID</dt>
-<dd><p>unique object file ID</p></dd>
+<dd><p>unique object file ID, if not provided, will return all available IDs in database</p></dd>
 
 
 <dt>verbose</dt>
@@ -131,7 +131,8 @@ tables in the database; this function only works with <code><a href="AFM.writeDB
 <span class="r-in"><span><span class="va">afmFile</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'tiff'</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">afmFile</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="AFM.writeDB.html">AFM.writeDB</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">mydb</span>, <span class="fl">45</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Available IDs in database: "</span>,<span class="fu">AFM.readDB</span><span class="op">(</span><span class="va">mydb</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Available IDs in database:  45</span>
 <span class="r-in"><span><span class="va">b</span> <span class="op">=</span> <span class="fu">AFM.readDB</span><span class="op">(</span><span class="va">mydb</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">mydb</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></span>

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
       </span>
     </div>
 
@@ -116,7 +116,16 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoAFMr/" class="external-link">nanoAFMr</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thomasgredig.github.io/nanoAFMr/" class="external-link">nanoAFMr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span></span>
+<span><span class="co">#&gt; which was just loaded, will retire in October 2023.</span></span>
+<span><span class="co">#&gt; Please refer to R-spatial evolution reports for details, especially</span></span>
+<span><span class="co">#&gt; https://r-spatial.org/r/2023/05/15/evolution4.html.</span></span>
+<span><span class="co">#&gt; It may be desirable to make the sf package available;</span></span>
+<span><span class="co">#&gt; package maintainers should consider adding sf to Suggests:.</span></span>
+<span><span class="co">#&gt; The sp package is now running under evolution status 2</span></span>
+<span><span class="co">#&gt;      (status 2 uses the sf package in place of rgdal)</span></span>
+<span><span class="co">#&gt; Please cite nanoAFMr 2.1.8 , see https://doi.org/10.5281/zenodo.7464877</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="line-profiles">Line Profiles<a class="anchor" aria-label="anchor" href="#line-profiles"></a>
 </h2>
@@ -136,7 +145,7 @@ profile line.</p>
 <span><span class="co"># afmd2 = AFM.lineProfile(afmd)  # click on two points on the image</span></span>
 <span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.lineProfile.html">AFM.lineProfile</a></span><span class="op">(</span><span class="va">afmd</span>, <span class="fl">200</span>,<span class="fl">2050</span>, <span class="fl">800</span>,<span class="fl">2050</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Pixels: ( 20 , 210 ) - ( 82 , 210 )"</span></span>
-<span><span class="co">#&gt; [1] "delta Y: 9.804 nm/px and delta X: 9.804 nm/px"</span></span>
+<span><span class="co">#&gt; delta Y: 9.804 nm/px and delta X: 9.804 nm/px</span></span>
 <span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.lineProfile.html">AFM.lineProfile</a></span><span class="op">(</span><span class="va">afmd2</span>, <span class="fl">200</span>,<span class="fl">2080</span>, <span class="fl">800</span>,<span class="fl">2080</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">afmd2</span>, addLines <span class="op">=</span> <span class="cn">TRUE</span>, trimPeaks <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
