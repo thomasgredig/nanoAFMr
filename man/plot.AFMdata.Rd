@@ -52,17 +52,17 @@ By default, trims 1 percent of the outliers in height data
 }
 \examples{
 d = AFM.import(AFM.getSampleImages(type='ibw'))
-plot(d, graphType=2)
-plot(d, fillOption = "magma", setRange=c(-30,30))
+plot(d, graphType=2, quiet=TRUE)
+plot(d, fillOption = "magma", setRange=c(-30,30), quiet=TRUE)
 
 # size will changes the length scale size
-plot(d, graphType=4, col='white', size=10)
+plot(d, graphType=4, col='white', size=10, quiet=TRUE)
 
 # increase the size of the labels:
-plot(d) + theme_bw(base_size=16)
+plot(d, quiet=TRUE) + ggplot2::theme_bw(base_size=16)
 
 # change the name of the z-scale
-plot(d) + labs(fill = "h(nm)")
+plot(d, quiet=TRUE) + ggplot2::labs(fill = "h(nm)")
 }
 \seealso{
 \code{\link{AFM.lineProfile}}
