@@ -1,3 +1,7 @@
+# nanoAFMr 2.1.9
+
+* bug fix for setRange in `plot.AFMdata()`
+
 # nanoAFMr 2.1.8
 
 * fix channel 2 `plot.AFMdata()`

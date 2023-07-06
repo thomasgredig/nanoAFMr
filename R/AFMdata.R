@@ -494,14 +494,15 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
         scale_y_continuous(expand=c(0,0))+
         scale_x_continuous(expand=c(0,0))+
         coord_equal() +
-        geom_line(data = d.line, aes(x/1000,y/1000), size=4, ...) +
-        geom_text(data = d.line, aes(label=myLabel), vjust=-1, hjust=0,  ...) +
+        geom_line(data = d.line, aes(x/1000,y/1000), linewidth=4, inherit.aes=FALSE, ...) +
+        geom_text(data = d.line, aes(x/1000,y/1000,label=myLabel), vjust=-1, hjust=0, inherit.aes=FALSE, ...) +
         theme_bw() +
-        theme(legend.position ='none') +
+        theme(legend.position = "none") +
         theme(axis.text.x = element_blank(),
               axis.ticks.x = element_blank(),
               axis.text.y = element_blank(),
               axis.ticks.y = element_blank())
+        
     } else if (graphType==5) {
     # only display scales without the image
     g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
