@@ -2,6 +2,7 @@
 
 * fix channel 2 `plot.AFMdata()`
 * add thicker lines for `AFM.lineProfile()` with addLines option
+* fix bug in `AFM.readDB()`
 
 # nanoAFMr 2.1.7
 

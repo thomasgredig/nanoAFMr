@@ -53,6 +53,7 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
     dbGetQuery(mydb, paste('SELECT * FROM ',
                            myTableDataName,'WHERE ID=',ID)) -> dfData
     dfData = dfData[1,]
+    channelData = unlist(strsplit(dfData$channel,',')[[1]])
     # load data
     if (dfData$instrument == "Park") {
       dfAFM <- dbReadTable(mydb, myTableAFMname)
@@ -60,13 +61,22 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
       zList = list(z)
     } else if (dfData$instrument == "Cypher") {
       dfAFM <- dbReadTable(mydb, myTableAFMname)
-      zList = list(dfAFM$V1, dfAFM$V2, dfAFM$V3, dfAFM$V4)
+      # find out how many?
+      if (length(channelData)==4) {
+        zList = list(dfAFM$V1, dfAFM$V2, dfAFM$V3, dfAFM$V4)
+      } else if (length(channelData)==5) {
+        zList = list(dfAFM$V1, dfAFM$V2, dfAFM$V3, dfAFM$V4, dfAFM$V5)
+      } else if (length(channelData)==6) {
+        zList = list(dfAFM$V1, dfAFM$V2, dfAFM$V3, dfAFM$V4, dfAFM$V5, dfAFM$V6)
+      } else if (length(channelData)==1) {
+        zList = list(dfAFM$V1)
+      }
     }
     
     # create AFMdata S4 class
     obj = AFMdata(
       data = list(z=zList),
-      channel = unlist(strsplit(dfData$channel,',')[[1]]),
+      channel = channelData,
       x.conv = dfData$x.conv,
       y.conv = dfData$y.conv,
       x.pixels = dfData$x.pixels,
