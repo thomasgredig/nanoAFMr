@@ -1,5 +1,5 @@
 filename = AFM.getSampleImages(type='ibw')
-afmd = AFM.import(filename)
+afmd = AFM.import(filename[1])
 
 test_that("AFMdata object", {
   a = AFMdata(instrument='Cypher')
@@ -23,8 +23,9 @@ test_that("AFM.getSampleImages: find sample files", {
 test_that("line Profile", {
   AFM.lineProfile(afmd, 0,0, 2000,2000) -> d1
   AFM.lineProfile(d1, 0,0, 100,2500) -> d2
+  # plot(d2, addLines = TRUE)
   q = AFM.linePlot(d2, dataOnly=TRUE)
-  expect_equal(sum(q$z), -103.9477, tolerance = 1e-4)
+  expect_equal(sum(q$z), -159.4684, tolerance = 1e-4)
   expect_equal(nlevels(as.factor(q$type)), 2)
 })
 

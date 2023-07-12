@@ -23,7 +23,7 @@ AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
   i=1
   r = data.frame()
   for(ln in obj@data$line) {
-    dz = data.frame(x=obj@data$line.nm[[i]],z=zData[ln+1])
+    dz = data.frame(x=obj@data$line.nm[[i]],z=zData[ln])
     dz$type=i
     i=i+1
     r=rbind(r, dz)

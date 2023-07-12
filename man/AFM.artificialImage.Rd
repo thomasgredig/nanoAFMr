@@ -13,6 +13,7 @@ AFM.artificialImage(
   imageHeight = 1000,
   type = c("random", "gradient", "calibration"),
   addNoise = TRUE,
+  invert = FALSE,
   verbose = TRUE
 )
 }
@@ -32,6 +33,8 @@ AFM.artificialImage(
 \item{type}{can be random gradient calibration}
 
 \item{addNoise}{if \code{TRUE}, add a bit of noise to the data}
+
+\item{invert}{logical, if \code{TRUE}, top and bottom are inverted}
 
 \item{verbose}{if \code{TRUE}, output additional information}
 }

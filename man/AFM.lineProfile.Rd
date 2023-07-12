@@ -41,6 +41,8 @@ create a profile data line across an image (d), providing
   points are provided in units of nanometers or pixels. If the starting
   and end point coordinates are not provided, it will use the \code{raster::click()}
   function to prompt the user to click on two points on the graph.
+  
+  Note: the convention is that the bottom left corner is (1,1) in pixels and (0,0) in nanometers
 }
 \examples{
 afmd = AFM.artificialImage(width=128, height=128, type='calibration', verbose=FALSE)

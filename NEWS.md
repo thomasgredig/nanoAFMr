@@ -1,6 +1,7 @@
 # nanoAFMr 2.1.9
 
 * bug fix for setRange in `plot.AFMdata()`
+* but fix for `AFM.linePlot()`, previously: the bottom left corner is (1,0), now it is (1,1)
 
 # nanoAFMr 2.1.8
 

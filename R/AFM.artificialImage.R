@@ -13,6 +13,7 @@
 #' @param imageHeight height of image in nm
 #' @param type can be random gradient calibration
 #' @param addNoise if \code{TRUE}, add a bit of noise to the data
+#' @param invert logical, if \code{TRUE}, top and bottom are inverted
 #' @param verbose if \code{TRUE}, output additional information
 #' 
 #' @author Thomas Gredig
@@ -32,6 +33,7 @@ AFM.artificialImage <- function(width = 10,
                                 imageHeight = 1000,
                                 type = c('random','gradient','calibration'),
                                 addNoise = TRUE,
+                                invert = FALSE,
                                 verbose = TRUE) {
 
   if (missing(type)) type='random'
@@ -43,6 +45,7 @@ AFM.artificialImage <- function(width = 10,
            )
   if(length(z)==0) stop("Invalid type.")
   if (addNoise) z = z + rep(runif(width*height, min=0, max=(maxZ-minZ)*0.05))
+  if (invert) z = -z
 
   # create AFMdata S4 class
   obj = AFMdata(
