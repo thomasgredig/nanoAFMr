@@ -4,7 +4,13 @@
 \alias{AFM.flatten}
 \title{Flattens an AFM image using a plane fit}
 \usage{
-AFM.flatten(obj, no = 1, verbose = FALSE)
+AFM.flatten(
+  obj,
+  no = 1,
+  method = c("plane", "lineByLine"),
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{obj}{AFMdata object}
@@ -12,6 +18,8 @@ AFM.flatten(obj, no = 1, verbose = FALSE)
 \item{no}{channel number}
 
 \item{verbose}{output fitting parameters}
+
+\item{lineByLine}{logical, if \code{TRUE}, the flattening method is line-by-line}
 }
 \value{
 flattened matrix with AFM image
@@ -24,7 +32,8 @@ and fits a plane, returns the flattened object
 d = AFM.import(AFM.getSampleImages(type='ibw'))
 d2 = AFM.flatten(d)
 plot(d2,graphType=2)
+
 }
 \author{
-thomasgredig
+Thomas Gredig
 }

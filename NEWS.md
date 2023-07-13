@@ -2,6 +2,7 @@
 
 * bug fix for setRange in `plot.AFMdata()`
 * but fix for `AFM.linePlot()`, previously: the bottom left corner is (1,0), now it is (1,1)
+* add methods to `AFM.flatten()`, including lineByLine method
 
 # nanoAFMr 2.1.8
 
