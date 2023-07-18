@@ -30,6 +30,7 @@ Imports:
     plyr,
     purrr,
     raster,
+    RSQLite,
     sp,
     stats,
     tools,
@@ -42,7 +43,6 @@ Suggests:
     latex2exp,
     pander,
     rmarkdown,
-    RSQLite,
     scales,
     showtext,
     testthat (>= 2.1.0)

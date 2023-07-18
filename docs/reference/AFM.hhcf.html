@@ -43,7 +43,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.9</span>
       </span>
     </div>
 
@@ -218,23 +218,23 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
 <span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span>, allResults <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>        <span class="co"># output HHCF data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g    num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08468255 498686</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21706783 496527</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36445695 494196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50055678 491763</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61249024 489304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.69740804 486824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08437141 498681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21569236 496456</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36541625 494127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.50120361 491653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61608500 489229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.70302938 486780</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitData</span><span class="op">)</span>     <span class="co"># fit data curve data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.nm          g</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06348384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07521420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08757315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.10049974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11393612</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12782716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06066597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07221660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08444162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.09728038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11067460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12456816</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitParams</span><span class="op">)</span>   <span class="co"># output fit parameters</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      sigma       xi    Hurst    sigma.err  xi.err  Hurst.err</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.642568 40.41022 0.840899 0.0004656803 0.64822 0.03280644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       sigma       xi     Hurst    sigma.err    xi.err  Hurst.err</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6397166 39.74865 0.8630284 0.0004061273 0.5560641 0.03005544</span>
 <span class="r-in"><span><span class="va">r</span><span class="op">$</span><span class="va">graph</span>             <span class="co"># output ggplot2 graph</span></span></span>
 <span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

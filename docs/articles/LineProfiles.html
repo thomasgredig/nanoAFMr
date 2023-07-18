@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.9</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@
 <span><span class="co">#&gt; package maintainers should consider adding sf to Suggests:.</span></span>
 <span><span class="co">#&gt; The sp package is now running under evolution status 2</span></span>
 <span><span class="co">#&gt;      (status 2 uses the sf package in place of rgdal)</span></span>
-<span><span class="co">#&gt; Please cite nanoAFMr 2.1.8 , see https://doi.org/10.5281/zenodo.7464877</span></span></code></pre></div>
+<span><span class="co">#&gt; Please cite nanoAFMr 2.1.9 , see https://doi.org/10.5281/zenodo.7464877</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="line-profiles">Line Profiles<a class="anchor" aria-label="anchor" href="#line-profiles"></a>
 </h2>
@@ -144,7 +144,7 @@ profile line.</p>
 <span><span class="va">afmd</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span>
 <span><span class="co"># afmd2 = AFM.lineProfile(afmd)  # click on two points on the image</span></span>
 <span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.lineProfile.html">AFM.lineProfile</a></span><span class="op">(</span><span class="va">afmd</span>, <span class="fl">200</span>,<span class="fl">2050</span>, <span class="fl">800</span>,<span class="fl">2050</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Pixels: ( 20 , 210 ) - ( 82 , 210 )"</span></span>
+<span><span class="co">#&gt; [1] "Pixels: ( 21 , 210 ) - ( 81 , 209 )"</span></span>
 <span><span class="co">#&gt; delta Y: 9.804 nm/px and delta X: 9.804 nm/px</span></span>
 <span><span class="va">afmd2</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.lineProfile.html">AFM.lineProfile</a></span><span class="op">(</span><span class="va">afmd2</span>, <span class="fl">200</span>,<span class="fl">2080</span>, <span class="fl">800</span>,<span class="fl">2080</span><span class="op">)</span></span>
 <span></span>
@@ -160,13 +160,13 @@ profile line.</p>
 <code class="sourceCode R"><span><span class="va">dLine</span> <span class="op">=</span> <span class="fu"><a href="../reference/AFM.linePlot.html">AFM.linePlot</a></span><span class="op">(</span><span class="va">afmd2</span>, dataOnly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dLine</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           x         z type</span></span>
-<span><span class="co">#&gt; 1  0.000000 0.6429988    1</span></span>
-<span><span class="co">#&gt; 2  9.803922 0.5854193    1</span></span>
-<span><span class="co">#&gt; 3 19.607843 0.6794230    1</span></span>
-<span><span class="co">#&gt; 4 29.411765 0.7977134    1</span></span>
-<span><span class="co">#&gt; 5 39.215686 0.8226365    1</span></span>
-<span><span class="co">#&gt; 6 49.019608 0.6400452    1</span></span></code></pre></div>
-<p>The line plot has a lowest point at -1.91 nm, and a maximum at 0.823
+<span><span class="co">#&gt; 1  0.000000 0.8030308    1</span></span>
+<span><span class="co">#&gt; 2  9.803922 0.6511638    1</span></span>
+<span><span class="co">#&gt; 3 19.607843 0.7997923    1</span></span>
+<span><span class="co">#&gt; 4 29.411765 0.8113265    1</span></span>
+<span><span class="co">#&gt; 5 39.215686 0.7050135    1</span></span>
+<span><span class="co">#&gt; 6 49.019608 0.6748323    1</span></span></code></pre></div>
+<p>The line plot has a lowest point at -1.83 nm, and a maximum at 0.811
 nm.</p>
 </div>
   </div>
