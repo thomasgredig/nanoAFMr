@@ -343,7 +343,7 @@ AFM.raster <- function(obj,no=1) {
 #' @author Thomas Gredig
 #'
 #' @importFrom utils head tail
-#' @importFrom ggplot2 ggplot aes geom_raster geom_line theme_bw scale_fill_gradient2 xlab ylab labs scale_y_continuous scale_x_continuous coord_equal geom_text theme element_blank
+#' @importFrom ggplot2 ggplot aes geom_raster geom_line theme_bw scale_fill_gradient2 xlab ylab labs scale_y_continuous scale_x_continuous coord_equal geom_text theme element_rect element_blank
 #' @importFrom ggplot2 scale_fill_viridis_c
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom ggpubr get_legend as_ggplot
@@ -514,7 +514,9 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
       scale_y_continuous(expand=c(0,0))+
       scale_x_continuous(expand=c(0,0))+
       coord_equal() +
-      theme_bw()
+      theme_bw() +
+      theme(legend.box.background=element_rect(fill='transparent',
+                                               colour='transparent'))
     ggpubr::get_legend(g1) -> g1l
     g1 <- as_ggplot(g1l)
   } else stop('graphType is not supported.')

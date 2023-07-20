@@ -4,6 +4,7 @@
 * but fix for `AFM.linePlot()`, previously: the bottom left corner is (1,0), now it is (1,1)
 * add methods to `AFM.flatten()`, including lineByLine method
 * add method `AFM.partial()` that can identify partially recorded AFM images
+* make `plot()` for `legend only` (gType==5) to have transparent background
 
 # nanoAFMr 2.1.8
 
