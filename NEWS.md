@@ -2,6 +2,7 @@
 
 * improve method lineByLine in `AFM.flatten()`
 * add method slope for `AFM.flatten()`, the slopes are generated with `AFM.flattenLine()`
+* adding a zShift to the `AFM.flatten()` function
 
 # nanoAFMr 2.1.9
 

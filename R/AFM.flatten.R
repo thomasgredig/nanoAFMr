@@ -1,7 +1,16 @@
-#' Flattens an AFM image using a plane fit
+#' Flattens AFM Image
 #'
-#' uses the AFM.raster() function, makes a copy of the object
-#' and fits a plane, returns the flattened object
+#' @description
+#' Flatten the data of a particular channel for an AFM image. You can use an appropriate
+#' method to flatten the image. The default flatten is a plane fit to the full dataset. 
+#' This, however, does not work well for samples that have 2 levels, for example. You can
+#' also select lineByLine method to fit each line separately, you can check this approach
+#' with `AFM.flattenCheck()` and if some lines need to be excluded, then use `AFM.flattenLine()`
+#' to return the slope for each line of the image. Use this dataset with (m,b) values to 
+#' subtract the slope manually with the slope method. 
+#' 
+#' It is possible to offset the data with a shift using the `zShift` parameter.
+#' 
 #'
 #' @param obj AFMdata object
 #' @param no channel number
@@ -11,6 +20,7 @@
 #'      \item{"lineByLine"}{Fit each line and substract a linear fit}
 #'      \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
 #'   }
+#' @param zShift vertical offset in the same units as the channel units
 #' @param slope data.frame obtained from `AFM.flattenLine()`
 #' @param verbose output fitting parameters
 #' @param ... additional arguments for method, such as tau_lower
@@ -27,7 +37,7 @@
 #' plot(d2,graphType=2)
 #' 
 #' @export
-AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), slope=NULL, verbose=FALSE, ...) {
+AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zShift = 0, slope=NULL, verbose=FALSE, ...) {
   # set default method
   if (length(method)>1) method='plane'
   
@@ -48,7 +58,7 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), slo
     z.new = .flattenMethodPlane(d)
   }
 
-  AFMcopy@data$z[[no]] =  z.new 
+  AFMcopy@data$z[[no]] =  z.new + zShift
   AFMcopy
 }
 
@@ -60,7 +70,7 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), slo
 #' @param no channel number
 #' @param skip positions to skip (incorrect fit)
 #' @param region dataframe with `lines` and `fit.px.lower` and `fit.px.upper` for each line
-#' @param tau_lower percentage of data points to fit (1=100%)
+#' @param tau_lower percentage of data points to fit (1=100 percent)
 #' @param verbose logical, output useful information if TRUE
 #' 
 #' @author Thomas Gredig

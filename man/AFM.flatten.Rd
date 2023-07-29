@@ -2,12 +2,13 @@
 % Please edit documentation in R/AFM.flatten.R
 \name{AFM.flatten}
 \alias{AFM.flatten}
-\title{Flattens an AFM image using a plane fit}
+\title{Flattens AFM Image}
 \usage{
 AFM.flatten(
   obj,
   no = 1,
   method = c("plane", "lineByLine", "slope"),
+  zShift = 0,
   slope = NULL,
   verbose = FALSE,
   ...
@@ -25,6 +26,8 @@ AFM.flatten(
    \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
 }}
 
+\item{zShift}{vertical offset in the same units as the channel units}
+
 \item{slope}{data.frame obtained from `AFM.flattenLine()`}
 
 \item{verbose}{output fitting parameters}
@@ -35,8 +38,15 @@ AFM.flatten(
 AFMdata object
 }
 \description{
-uses the AFM.raster() function, makes a copy of the object
-and fits a plane, returns the flattened object
+Flatten the data of a particular channel for an AFM image. You can use an appropriate
+method to flatten the image. The default flatten is a plane fit to the full dataset. 
+This, however, does not work well for samples that have 2 levels, for example. You can
+also select lineByLine method to fit each line separately, you can check this approach
+with `AFM.flattenCheck()` and if some lines need to be excluded, then use `AFM.flattenLine()`
+to return the slope for each line of the image. Use this dataset with (m,b) values to 
+subtract the slope manually with the slope method. 
+
+It is possible to offset the data with a shift using the `zShift` parameter.
 }
 \examples{
 d = AFM.import(AFM.getSampleImages(type='ibw'))

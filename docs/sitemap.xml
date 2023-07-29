@@ -55,6 +55,15 @@
     <loc>/reference/AFM.flatten.html</loc>
   </url>
   <url>
+    <loc>/reference/AFM.flattenCheck.html</loc>
+  </url>
+  <url>
+    <loc>/reference/AFM.flattenFindLine.html</loc>
+  </url>
+  <url>
+    <loc>/reference/AFM.flattenLine.html</loc>
+  </url>
+  <url>
     <loc>/reference/AFM.getLine.html</loc>
   </url>
   <url>
