@@ -5,12 +5,21 @@
 #'
 #' @param obj AFMdata object
 #' @param no channel number
+#' @param method use the method to flatten the image:
+#'   \itemize{
+#'      \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
+#'      \item{"lineByLine"}{Fit each line and substract a linear fit}
+#'      \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
+#'   }
+#' @param slope data.frame obtained from `AFM.flattenLine()`
 #' @param verbose output fitting parameters
-#' @param lineByLine logical, if \code{TRUE}, the flattening method is line-by-line
+#' @param ... additional arguments for method, such as tau_lower
 #' 
-#' @return flattened matrix with AFM image
+#' @return AFMdata object 
 #' 
 #' @author Thomas Gredig
+#' 
+#' @seealso [AFM.flattenLine()]
 #' 
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))
@@ -18,31 +27,25 @@
 #' plot(d2,graphType=2)
 #' 
 #' @export
-AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine'), verbose=FALSE, ...) {
-  AFMcopy <- obj
-  AFMcopy@history <- add.AFM.history(AFMcopy, paste0("AFM.flatten(obj,",no,")"))
-  
+AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), slope=NULL, verbose=FALSE, ...) {
+  # set default method
   if (length(method)>1) method='plane'
+  
+  # set history
+  AFMcopy <- obj
+  AFMcopy@history <- add.AFM.history(AFMcopy, paste0("AFM.flatten(obj,",no,",method='",method,"')"))
+  
   if (method == 'lineByLine') {
-    z.new = .flattenLineByLine(AFMcopy, no=no, verbose=verbose, ...)
-  } else { 
+    if (verbose) cat("Method: Line by Line\n")
+    z.new = .flattenMethodLineByLine(AFMcopy, verbose=verbose, ...)
+  } else if (method == 'slope') {
+    if (verbose) cat("Method: Slope\n")
     d = AFM.raster(AFMcopy,no)
-    # use 
-    SZ = nrow(d)
-    x = d$x
-    y = d$y
-    z = d$z
-  
-    b = c(sum(x*z), sum(y*z), sum(z))
-    a = matrix(data = c(sum(x*x), sum(x*y), sum(x),
-                        sum(x*y), sum(y*y), sum(y),
-                        sum(x), sum(y), SZ),
-               nrow=3)
-    a
-    solvX = solve(a,b)
-  
-    if (verbose) print(paste("Plane fit:", solvX))
-    z.new = z - (x*solvX[1] + y*solvX[2] + solvX[3])
+    z.new = .flattenMethodSlope(d, slope)
+  } else { 
+    if (verbose) cat("Method: Plane\n")
+    d = AFM.raster(AFMcopy,no)
+    z.new = .flattenMethodPlane(d)
   }
 
   AFMcopy@data$z[[no]] =  z.new 
@@ -50,40 +53,73 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine'), verbose=FAL
 }
 
 
-####
-.flattenLineByLine <- function(obj,no=1, tau_lower = 0.01, verbose=FALSE) {
-  z = c()
+
+#' Line Flatten Fit Parameters
+#' 
+#' @param obj AFMdata image
+#' @param no channel number
+#' @param skip positions to skip (incorrect fit)
+#' @param region dataframe with `lines` and `fit.px.lower` and `fit.px.upper` for each line
+#' @param tau_lower percentage of data points to fit (1=100%)
+#' @param verbose logical, output useful information if TRUE
+#' 
+#' @author Thomas Gredig
+#' 
+#' @returns data frame with `m` (slope) and `b` (offset) for each line of the image
+#' 
+#' @export
+AFM.flattenLine <- function(obj, no=1, skip = c(), region = NULL, tau_lower = 0.01, verbose=FALSE, ...) {
+  m = c()
+  b = c()
   
   for(j in 1:obj@y.pixels) {
-    .flattenLine(obj, j, outGraphs = FALSE, tau_lower = tau_lower) -> d
-    z = c(z, d$z)
+    if (j %in% region$lines) {
+      .flattenLine(obj, j, lowLimit = region$fit.px.lower[which(region$lines==j)],
+                   upperLimit = region$fit.px.upper[which(region$lines==j)],
+                   outGraphs = FALSE, tau_lower = tau_lower, ...) -> d
+    } else {
+      .flattenLine(obj, j, outGraphs = FALSE, tau_lower = tau_lower, ...) -> d
+    }
+    m = c(m, d$m)
+    b = c(b, d$b)
   }
-  z
-}
-
-.flattenLine <- function(afmd, lineNo, outGraphs=TRUE, tau_lower = 0.01) {
-  c2 = AFM.getLine(afmd, yPixel= lineNo)
-  ldf = AFM.linePlot(c2, dataOnly = TRUE)
-  fit_lower <- quantreg::rq(ldf$z ~ ldf$x, tau = tau_lower)
-
-  ldf$bgd = predict(fit_lower, list(x=ldf$x))
-
-  ldf$z.flat = ldf$z - ldf$bgd
+  slope = data.frame(m,b)
   
-  if (outGraphs) {
-    ldf %>%
-      ggplot(aes(x,z)) +
-      geom_point(col='red', size=1.5) +
-      geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
-      theme_bw() -> g.Flat
-  } else {
-    g.Flat = NULL
+  if (length(skip)>0) {
+    slope$x = 1:nrow(slope)
+    slope1 <- slope[-skip,]
+    
+    m <- approx(x=slope1$x, y=slope1$m, xout=1:nrow(slope))
+    b <- approx(x=slope1$x, y=slope1$b, xout=1:nrow(slope))
+    
+    slope <- data.frame(m = m$y, b = b$y)
   }
   
-  list(z = ldf$z.flat,
-       fit = fit_lower,
-       g2 = g.Flat,
-       b= coef(fit_lower)[1],
-       m=coef(fit_lower)[2])
+  slope
 }
 
+
+
+#' Check AFM image Flattening Process
+#' 
+#' @description
+#' Creates a graph that shows the fit for each line in a grid plot
+#' 
+#' @param obj AFMdata object
+#' @param lns lines to select to be fitted (vector)
+#' @param no channel number
+#' @param tau_lower percentage of data points to fit (1 = 100 percent)
+#' 
+#' @returns graph (ggplot2 object)
+#' 
+#' @export
+AFM.flattenCheck <- function(obj, lns = c(1:4*5), no=1, tau_lower=0.01) {
+  g = list()
+  k = 1
+  for(j in lns) {
+    .flattenLine(obj, j, outGraphs = TRUE, tau_lower = tau_lower) -> d
+    g[[k]] = d$g2 + ggtitle(paste0("Line:",j))
+    k = k + 1
+  }
+  g
+}

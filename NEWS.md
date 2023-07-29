@@ -1,3 +1,8 @@
+# nanoAFMr 2.1.10
+
+* improve method lineByLine in `AFM.flatten()`
+* add method slope for `AFM.flatten()`, the slopes are generated with `AFM.flattenLine()`
+
 # nanoAFMr 2.1.9
 
 * bug fix for setRange in `plot.AFMdata()`

@@ -7,7 +7,8 @@
 AFM.flatten(
   obj,
   no = 1,
-  method = c("plane", "lineByLine"),
+  method = c("plane", "lineByLine", "slope"),
+  slope = NULL,
   verbose = FALSE,
   ...
 )
@@ -17,12 +18,21 @@ AFM.flatten(
 
 \item{no}{channel number}
 
+\item{method}{use the method to flatten the image:
+\itemize{
+   \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
+   \item{"lineByLine"}{Fit each line and substract a linear fit}
+   \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
+}}
+
+\item{slope}{data.frame obtained from `AFM.flattenLine()`}
+
 \item{verbose}{output fitting parameters}
 
-\item{lineByLine}{logical, if \code{TRUE}, the flattening method is line-by-line}
+\item{...}{additional arguments for method, such as tau_lower}
 }
 \value{
-flattened matrix with AFM image
+AFMdata object
 }
 \description{
 uses the AFM.raster() function, makes a copy of the object
@@ -33,6 +43,9 @@ d = AFM.import(AFM.getSampleImages(type='ibw'))
 d2 = AFM.flatten(d)
 plot(d2,graphType=2)
 
+}
+\seealso{
+[AFM.flattenLine()]
 }
 \author{
 Thomas Gredig
