@@ -50,8 +50,7 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zSh
     z.new = .flattenMethodLineByLine(AFMcopy, verbose=verbose, ...)
   } else if (method == 'slope') {
     if (verbose) cat("Method: Slope\n")
-    d = AFM.raster(AFMcopy,no)
-    z.new = .flattenMethodSlope(d, slope)
+    z.new = .flattenMethodSlope(AFMcopy, no, slope)
   } else { 
     if (verbose) cat("Method: Plane\n")
     d = AFM.raster(AFMcopy,no)

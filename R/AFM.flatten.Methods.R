@@ -1,9 +1,9 @@
 # Methods to AFM.flatten
 # ======================
-NULL
+
 
 #### METHOD: lineByLine
-.flattenLineByLine <- function(obj, tau_lower = 0.01, verbose=FALSE, ...) {
+.flattenMethodLineByLine <- function(obj, tau_lower = 0.01, verbose=FALSE, ...) {
   z = c()
   
   for(j in 1:obj@y.pixels) {
@@ -14,9 +14,10 @@ NULL
 }
 
 #### METHOD: Slope
-.flattenMethodSlope <- function(d, slope) {
+.flattenMethodSlope <- function(AFMcopy, no, slope) {
   if (nrow(slope) != AFMcopy@x.pixels) warning("Slope parameter is incorrect length.")
   
+  d = AFM.raster(AFMcopy,no)
   m.vec = rep(slope$m, each = AFMcopy@y.pixels)
   b.vec = rep(slope$b, each = AFMcopy@y.pixels)
   z = d$z - m.vec*d$x - b.vec

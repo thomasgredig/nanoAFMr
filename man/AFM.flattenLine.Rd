@@ -23,7 +23,7 @@ AFM.flattenLine(
 
 \item{region}{dataframe with `lines` and `fit.px.lower` and `fit.px.upper` for each line}
 
-\item{tau_lower}{percentage of data points to fit (1=100%)}
+\item{tau_lower}{percentage of data points to fit (1=100 percent)}
 
 \item{verbose}{logical, output useful information if TRUE}
 }
