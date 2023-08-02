@@ -119,6 +119,8 @@ AFM.flattenLine <- function(obj, no=1, skip = c(), region = NULL, tau_lower = 0.
 #' @param no channel number
 #' @param tau_lower percentage of data points to fit (1 = 100 percent)
 #' 
+#' @importFrom ggplot2 ggtitle
+#' 
 #' @returns graph (ggplot2 object)
 #' 
 #' @export
