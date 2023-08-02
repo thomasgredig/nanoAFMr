@@ -10,6 +10,7 @@
 #'
 #' @export
 AFM.partial <- function(afmd) {
-  afmd %>% AFM.raster() %>% tail(n=100) %>% (`[`)("z") -> df
-  sd(df$z)==0
+  afmd %>% AFM.raster() %>% tail(n=25) %>% (`[`)("z") -> df.bottom
+  afmd %>% AFM.raster() %>% head(n=25) %>% (`[`)("z") -> df.top
+  sd(df.bottom$z)==0 | sd(df.top$z)==0 
 }
