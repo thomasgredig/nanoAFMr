@@ -17,7 +17,6 @@
 #' d <- AFM.lineProfile(d, 15,125,75,75, unitPixels = TRUE)
 #' AFM.history(d)
 #'
-#' @importFrom raster rasterFromXYZ click
 #' @export
 AFM.history <- function(obj, verbose=FALSE) {
   h <- obj@history

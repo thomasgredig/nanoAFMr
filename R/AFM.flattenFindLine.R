@@ -1,4 +1,10 @@
-#' Find Lines to Fix
+#' Find Lines on AFM Image
+#' 
+#' @param obj AFMdata object
+#' @param numLines number of clicks to find the line number
+#' 
+#' @importFrom terra click rast
+#' 
 #' 
 #' @export
 AFM.flattenFindLine <- function(obj, numLines=1) {
@@ -8,9 +14,9 @@ AFM.flattenFindLine <- function(obj, numLines=1) {
   width.x = AFMcopy@x.pixels
   width.y = AFMcopy@y.pixels
 
-  dfr = raster::rasterFromXYZ(d)
-  sp::plot(dfr)
-  raster::click(dfr, n=numLines, xy=TRUE, show=FALSE) -> xy
-
+  dfr <- rast(d)
+  terra::plot(dfr)
+  click(dfr, n=numLines, xy=TRUE, show=FALSE) -> xy
+  
   xy$y / AFMcopy@y.conv
 }

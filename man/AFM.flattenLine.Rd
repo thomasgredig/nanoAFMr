@@ -26,6 +26,8 @@ AFM.flattenLine(
 \item{tau_lower}{percentage of data points to fit (1=100 percent)}
 
 \item{verbose}{logical, output useful information if TRUE}
+
+\item{...}{additional parameters like lowLimit, upperLimit, outGraphs}
 }
 \value{
 data frame with `m` (slope) and `b` (offset) for each line of the image

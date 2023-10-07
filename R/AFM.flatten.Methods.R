@@ -48,7 +48,9 @@
 ###################################################
 # Helper Functions
 ###################################################
-.flattenLine <- function(afmd, lineNo, lowLimit=NA, upperLimit=NA, no=1, outGraphs=TRUE, tau_lower = 0.01) {
+.flattenLine <- function(afmd, lineNo, lowLimit=NA, upperLimit=NA, 
+                         no=1, outGraphs=TRUE, tau_lower = 0.01) {
+  
   ldf = AFM.getLine(afmd, no=no, yPixel= lineNo, dataOnly = TRUE)
   if (!is.na(lowLimit) & !is.na(upperLimit)) {
     ldf <- subset(ldf, x >= lowLimit & x <= upperLimit)

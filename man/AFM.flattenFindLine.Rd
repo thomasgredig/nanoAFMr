@@ -2,10 +2,15 @@
 % Please edit documentation in R/AFM.flattenFindLine.R
 \name{AFM.flattenFindLine}
 \alias{AFM.flattenFindLine}
-\title{Find Lines to Fix}
+\title{Find Lines on AFM Image}
 \usage{
 AFM.flattenFindLine(obj, numLines = 1)
 }
+\arguments{
+\item{obj}{AFMdata object}
+
+\item{numLines}{number of clicks to find the line number}
+}
 \description{
-Find Lines to Fix
+Find Lines on AFM Image
 }

@@ -82,7 +82,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-r = AFM.hhcf(a, numIterations = 5e5, allResults = TRUE)
+r = AFM.hhcf(a, numIterations = 1e5, allResults = TRUE)
 head(r$data)        # output HHCF data
 head(r$fitData)     # fit data curve data
 head(r$fitParams)   # output fit parameters

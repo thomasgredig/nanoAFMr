@@ -71,10 +71,13 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zSh
 #' @param region dataframe with `lines` and `fit.px.lower` and `fit.px.upper` for each line
 #' @param tau_lower percentage of data points to fit (1=100 percent)
 #' @param verbose logical, output useful information if TRUE
+#' @param ... additional parameters like lowLimit, upperLimit, outGraphs
 #' 
 #' @author Thomas Gredig
 #' 
 #' @returns data frame with `m` (slope) and `b` (offset) for each line of the image
+#' 
+#' @importFrom stats approx
 #' 
 #' @export
 AFM.flattenLine <- function(obj, no=1, skip = c(), region = NULL, tau_lower = 0.01, verbose=FALSE, ...) {

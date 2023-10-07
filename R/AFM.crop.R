@@ -20,7 +20,7 @@
 #' d1 = AFM.crop(d, x0=45, y0=45, width.pixels = 50, height.pixels = 50)
 #' plot(d1)
 #'
-#' @importFrom raster rasterFromXYZ click
+#' @importFrom terra click rast
 #' @export
 AFM.crop <- function(obj,
                      x0=NA,y0=NA,
@@ -37,11 +37,11 @@ AFM.crop <- function(obj,
   # have the user select the origin via the GUI
   if ( (is.na(x0)) | (is.na(y0)) ) {
     d = AFM.raster(obj)
-    dfr = raster::rasterFromXYZ(d)
-    sp::plot(dfr)
+    dfr = rast(d)
+    terra::plot(dfr)
     # returns coordinates according to (x,y)
     print("Click on crop image origin point:")
-    raster::click(dfr, n=1, xy=TRUE, show=FALSE) -> xy
+    click(dfr, n=1, xy=TRUE, show=FALSE) -> xy
     if (is.null(xy)) { x0 = 1; y0 = 1; } else {
       x0 = round(xy$x[1]/obj@x.conv)
       y0 = round(xy$y[1]/obj@y.conv)

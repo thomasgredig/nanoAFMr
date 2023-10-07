@@ -1,3 +1,8 @@
+# nanoAFMr 2.1.11
+
+* remove functions from `raster` and move to `terra`
+* fix minor bugs from `devtools::check()`
+
 # nanoAFMr 2.1.10
 
 * improve method lineByLine in `AFM.flatten()`

@@ -31,7 +31,7 @@
 #'
 #' @seealso [AFM.getLine(), AFM.liniePlot(), plot.AFMdata()]
 #'
-#' @importFrom raster rasterFromXYZ click
+#' @importFrom terra rast click
 #' @export
 AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             N=1,
@@ -60,9 +60,9 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   # if no coordinates are provided, use graphical interface
   # to prompt for coordinates
   if (is.na(x1) | is.na(x2) | is.na(y1) | is.na(y2)) {
-    dfr = raster::rasterFromXYZ(d)
-    sp::plot(dfr)
-    raster::click(dfr, n=2, xy=TRUE, show=FALSE) -> xy
+    dfr = rast(d)
+    terra::plot(dfr)
+    click(dfr, n=2, xy=TRUE, show=FALSE) -> xy
     x1 = xy$x[1]
     x2 = xy$x[2]
     y1 = xy$y[1]
@@ -86,7 +86,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
     range.y = AFMcopy@y.conv * AFMcopy@y.pixels # max(d$y) - min(d$y)
     if(x1 > range.x) { warning("x1: Out of range"); x1=range.x }
     if(y1 > range.y) { warning("y1: Out of range"); y1=range.y }
-    if(x2 > range.x) { warning("x2: Out of range"); x2=ange.x}
+    if(x2 > range.x) { warning("x2: Out of range"); x2=range.x}
     if(y2 > range.y) { warning("y2: Out of range"); y2=range.y}
 
     x1.pixel = ceiling((x1+1)/range.x*width.x)
