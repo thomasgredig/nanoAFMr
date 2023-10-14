@@ -21,7 +21,11 @@ AFM.writeDB(obj, mydb, ID, vacuum = TRUE, verbose = FALSE)
 AFMdata S4 image is written to an SQL database in the form
 of a data.frame; the ID will save it in a particular table
 in the database, if another AFM image with the same ID
-exists, it will be overwritten.
+exists, it will be overwritten. 
+
+Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
+
+Close: DBI::dbDisconnect(mydb)
 }
 \seealso{
 [\code{\link{AFM.readDB}}]

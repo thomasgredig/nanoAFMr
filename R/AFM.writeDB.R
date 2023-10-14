@@ -6,6 +6,9 @@
 #' in the database, if another AFM image with the same ID
 #' exists, it will be overwritten. 
 #' 
+#' Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
+#' 
+#' Close: DBI::dbDisconnect(mydb)
 #'
 #' @param obj S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database
 #' @param mydb database connection from DBI package
@@ -25,6 +28,22 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
   myTableDataName = paste0('afmData')
   
   t1 <- dbListTables(mydb)
+  if (!myTableDataName %in% t1) {
+    DFempty = data.frame(ID = integer(),
+                         channel = character(),
+                         x.conv = integer(),
+                         y.conv = integer(),
+                         x.pixels = integer(),
+                         y.pixels = integer(),
+                         z.units = character(),
+                         instrument = character(),
+                         history = character(),
+                         description = character(),
+                         fullFilename = character())
+    dbCreateTable(mydb, myTableDataName, DFempty)
+    if (verbose) print(paste("Created data table:",myTableDataName))
+  }
+  
   # remove AFM image data from DB, if it exists
   if (myTableAFMname %in% t1) {
     dbRemoveTable(mydb, myTableAFMname)
@@ -50,21 +69,6 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
   }
   dbWriteTable(mydb, myTableAFMname, dfZ)
   
-  if (!myTableDataName %in% t1) {
-    DFempty = data.frame(ID = integer(),
-                         channel = character(),
-                         x.conv = integer(),
-                         y.conv = integer(),
-                         x.pixels = integer(),
-                         y.pixels = integer(),
-                         z.units = character(),
-                         instrument = character(),
-                         history = character(),
-                         description = character(),
-                         fullFilename = character())
-    dbCreateTable(mydb, myTableDataName, DFempty)
-    if (verbose) print(paste("Created data table:",myTableDataName))
-  }
   dfData = data.frame(ID = ID,
                       channel = paste(obj@channel, collapse = ','),
                       x.conv = obj@x.conv,
