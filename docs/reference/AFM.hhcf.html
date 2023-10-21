@@ -43,7 +43,7 @@ Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013)."><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanoAFMr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.11</span>
       </span>
     </div>
 
@@ -215,26 +215,26 @@ is no fit, the value can be reduced to 70 or 60.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filename</span> <span class="op">=</span> <span class="fu"><a href="AFM.getSampleImages.html">AFM.getSampleImages</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'tiff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.import.html">AFM.import</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="AFM.flatten.html">AFM.flatten</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">5e5</span>, allResults <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">=</span> <span class="fu">AFM.hhcf</span><span class="op">(</span><span class="va">a</span>, numIterations <span class="op">=</span> <span class="fl">1e5</span>, allResults <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>        <span class="co"># output HHCF data</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g    num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08522595 498695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21641767 496633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.36442039 494305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.49945312 491822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.61132129 489319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.69647911 486826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        r.nm          g   num</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.803922 0.08348331 99735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.607843 0.21356454 99267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.411765 0.35890053 98788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 39.215686 0.49488124 98300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 49.019608 0.60735017 97848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 58.823529 0.69120600 97359</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitData</span><span class="op">)</span>     <span class="co"># fit data curve data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.nm          g</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06351484</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07525864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08763187</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.10057312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11402411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12792930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    9 0.06267795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   10 0.07424288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   11 0.08642609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   12 0.09916788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   13 0.11241165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   14 0.12610347</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">r</span><span class="op">$</span><span class="va">fitParams</span><span class="op">)</span>   <span class="co"># output fit parameters</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       sigma       xi     Hurst    sigma.err    xi.err Hurst.err</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6400486 40.14211 0.8417369 0.0004570475 0.6363368 0.0324816</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       sigma       xi     Hurst   sigma.err    xi.err  Hurst.err</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6410569 40.71622 0.8394778 0.000467331 0.6549884 0.03279422</span>
 <span class="r-in"><span><span class="va">r</span><span class="op">$</span><span class="va">graph</span>             <span class="co"># output ggplot2 graph</span></span></span>
 <span class="r-plt img"><img src="AFM.hhcf-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

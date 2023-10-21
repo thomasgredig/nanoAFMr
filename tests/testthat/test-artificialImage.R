@@ -50,14 +50,18 @@ test_that("Check flattening is not inverting the image", {
 
 
 test_that("Set Line Data in AFM Image", {
-  a = AFM.artificialImage(height=10, width=10, verbose=FALSE)
+  a = AFM.artificialImage(height=10, width=15, verbose=FALSE)
   b = AFM.getLine(a, yPixel = 1, dataOnly = TRUE)
 
-  lineData = rep(b$z[1], length(b$x))
-  a1 <- AFM.setLine(a, lineData, yPixel = 10)
+  lineData = rep(mean(b$z), length(b$x))
+  a1 <- AFM.setLine(a, lineData, yPixel = 1)
+  a2 <- AFM.setLine(a1, lineData, yPixel = 2)
   
   roughness.prev = AFM.math.params(a)$Ra
-  roughness.after = AFM.math.params(a1)$Ra
+  roughness.after = AFM.math.params(a2)$Ra
+  
+  # check history
+  expect_equal(length(strsplit(a2@history,";")[[1]]), 2)
   
   # new image roughness should be lower
   expect_true(roughness.after < roughness.prev)

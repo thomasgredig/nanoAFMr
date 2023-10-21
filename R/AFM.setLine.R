@@ -13,6 +13,14 @@
 #' @param verbose if \code{TRUE}, output additional information
 #' 
 #' @returns AFMdata object with new line
+#' 
+#' @examples
+#' a = AFM.artificialImage(height=10, width=10, verbose=FALSE)
+#' b = AFM.getLine(a, yPixel = 1, dataOnly = TRUE)
+#' lineData = rep(b$z[1], length(b$x))
+#' a1 <- AFM.setLine(a, lineData, yPixel = 1)
+#' plot(a1)
+#' 
 #'
 #' @author Thomas Gredig
 #' @seealso \code{\link{AFM.getLine}}
@@ -37,17 +45,15 @@ AFM.setLine <- function(obj,
   if (is.na(xPixel) && (!is.na(yPixel))) {
     # horizonal line
     mPixelPos = (yPixel-1)*obj@x.pixels + 1
-    mPixelRange = mPixelPos:(mPixelPos+obj@y.pixels-1)
+    mPixelRange = mPixelPos:(mPixelPos+obj@x.pixels-1)
     
-    historyProfileLine <- paste(AFMcopy@history,
-                                "AFM.setLine(obj,yPixel=",yPixel,")")
+    historyProfileLine <- paste("AFM.setLine(obj,yPixel=",yPixel,")")
   } else if (!is.na(xPixel) && (is.na(yPixel))) {
     # vertical line
     mPixelPos = xPixel
     mPixelRange = (0:(obj@x.pixels-1))*obj@y.pixels + xPixel
     
-    historyProfileLine <- paste(AFMcopy@history,
-                                "AFM.getLine(obj,xPixel=",xPixel,")")
+    historyProfileLine <- paste("AFM.getLine(obj,xPixel=",xPixel,")")
   } else {
     stop("Neither horizonal nor vertial line selected; add xPixel parameter.")
   }
@@ -56,7 +62,7 @@ AFM.setLine <- function(obj,
 
   AFMcopy@history <- add.AFM.history(AFMcopy, historyProfileLine)
   
-  if (length(lineData) != length(mPixelRange)) { stop("New lineData vector does not have length of line, which is ",length(mPixelRange),"data points.")}
+  if (length(lineData) != length(mPixelRange)) { stop("New lineData vector does not have length of line, which is ",length(mPixelRange)," data points.")}
   zData[mPixelRange] <- lineData
   AFMcopy@data$z[[no]] <- zData
   AFMcopy

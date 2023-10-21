@@ -27,6 +27,15 @@ AFM.getLine returns the data from either a horizontal or vertial
 line. The AFM.setLine sets the data for that line. Only a vector
 with the data is submitted.
 }
+\examples{
+a = AFM.artificialImage(height=10, width=10, verbose=FALSE)
+b = AFM.getLine(a, yPixel = 1, dataOnly = TRUE)
+lineData = rep(b$z[1], length(b$x))
+a1 <- AFM.setLine(a, lineData, yPixel = 1)
+plot(a1)
+
+
+}
 \seealso{
 \code{\link{AFM.getLine}}
 }

@@ -4,9 +4,6 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
     <loc>/articles/AFM-advancedGraph.html</loc>
   </url>
   <url>
@@ -73,12 +70,6 @@
     <loc>/reference/AFM.hhcf.html</loc>
   </url>
   <url>
-    <loc>/reference/AFM.hhcf2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AFM.hhcf2QuickPlot.html</loc>
-  </url>
-  <url>
     <loc>/reference/AFM.histogram.html</loc>
   </url>
   <url>
@@ -100,9 +91,6 @@
     <loc>/reference/AFM.lineProfile.html</loc>
   </url>
   <url>
-    <loc>/reference/AFM.lineProfileMulti.html</loc>
-  </url>
-  <url>
     <loc>/reference/AFM.math.params.html</loc>
   </url>
   <url>
@@ -116,6 +104,9 @@
   </url>
   <url>
     <loc>/reference/AFM.selectChannel.html</loc>
+  </url>
+  <url>
+    <loc>/reference/AFM.setLine.html</loc>
   </url>
   <url>
     <loc>/reference/AFM.specData.html</loc>
