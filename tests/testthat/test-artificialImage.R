@@ -46,3 +46,19 @@ test_that("Check flattening is not inverting the image", {
   expect_true(sum(d1$zDensity[1:50])>0)
   expect_equal(sum(d1$zDensity[1:50]), sum(d2$zDensity[1:50]))
 })
+
+
+
+test_that("Set Line Data in AFM Image", {
+  a = AFM.artificialImage(height=10, width=10, verbose=FALSE)
+  b = AFM.getLine(a, yPixel = 1, dataOnly = TRUE)
+
+  lineData = rep(b$z[1], length(b$x))
+  a1 <- AFM.setLine(a, lineData, yPixel = 10)
+  
+  roughness.prev = AFM.math.params(a)$Ra
+  roughness.after = AFM.math.params(a1)$Ra
+  
+  # new image roughness should be lower
+  expect_true(roughness.after < roughness.prev)
+})

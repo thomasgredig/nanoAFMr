@@ -2,6 +2,7 @@
 
 * remove functions from `raster` and move to `terra`
 * fix minor bugs from `devtools::check()`
+* add `AFM.setLine()` to set data for a specific line in the AFM image
 
 # nanoAFMr 2.1.10
 

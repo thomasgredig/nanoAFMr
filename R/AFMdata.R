@@ -306,8 +306,7 @@ AFM.raster <- function(obj,no=1) {
       y = rep(0:(obj@y.pixels-1),each=obj@x.pixels)*obj@y.conv,
       z = obj@data$z[[no]]
     )
-  } else if (AFM.dataType(obj)=='frequency')
-  {
+  } else if (AFM.dataType(obj)=='frequency') {
     dr = data.frame(
       freq.Hz = seq(from=obj@z.conv, to=(obj@z.conv + obj@x.nm), by=obj@x.conv),
       z.V = obj@data$freq
