@@ -1,23 +1,14 @@
-citHeader("To cite nanoAFMr in publications use:")
-
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s", meta$Version)
-
-citEntry(
-  entry       = "Manual",
-  title       = "R:nanoAFMr - AFM Import and Analysis Tool",
-  author      = "Thomas Gredig",
-  year        = 2022,
-  publisher   = "Zenodo",
-  version     = "v2.1",
-  journal     = "",
-  volume      = "",
-  number      = "",
-  pages       = "",
-  note        = note,
-  url         = "https://doi.org/10.5281/zenodo.7464877",
-  doi         = "10.5281/zenodo.7464877",
-  textVersion = sprintf(
-    "Thomas Gredig (%s). nanoAFMr - visualization and analysis of atomic force microscopy images. %s.", note, meta$Date
-  )
+bibentry(
+  bibtype  = "Manual",
+  title    = "R:nanoAFMr - AFM Import and Analysis Tool",
+  author   = "Thomas Gredig",
+  journal  = "",
+  year     = 2022,
+  publisher= "Zenodo",
+  version  = "v2.1",
+  url      = "https://doi.org/10.5281/zenodo.7464877",
+  volume   = "",
+  number   = "",
+  pages    = "",
+  doi      = "10.5281/zenodo.7464877"
 )

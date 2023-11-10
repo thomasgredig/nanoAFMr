@@ -15,7 +15,7 @@
 #' @param obj AFMdata object
 #' @param no channel number
 #' @param method use the method to flatten the image:
-#'   \itemize{
+#'   \describe{
 #'      \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
 #'      \item{"lineByLine"}{Fit each line and substract a linear fit}
 #'      \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
