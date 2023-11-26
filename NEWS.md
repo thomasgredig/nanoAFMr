@@ -1,3 +1,5 @@
+# nanoAFMr 2.2.0
+
 # nanoAFMr 2.1.11
 
 * remove functions from `raster` and move to `terra`
