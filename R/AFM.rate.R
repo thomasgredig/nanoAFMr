@@ -38,7 +38,7 @@ AFM.rate <- function(dbFileName, IDs=NA, verbose = FALSE) {
   
   for(i in 1:length(IDs)) {
     # skip if this user has rated the image already
-    m1 <- which(result$ID == IDs[i] & result$user==user.name)
+    m1 <- which(df_ratings$ID == IDs[i] & df_ratings$user==user.name)
     if (length(m1)>0) next
     
     cat("Rating for ID=",IDs[i],"\n")
