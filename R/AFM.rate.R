@@ -26,10 +26,10 @@ AFM.rate <- function(dbFileName, IDs=NA, verbose = FALSE) {
   # define table names in DB
   mydb <- DBI::dbConnect(RSQLite::SQLite(), dbFileName)
   IDs.all <- AFM.readDB(mydb)
-  if (is.na(IDs)) {
+  if (length(IDs)==0) {
     IDs <- IDs.all
   } else {
-    IDs <- IDs %in% IDs.all
+    IDs <- IDs[IDs %in% IDs.all]
   }
 
   cat("\n\nRating AFM images.\n")

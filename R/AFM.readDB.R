@@ -41,7 +41,7 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
   if (is.na(ID)) {
     # return IDs of AFM images
     if (myTableDataName %in% t1) {
-      return(as.numeric(gsub('afm','',t1[!t1=='afmData'])))
+      return(as.numeric(gsub('afm','',t1[!t1=='afmData' & !t1=='afmRating'])))
     } else {
       stop("Database is not an AFM SQL database.")
     }

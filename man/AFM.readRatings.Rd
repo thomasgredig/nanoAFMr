@@ -4,10 +4,12 @@
 \alias{AFM.readRatings}
 \title{Reads AFM Ratings from SQLite Database}
 \usage{
-AFM.readRatings(dbFileName, verbose = FALSE)
+AFM.readRatings(dbFileName, meanValues = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{dbFileName}{full path and name of SQLite database}
+
+\item{meanValues}{logical, if \code{TRUE} returns only average for each ID}
 
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
