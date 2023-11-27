@@ -11,7 +11,6 @@
 #' @param IDs vector with AFM file IDs
 #' @param verbose if TRUE additional information is output
 #'
-#' @importFrom nanoAFMr AFM.flatten AFM.import
 #' @importFrom RAWdataR raw.getFileByID
 #' @importFrom utils write.csv read.csv
 #'
