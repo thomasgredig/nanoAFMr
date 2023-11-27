@@ -1,5 +1,7 @@
 # nanoAFMr 2.2.0
 
+* adding AFM rating
+
 # nanoAFMr 2.1.11
 
 * remove functions from `raster` and move to `terra`

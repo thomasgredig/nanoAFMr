@@ -109,6 +109,12 @@ data.frame(
 )
 ```
 
+## AFM Image Rating
+
+Finding AFM images based on quality is integrated with the AFM rating system. A user is shown the image and can assign a rating based on the quality of the image. The rating data is user specific and stored in the AFM SQlite database. Use `AFM.readRatings()` and `AFM.writeRatings()` to read / write ratings.
+
+
+
 # Acknowlegments
 
 This material is based upon work supported by the National Science Foundation under Grant Number 2018653. Any opinions, findings, and conclusions or recommendations expressed in     this material are those of the author and do not necessarily reflect the views of the National Science Foundation.
