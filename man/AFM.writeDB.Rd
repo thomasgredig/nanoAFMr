@@ -18,10 +18,9 @@ AFM.writeDB(obj, mydb, ID, vacuum = TRUE, verbose = FALSE)
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
 \description{
-AFMdata S4 image is written to an SQL database in the form
-of a data.frame; the ID will save it in a particular table
-in the database, if another AFM image with the same ID
-exists, it will be overwritten. 
+An AFMdata S4 image is written to an SQL database; the ID will 
+save it in a particular table in the database, if another AFM image 
+with the same ID exists, it will be overwritten. 
 
 Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
 

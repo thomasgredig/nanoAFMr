@@ -1,6 +1,11 @@
+# nanoAFMr 2.2.1
+
+* fix the rating and particle size functions
+
 # nanoAFMr 2.2.0
 
 * adding AFM rating
+* add particle size measurement function `AFM.particleSize()`
 
 # nanoAFMr 2.1.11
 

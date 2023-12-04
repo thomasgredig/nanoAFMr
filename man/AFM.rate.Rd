@@ -4,7 +4,7 @@
 \alias{AFM.rate}
 \title{Rate AFM Images}
 \usage{
-AFM.rate(dbFileName, IDs = NA, verbose = FALSE)
+AFM.rate(dbFileName, IDs = NA, fIDfile = NA, verbose = FALSE)
 }
 \arguments{
 \item{dbFileName}{full path and name of SQLite database}
