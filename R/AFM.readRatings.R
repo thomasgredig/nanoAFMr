@@ -33,11 +33,15 @@ AFM.readRatings <- function(dbFileName, meanValues = FALSE, verbose=FALSE) {
   DBI::dbDisconnect(mydb)
   
   if (meanValues) {
-    # compute mean values for ratinges
-    df_ratings <- df_ratings %>%
-      group_by(ID) %>%
-      summarize(quality = mean(as.numeric(quality))) %>%
-      as.data.frame()
+    if (!is.null(df_ratings)) {
+      # compute mean values for ratinges
+      df_ratings <- df_ratings %>%
+        group_by(ID) %>%
+        summarize(quality = mean(as.numeric(quality))) %>%
+        as.data.frame()
+    } else {
+      df_ratings=data.frame()
+    }
   }
   
   df_ratings
