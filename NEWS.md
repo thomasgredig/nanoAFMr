@@ -1,6 +1,7 @@
 # nanoAFMr 2.2.1
 
 * fix the rating and particle size functions
+* adding `AFM.add2DB` function that adds a particular image to the SQLite database
 
 # nanoAFMr 2.2.0
 

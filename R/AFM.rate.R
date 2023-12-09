@@ -53,7 +53,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
     a = AFM.flatten(a)
     print(plot(a))
     print(a)
-    qual <- readline("Quality, q=exit, 1=high, 2=ok, 3=low [low]: ")
+    if (interactive()) qual <- readline("Quality, q=exit, 1=high, 2=ok, 3=low [low]: ")
     if (qual=='q') break
     if (qual=="") qual=3
     r = data.frame(ID = IDs[i], user=user.name, quality=qual, timestamp=format(Sys.time(), "%Y-%m-%d %X"))
