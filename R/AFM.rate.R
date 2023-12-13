@@ -62,6 +62,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
   DBI::dbDisconnect(mydb)
   
   if (verbose) cat("Writing",nrow(df_ratings),"to SQLite databse.\n")
-  AFM.writeRatings(dbFileName, df_ratings)
+  if (nrow(df_ratings)>0) AFM.writeRatings(dbFileName, df_ratings)
+  
   invisible(df_ratings)
 }
