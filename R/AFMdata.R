@@ -216,6 +216,7 @@ print.AFMdata <- function(x, ...) {
   cpf("Description : %s",        x@description)
   cpf("Channel     : %s",        x@channel)
   cpf("Resolution  : %s",        imageRes)
+  cpf("Pixels      : %s x %s",   x@x.pixels, x@y.pixels)
   cpf("History     : %s",        x@history)
   cpf("Filename    : %s",        x@fullFilename)
 }

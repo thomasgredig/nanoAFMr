@@ -1,3 +1,7 @@
+# nanoAFMr 2.2.2
+
+* fix plotting issue for non-square AFM images
+
 # nanoAFMr 2.2.1
 
 * fix the rating and particle size functions

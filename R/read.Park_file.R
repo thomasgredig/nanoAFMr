@@ -58,13 +58,11 @@ read.Park_file.v2 <- function(filename) {
 
 
   # create image
-  imWidth = tiff.getValue(tiffTags, 'ImageWidth')
-  imHeight = tiff.getValue(tiffTags, 'ImageLength')
-  if (imHeight != imWidth) {
-    warning("Image is not square.")
-    imHeight=imWidth
-  }
-  if (length(df) != imHeight*imWidth) {
+  imWidth = params$nWidth # tiff.getValue(tiffTags, 'ImageWidth')
+  imHeight = params$nHeight # tiff.getValue(tiffTags, 'ImageLength')
+  
+  if (length(df) != params$nWidth * params$nHeight) {
+    warning("AFM Image is not square ==> improvising.")
     imHeight = sqrt(length(df))
     imWidth = imHeight
   }
