@@ -28,6 +28,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
     IDs <- IDs.all
   } 
   if (!is.na(fIDfile)) rID <- raw.readRAWIDfile(fIDfile) else rID = NULL
+  if (is.null(rID)) warning("RAW-ID.csv data cannot be read.")
 
   cat("\n\n--> Rating AFM images.\n")
   user.name = 'anonymous'
@@ -38,16 +39,25 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
     m1 <- which(df_ratings$ID == IDs[i] & df_ratings$user==user.name)
     if (length(m1)>0) next
     
-    cat("Rating for ID=",IDs[i],"\n")
+    if (verbose) cat("Rating for ID=",IDs[i],"\n")
     if (IDs[i] %in% IDs.all) {
       a = AFM.readDB(mydb, ID = IDs[i])
     } else {
       # try to read from local file
-      if (is.null(rID)) next
+      if (is.null(rID)) {
+        cat("RAW-ID file is empty.")
+        next
+      }
       m <- which(rID$ID==IDs[i])
-      if (length(m)==0) next
+      if (length(m)==0) {
+        cat("ID ",IDs[i]," not found.\n")
+        next
+      }
       fname = file.path(rID$path[m], rID$filename[m])
-      if (!file.exists(fname)) next
+      if (!file.exists(fname)) {
+        cat("AFM file is not found:", fname, "\n")
+        next
+      }
       a = AFM.import(fname)
     }
     a = AFM.flatten(a)
@@ -61,7 +71,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
   }
   DBI::dbDisconnect(mydb)
   
-  if (verbose) cat("Writing",nrow(df_ratings),"to SQLite databse.\n")
+  if (verbose) cat("Writing",nrow(df_ratings),"to SQLite database.\n")
   if (nrow(df_ratings)>0) AFM.writeRatings(dbFileName, df_ratings)
   
   invisible(df_ratings)
