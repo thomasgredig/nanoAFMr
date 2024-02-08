@@ -116,3 +116,27 @@ read.Nanoscope_file <- function(filename, no=1, headerOnly = FALSE, verbose=FALS
   }
   df
 }
+
+# reads a nanoscope file with file extension .001 or another number
+# and returns an AFMdata object
+read.Nanoscope.v2 <- function(filename) {
+  d = AFM.read(filename)
+  z.conv = 1
+  if (d$z[1] != 0) z.conv = d$z.nm[1] / d$z[1]
+  d1 = list(d$z.nm)
+  if (is.null(attr(d,"note"))) attr(d,"note")="none"
+  obj = AFMdata(
+    data = list(z=d1),
+    channel = attr(d,"channel"),
+    x.conv = max(d$x.nm)/(max(d$x)-1),
+    y.conv = max(d$y.nm)/(max(d$y)-1),
+    x.pixels = max(d$x),
+    y.pixels = max(d$y),
+    z.conv = z.conv,
+    z.units = .getChannelUnits(attr(d,"channel")),
+    instrument = attr(d,"instrument"),
+    history = '',
+    description = attr(d,"note"),
+    fullFilename = filename
+  )
+}

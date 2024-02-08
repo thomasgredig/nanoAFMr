@@ -4,12 +4,14 @@
 \alias{AFM.add2DB}
 \title{Add AFM Images to the SQL Database}
 \usage{
-AFM.add2DB(baseSQLfile, IDs, verbose = TRUE)
+AFM.add2DB(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose = TRUE)
 }
 \arguments{
 \item{baseSQLfile}{path and file name of the SQLite database with the AFM images}
 
 \item{IDs}{vector with list of unique file IDs to add}
+
+\item{fIDfile}{location of RAW-ID.csv file with path information for files}
 
 \item{verbose}{logical, for verbose output}
 }

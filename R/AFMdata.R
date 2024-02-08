@@ -168,27 +168,12 @@ AFM.import <- function(filename, verbose=FALSE) {
   if (grepl('ibw$',filename)) obj = read.AR_file.v2(filename)
   else if (grepl('tiff$',filename)) obj = read.Park_file.v2(filename)
   else if (grepl('nid$',filename)) obj = read.NanoSurf_file.v2(filename)
+  else if (grepl("\\d\\d\\d$", filename)) obj = read.Nanoscope.v2(filename)
   else {
-    d = AFM.read(filename)
-    z.conv = 1
-    if (d$z[1] != 0) z.conv = d$z.nm[1] / d$z[1]
-    d1 = list(d$z.nm)
-    if (is.null(attr(d,"note"))) attr(d,"note")="none"
-    obj = AFMdata(
-      data = list(z=d1),
-      channel = attr(d,"channel"),
-      x.conv = max(d$x.nm)/(max(d$x)-1),
-      y.conv = max(d$y.nm)/(max(d$y)-1),
-      x.pixels = max(d$x),
-      y.pixels = max(d$y),
-      z.conv = z.conv,
-      z.units = .getChannelUnits(attr(d,"channel")),
-      instrument = attr(d,"instrument"),
-      history = '',
-      description = attr(d,"note"),
-      fullFilename = filename
-    )
+    if (verbose) cat("Not a recognized AFM file.\n")
+    return(NULL)
   }
+  
   if (verbose) print(paste("Instrument:", obj@instrument))
   obj
 }

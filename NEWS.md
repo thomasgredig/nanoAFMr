@@ -1,3 +1,7 @@
+# nanoAFMr 2.2.3
+
+* return NULL object, if filename is not a recognized AFM format
+
 # nanoAFMr 2.2.2
 
 * fix plotting issue for non-square AFM images
