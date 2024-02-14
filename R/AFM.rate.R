@@ -9,12 +9,14 @@
 #'
 #' @param dbFileName full path and name of SQLite database
 #' @param IDs vector with AFM file IDs
-#' @param verbose if TRUE additional information is output
+#' @param fIDfile path and filename for RAW-ID.csv file
+#' @param add2DB logical, if TRUE highly rated AFM images are added to SQL database
+#' @param verbose logical, if TRUE additional information is output
 #'
 #' @importFrom utils write.csv read.csv
 #'
 #' @export
-AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
+AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose = FALSE) {
   if (!file.exists(dbFileName)) stop("Cannot find DB file:", dbFileName)
   
   # load existing ratings
@@ -31,6 +33,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
   if (is.null(rID)) warning("RAW-ID.csv data cannot be read.")
 
   cat("\n\n--> Rating AFM images.\n")
+  saveIDList = c()  # list of IDs that are high-quality
   user.name = 'anonymous'
   if (interactive()) user.name <- readline("Last name of user: ")
   
@@ -66,6 +69,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
     if (interactive()) qual <- readline("Quality, q=exit, 1=high, 2=ok, 3=low [low]: ")
     if (qual=='q') break
     if (qual=="") qual=3
+    if (qual==1) saveIDList = c(saveIDList, IDs[i])
     r = data.frame(ID = IDs[i], user=user.name, quality=qual, timestamp=format(Sys.time(), "%Y-%m-%d %X"))
     df_ratings = rbind(df_ratings, r)
   }
@@ -73,6 +77,11 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, verbose = FALSE) {
   
   if (verbose) cat("Writing",nrow(df_ratings),"to SQLite database.\n")
   if (nrow(df_ratings)>0) AFM.writeRatings(dbFileName, df_ratings)
+  
+  if (add2DB & length(saveIDList)>0) {
+    if (verbose) cat("Saving high-quality AFM images to SQLite database.\n")
+    AFM.add2DB(dbFileName, IDs=saveIDList, fIDfile, verbose=verbose)
+  }
   
   invisible(df_ratings)
 }

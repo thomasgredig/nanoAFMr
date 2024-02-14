@@ -9,6 +9,20 @@ test_that("check writing and reading of SQL DB", {
   q = AFM.readDB(mydb)
   b = AFM.readDB(mydb, 45)
   DBI::dbDisconnect(mydb)
+  
   expect_equal(q, 45)
   expect_equal(summary(b)$objectect,"Park image")
+  expect_equal(summary(b)$resolution,"256 x 256")
+  expect_equal(summary(b)$channel,"Topography")
+  expect_equal(summary(b)$z.units,"nm")
+  
+  # remove image
+  AFM.add2DB(fname, IDs=c(-45), verbose=FALSE)
+  mydb <- DBI::dbConnect(RSQLite::SQLite(), fname)
+  expect_warning( AFM.readDB(mydb, 45) )
+  DBI::dbDisconnect(mydb)
+  
 })
+
+
+

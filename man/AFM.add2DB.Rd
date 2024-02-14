@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.add2DB.R
 \name{AFM.add2DB}
 \alias{AFM.add2DB}
-\title{Add AFM Images to the SQL Database}
+\title{Add or Remove AFM Images to the SQL Database}
 \usage{
 AFM.add2DB(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose = TRUE)
 }
@@ -16,7 +16,9 @@ AFM.add2DB(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose = TRUE)
 \item{verbose}{logical, for verbose output}
 }
 \description{
-Add AFM Images to the SQL Database
+If the ID is negative, then the image will be removed, any positive IDs are added.
+If the IDs can be both positive and negative numbers, then images are both added and
+removed
 }
 \author{
 Thomas Gredig

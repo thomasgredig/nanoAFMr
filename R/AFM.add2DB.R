@@ -1,4 +1,8 @@
-#' Add AFM Images to the SQL Database
+#' Add or Remove AFM Images to the SQL Database
+#' 
+#' If the ID is negative, then the image will be removed, any positive IDs are added.
+#' If the IDs can be both positive and negative numbers, then images are both added and
+#' removed
 #'
 #' @param baseSQLfile path and file name of the SQLite database with the AFM images
 #' @param IDs vector with list of unique file IDs to add
@@ -6,7 +10,7 @@
 #' @param verbose logical, for verbose output
 #'
 #' @importFrom dplyr "%>%" mutate filter select
-#' @importFrom DBI dbConnect dbDisconnect
+#' @importFrom DBI dbConnect dbDisconnect dbExecute
 #'
 #' @author Thomas Gredig
 #'
@@ -14,6 +18,23 @@
 AFM.add2DB <- function(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose=TRUE) {
   if (verbose) cat("AFM SQL dbname:", baseSQLfile,'\n')
   if (!file.exists(baseSQLfile)) stop("AFM database not found.")
+  
+  # check if any AFM images by ID are to be removed
+  # if the ID is negative, then it will be removed, if it exists
+  removeIDlist = abs( IDs[IDs<0] )
+  if (length(removeIDlist)>0) {
+    # remove some AFM images
+    mydb <- dbConnect(RSQLite::SQLite(), baseSQLfile)
+    for(remID in removeIDlist) {
+      myTableAFMname = paste0('afm',remID)
+      dbRemoveTable(mydb, myTableAFMname)
+    }
+    dbExecute(mydb, "VACUUM;")
+    DBI::dbDisconnect(mydb)
+  }
+  
+  IDs = IDs[IDs>0]
+  if (length(IDs)==0) return(0)
   
   # find all AFM files, then add them to the SQL DB
   df <- raw.readRAWIDfile(fIDfile)

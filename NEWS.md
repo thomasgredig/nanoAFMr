@@ -1,6 +1,10 @@
+# nanoAFMr 2.2.4
+
+* AFM rating can automatically save images to the SQL databse
+
 # nanoAFMr 2.2.3
 
-* return NULL object, if filename is not a recognized AFM format
+* return NULL object, if file name is not a recognized AFM format
 
 # nanoAFMr 2.2.2
 
