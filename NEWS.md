@@ -1,3 +1,5 @@
+# nanoAFMr 2.2.5
+
 # nanoAFMr 2.2.4
 
 * AFM rating can automatically save images to the SQL databse
