@@ -1,5 +1,8 @@
 # nanoAFMr 2.2.5
 
+* update ggplot `legend.position.inside`
+* documentation to create AFM database sqlite
+
 # nanoAFMr 2.2.4
 
 * AFM rating can automatically save images to the SQL databse

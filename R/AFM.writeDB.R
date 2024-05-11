@@ -8,6 +8,14 @@
 #' Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
 #' 
 #' Close: DBI::dbDisconnect(mydb)
+#' 
+#' You can create a new AFM database in the following way:
+#' 
+#'     mydb <- DBI::dbConnect(RSQLite::SQLite(), "db.sqlite")
+#'     
+#'     AFM.writeDB(NULL, mydb, 0, vacuum=FALSE)
+#'     
+#'     DBI::dbDisconnect(mydb)
 #'
 #' @param obj S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database
 #' @param mydb database connection from DBI package

@@ -25,6 +25,14 @@ with the same ID exists, it will be overwritten.
 Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
 
 Close: DBI::dbDisconnect(mydb)
+
+You can create a new AFM database in the following way:
+
+    mydb <- DBI::dbConnect(RSQLite::SQLite(), "db.sqlite")
+    
+    AFM.writeDB(NULL, mydb, 0, vacuum=FALSE)
+    
+    DBI::dbDisconnect(mydb)
 }
 \seealso{
 [\code{\link{AFM.readDB}}]

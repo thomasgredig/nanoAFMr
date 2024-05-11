@@ -34,6 +34,6 @@ AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
     xlab('d (nm)') +
     scale_color_discrete('No') +
     theme_bw() +
-    theme(legend.position = c(0.01,0.99),
+    theme(legend.position.inside = c(0.01,0.99),
           legend.justification = c(0,1))
 }

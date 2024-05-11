@@ -186,7 +186,7 @@ AFM.hhcf <- function(obj, no=1,
                aes(fill = 'white',label=myLabel),
                colour = "white",
                fontface = "bold", hjust=-0.1) +
-    theme(legend.position = 'none')
+    theme(legend.position.inside = 'none')
 
   results$graph = g
   
