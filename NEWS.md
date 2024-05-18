@@ -1,3 +1,5 @@
+# nanoAFMr 2.2.6
+
 # nanoAFMr 2.2.5
 
 * update ggplot `legend.position.inside`
