@@ -24,6 +24,7 @@ Depends:
     R (>= 3.1.0)
 Imports:
     DBI,
+    RSQLite,
     dplyr,
     ggplot2 (>= 3.3),
     ggpubr,
@@ -43,7 +44,6 @@ Suggests:
     latex2exp,
     pander,
     rmarkdown,
-    RSQLite,
     scales,
     showtext,
     testthat (>= 2.1.0)

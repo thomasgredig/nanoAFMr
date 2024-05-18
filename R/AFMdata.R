@@ -451,7 +451,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
         scale_x_continuous(expand=c(0,0))+
         coord_equal() +
         theme_bw() +
-        theme(legend.position.inside = "none") +
+        theme(legend.position  = "none") +
         theme(axis.text.x = element_blank(),
               axis.ticks.x = element_blank(),
               axis.text.y = element_blank(),
@@ -482,7 +482,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
         geom_line(data = d.line, aes(x/1000,y/1000), linewidth=4, inherit.aes=FALSE, ...) +
         geom_text(data = d.line, aes(x/1000,y/1000,label=myLabel), vjust=-1, hjust=0, inherit.aes=FALSE, ...) +
         theme_bw() +
-        theme(legend.position.inside = "none") +
+        theme(legend.position  = "none") +
         theme(axis.text.x = element_blank(),
               axis.ticks.x = element_blank(),
               axis.text.y = element_blank(),
