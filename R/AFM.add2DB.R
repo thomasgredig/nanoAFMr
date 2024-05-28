@@ -2,7 +2,7 @@
 #' 
 #' If the ID is negative, then the image will be removed, any positive IDs are added.
 #' If the IDs can be both positive and negative numbers, then images are both added and
-#' removed
+#' removed; save any image, even partial AFM images.
 #'
 #' @param baseSQLfile path and file name of the SQLite database with the AFM images
 #' @param IDs vector with list of unique file IDs to add
@@ -69,11 +69,11 @@ AFM.add2DB <- function(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbos
     try({ a = NULL; a = AFM.import(afmFile) })
     if (is.null(a)) { cat("X") }
     else {
-      if (!AFM.partial(a)) {
+      #if (!AFM.partial(a)) {
         AFM.writeDB(a, mydb, ID, verbose=FALSE)
         savedImageCounter = savedImageCounter + 1
         cat(".")
-      }
+      #}
     }
   }
   cat("\n")

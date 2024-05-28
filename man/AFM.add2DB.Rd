@@ -18,7 +18,7 @@ AFM.add2DB(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose = TRUE)
 \description{
 If the ID is negative, then the image will be removed, any positive IDs are added.
 If the IDs can be both positive and negative numbers, then images are both added and
-removed
+removed; save any image, even partial AFM images.
 }
 \author{
 Thomas Gredig
