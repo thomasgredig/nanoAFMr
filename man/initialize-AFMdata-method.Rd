@@ -16,6 +16,7 @@
   channel,
   instrument,
   history,
+  date,
   description,
   fullFilename
 )
@@ -42,6 +43,8 @@
 \item{instrument}{name of instrument (Park, Cypher, NanoSurf, Veeco)}
 
 \item{history}{history of file changes}
+
+\item{date}{date when file was created}
 
 \item{description}{AFM image description or note}
 

@@ -15,6 +15,7 @@ AFMdata(
   channel,
   instrument,
   history,
+  date = "",
   description = "",
   fullFilename
 )
@@ -30,6 +31,7 @@ AFMdata(
   channel,
   instrument,
   history,
+  date = "",
   description = "",
   fullFilename
 )
@@ -54,6 +56,8 @@ AFMdata(
 \item{instrument}{name of instrument (Park, Cypher, NanoSurf, Veeco)}
 
 \item{history}{history of file changes}
+
+\item{date}{date when file was created}
 
 \item{description}{AFM image description or note}
 
@@ -91,6 +95,8 @@ such as lines, etc.
 \item{\code{instrument}}{name of instrument (Park, Cypher, NanoSurf, Veeco)}
 
 \item{\code{history}}{history of file changes}
+
+\item{\code{date}}{date when file was created}
 
 \item{\code{description}}{AFM image description or note}
 

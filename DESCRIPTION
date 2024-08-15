@@ -1,7 +1,7 @@
 Type: Package
 Package: nanoAFMr
 Title: Load and Analyze Atomic Force Microscopy Data Files
-Version: 2.2.6
+Version: 2.2.7
 Authors@R: 
     person("Thomas", "Gredig", , "thomas.gredig@csulb.edu", 
           role = c("aut", "cre", "cph"),
@@ -51,4 +51,4 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

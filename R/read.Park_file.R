@@ -85,6 +85,7 @@ read.Park_file.v2 <- function(filename) {
     z.units = units,
     instrument = 'Park',
     history = '',
+    date = read.Park_date(tiffTags),
     description = description,
     fullFilename = filename
   )
@@ -108,5 +109,11 @@ read.Park_header.v2 <- function(filename) {
   )
   r2[c(9:12),'value']=tiffTags[c(9:12),'valueStr']
   rbind(r1,r2)
+}
+
+# returns the date string, when the image was recorded:
+# example: "2024:06:04 12:16:16"
+read.Park_date <- function(tiffTags) {
+  tiffTags$valueStr[which(tiffTags$tag==306)]
 }
 

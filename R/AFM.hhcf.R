@@ -54,7 +54,7 @@
 #' @importFrom stats runif nls predict coef 
 #'
 #' @return graph, data frame with g(r) and $num indicating number of computations used for r, or
-#'    a list with the {graph, data.frame, fit parameters}
+#'    a list with graph, data.frame, fit parameters
 #'
 #' @examples
 #' filename = AFM.getSampleImages(type='tiff')

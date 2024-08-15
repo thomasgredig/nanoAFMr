@@ -1,3 +1,7 @@
+# nanoAFMr 2.2.7
+
+* adding creation date to the AFMdata object (only supported with Park images so far)
+
 # nanoAFMr 2.2.6
 
 # nanoAFMr 2.2.5

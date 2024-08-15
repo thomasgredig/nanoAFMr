@@ -45,7 +45,7 @@ is no fit, the value can be reduced to 70 or 60.}
 }
 \value{
 graph, data frame with g(r) and $num indicating number of computations used for r, or
-   a list with the {graph, data.frame, fit parameters}
+   a list with graph, data.frame, fit parameters
 }
 \description{
 Computes the height-height correlation function for an AFM data object; note

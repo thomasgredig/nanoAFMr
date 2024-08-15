@@ -1,7 +1,7 @@
 test_that("Read and write of AFM image to database", {
   # write an AFM image to SQL database, then read back
   fname = file.path(tempdir(), "afm4.sqlite")
-  mydb <- dbConnect(RSQLite::SQLite(), fname)
+  mydb <- DBI::dbConnect(RSQLite::SQLite(), fname)
   
   # save a Park TIFF AFM image
   afmFile = AFM.getSampleImages(type='tiff')[1]
@@ -18,7 +18,7 @@ test_that("Read and write of AFM image to database", {
   # read the images back from the database
   a2 = AFM.readDB(mydb, 45)
   b2 = AFM.readDB(mydb, 46)
-  dbDisconnect(mydb)
+  DBI::dbDisconnect(mydb)
   
   # compare the images
   expect_equal(summary(a1), summary(a2))

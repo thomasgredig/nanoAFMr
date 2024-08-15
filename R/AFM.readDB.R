@@ -35,7 +35,7 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
   # define table names in DB
   myTableAFMname = paste0('afm',ID)
   myTableDataName = paste0('afmData')
-  t1 <- dbListTables(mydb)
+  t1 <- DBI::dbListTables(mydb)
   
   # check if list of available IDs should be returned?
   if (is.na(ID)) {
@@ -50,13 +50,13 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
   # check that database has the tables for this AFM object
   if ((myTableAFMname %in% t1) & (myTableDataName %in% t1)) {
 
-    dbGetQuery(mydb, paste('SELECT * FROM ',
+    DBI::dbGetQuery(mydb, paste('SELECT * FROM ',
                            myTableDataName,'WHERE ID=',ID)) -> dfData
     dfData = dfData[1,]
     channelData = unlist(strsplit(dfData$channel,',')[[1]])
     # load data
     if (dfData$instrument == "Park") {
-      dfAFM <- dbReadTable(mydb, myTableAFMname)
+      dfAFM <- DBI::dbReadTable(mydb, myTableAFMname)
       z = as.vector(dfAFM$z)
       zList = list(z)
     } else if (dfData$instrument == "Cypher") {
@@ -73,6 +73,13 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
       }
     }
     
+    str_creation_date = ""
+    if ("date" %in% names(dfData)) {
+      # some older versions did not save the date
+      str_creation_date = dfData$date 
+    } 
+    
+    
     # create AFMdata S4 class
     obj = AFMdata(
       data = list(z=zList),
@@ -85,6 +92,7 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
       z.units = unlist(strsplit(dfData$z.units,',')[[1]]),
       instrument = dfData$instrument,
       history = '',
+      date = str_creation_date,
       description = dfData$description,
       fullFilename = dfData$fullFilename
     )

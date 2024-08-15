@@ -24,6 +24,7 @@ use \code{plot()} to generate an image.
 d = AFM.import(AFM.getSampleImages(type='ibw'))
 summary(d)
 plot(d)
+
 }
 \author{
 Thomas Gredig

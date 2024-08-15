@@ -136,6 +136,7 @@ read.Nanoscope.v2 <- function(filename) {
     z.units = .getChannelUnits(attr(d,"channel")),
     instrument = attr(d,"instrument"),
     history = '',
+    date = '',
     description = attr(d,"note"),
     fullFilename = filename
   )

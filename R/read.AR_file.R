@@ -65,6 +65,7 @@ read.AR_file.v2 <- function(filename) {
     z.units = units,
     instrument = 'Cypher',
     history = '',
+    date = '',
     description = description,
     fullFilename = filename
   )

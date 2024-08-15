@@ -35,7 +35,9 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose =
   cat("\n\n--> Rating AFM images.\n")
   saveIDList = c()  # list of IDs that are high-quality
   user.name = 'anonymous'
-  if (interactive()) user.name <- readline("Last name of user: ")
+  if (add2DB == FALSE) {
+    if (interactive()) user.name <- readline("Last name of user: ")
+  }
   
   for(i in 1:length(IDs)) {
     # skip if this user has rated the image already

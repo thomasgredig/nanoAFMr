@@ -84,6 +84,7 @@ read.NanoSurf_file.v2 <- function(filename) {
       z.units = get.NIDitem(h,'Dim0Unit'),
       instrument = "NanoSurf",
       history = '',
+      date = '',
       description = afmNote,
       fullFilename = filename
     )

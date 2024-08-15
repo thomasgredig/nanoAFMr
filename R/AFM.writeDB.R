@@ -45,6 +45,7 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
                          z.units = character(),
                          instrument = character(),
                          history = character(),
+                         date = character(),
                          description = character(),
                          fullFilename = character())
     dbCreateTable(mydb, myTableDataName, DFempty)
@@ -84,6 +85,8 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
                       y.pixels = obj@y.pixels,
                       z.units = paste(obj@z.units, collapse = ','),
                       instrument = obj@instrument,
+                      history = obj@history,
+                      date = obj@date,
                       description = obj@description,
                       fullFilename = obj@fullFilename
   )

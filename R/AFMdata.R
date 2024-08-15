@@ -17,6 +17,7 @@
 #' @slot channel vector with names of channels
 #' @slot instrument name of instrument (Park, Cypher, NanoSurf, Veeco)
 #' @slot history history of file changes
+#' @slot date date when file was created
 #' @slot description AFM image description or note
 #' @slot fullFilename name of file
 AFMdata<-setClass("AFMdata",
@@ -32,6 +33,7 @@ AFMdata<-setClass("AFMdata",
                             channel="character",
                             instrument="character",
                             history="character",
+                            date = "character",
                             description="character",
                             fullFilename="character"
                   ),
@@ -61,6 +63,7 @@ AFMdata<-setClass("AFMdata",
 #' @param channel vector with names of channels
 #' @param instrument name of instrument (Park, Cypher, NanoSurf, Veeco)
 #' @param history history of file changes
+#' @param date date when file was created
 #' @param description AFM image description or note
 #' @param fullFilename name of file
 #' @return initialized AFMdata object
@@ -79,6 +82,7 @@ setMethod(f="initialize",
                                channel,
                                instrument,
                                history,
+                               date,
                                description,
                                fullFilename)
           {
@@ -92,6 +96,7 @@ setMethod(f="initialize",
             if (!missing(channel)) .Object@channel <-channel
             if (!missing(instrument)) .Object@instrument <-instrument
             if (!missing(history)) .Object@history <-history
+            if (!missing(date)) .Object@date <-date
             if (!missing(description)) .Object@description <-description
             if (!missing(fullFilename)) .Object@fullFilename<-fullFilename
             validObject(.Object)
@@ -113,6 +118,7 @@ setMethod(f="initialize",
 #' @param channel vector with names of channels
 #' @param instrument name of instrument (Park, Cypher, NanoSurf, Veeco)
 #' @param history history of file changes
+#' @param date date when file was created
 #' @param description AFM image description or note
 #' @param fullFilename name of file
 #' @export
@@ -126,6 +132,7 @@ AFMdata <- function(data,
                     channel,
                     instrument,
                     history,
+                    date="",
                     description="",
                     fullFilename) {
   return(new("AFMdata",
@@ -139,6 +146,7 @@ AFMdata <- function(data,
              channel,
              instrument,
              history,
+             date,
              description,
              fullFilename))
 }
@@ -163,6 +171,7 @@ cpf <- function(...) cat(paste0(sprintf(...), "\n"))
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' summary(d)
 #' plot(d)
+#' 
 #' @export
 AFM.import <- function(filename, verbose=FALSE) {
   if (grepl('ibw$',filename)) obj = read.AR_file.v2(filename)
@@ -198,6 +207,7 @@ print.AFMdata <- function(x, ...) {
   if(dataType=="frequency") imageRes = paste(x@z.conv,x@z.units," - ",(x@z.conv + x@x.nm),x@z.units)
 
   cpf("Object      : %s AFM %s", x@instrument, dataType)
+  cpf("Date Created: %s",        x@date)
   cpf("Description : %s",        x@description)
   cpf("Channel     : %s",        x@channel)
   cpf("Resolution  : %s",        imageRes)
@@ -227,7 +237,8 @@ summary.AFMdata <- function(object,...) {
       resolution = paste(object@x.pixels,"x",object@y.pixels),
       size = paste(object@x.nm,"x",round(object@y.nm),'nm'),
       channel = paste(object@channel),
-      history = paste(object@history)
+      history = paste(object@history),
+      date= paste(object@date)
     )
     for(i in seq_len(length(r$channel))) {
       d = AFM.raster(object,i)
@@ -243,6 +254,7 @@ summary.AFMdata <- function(object,...) {
       size = paste(object@z.conv,"-",(object@z.conv+object@x.nm)),
       channel = paste(object@channel),
       history = paste(object@history),
+      date= paste(object@date),
       z.min = which.max(object@data$freq),
       z.max = (which.max(object@data$freq)-1)*object@x.conv + object@z.conv,
       z.units = object@z.units
@@ -257,6 +269,7 @@ summary.AFMdata <- function(object,...) {
       size = paste(object@z.conv,"-",(object@x.pixels)),
       channel = paste(object@channel),
       history = paste(object@history),
+      date= paste(object@date),
       z.min = 0,
       z.max = 0,
       z.units = object@z.units
