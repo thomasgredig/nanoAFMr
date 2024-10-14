@@ -15,7 +15,10 @@
 #' @author Thomas Gredig
 #'
 #' @export
-AFM.add2DB <- function(baseSQLfile, IDs, fIDfile = "data-raw/RAW-ID.csv", verbose=TRUE) {
+AFM.add2DB <- function(baseSQLfile, 
+                       IDs, 
+                       fIDfile = "data-raw/RAW-ID.csv", 
+                       verbose=TRUE) {
   if (verbose) cat("AFM SQL dbname:", baseSQLfile,'\n')
   if (!file.exists(baseSQLfile)) stop("AFM database not found.")
   

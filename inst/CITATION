@@ -1,11 +1,11 @@
 bibentry(
   bibtype  = "Manual",
-  title    = "R:nanoAFMr - AFM Import and Analysis Tool",
+  title    = "R:nanoAFMr - Atomic Force Microscopy Import and Analysis Tool",
   author   = "Thomas Gredig",
   journal  = "",
   year     = 2022,
   publisher= "Zenodo",
-  version  = "v2.1",
+  version  = "v2.3",
   url      = "https://doi.org/10.5281/zenodo.7464877",
   volume   = "",
   number   = "",
