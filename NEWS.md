@@ -1,3 +1,5 @@
+# nanoAFMr 2.4.0
+
 # nanoAFMr 2.3.0
 
 * clean up code to make available to CRAN
