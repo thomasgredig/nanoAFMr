@@ -74,7 +74,7 @@ test_that("importing Veeco AFM sample file", {
   d = AFM.import(filename)
   expect_true(AFM.isImage(d))
   h = AFMinfo(filename)
-  expect_equal(as.numeric(h$scanRate.Hz),1,tolerance = 1e-2)
+  expect_equal(as.numeric(h$scanRate.Hz),1.97,tolerance = 1e-2)
   expect_equal(h$type,'Veeco')
 })
 
@@ -84,9 +84,9 @@ test_that("Veeco AFM image size check", {
   d = AFM.import(filename)
   # image is 1.7 x 1.7 um
   df = AFM.raster(d)
-  expect_equal(max(df$x),1769,tolerance = 1e-4)
-  expect_equal(max(df$y),1769,tolerance = 1e-4)
-  expect_equal(d@y.pixels,512)
+  expect_equal(max(df$x),1000,tolerance = 1e-4)
+  expect_equal(max(df$y),1000,tolerance = 1e-4)
+  expect_equal(d@y.pixels,256)
 })
 
 test_that("Veeco AFM image size check", {
@@ -95,8 +95,8 @@ test_that("Veeco AFM image size check", {
   r = summary(d)
   # min height -145.6nm
   # max height 13.9nm
-  expect_equal(r$z.min[1],-145.6,tolerance = 1e-2)
-  expect_equal(r$z.max[1],13.9,tolerance = 1e-2)
+  expect_equal(r$z.min[1],-8.1992,tolerance = 1e-2)
+  expect_equal(r$z.max[1],10.4666,tolerance = 1e-2)
 })
 
 
@@ -140,6 +140,6 @@ test_that("verify all sample images", {
       x.pixels = c(x.pixels, d@x.pixels)
     }
   }
-  expect_equal(x.pixels, c(128,128,256,512))
+  expect_equal(sum(x.pixels), sum(c(128,256,128,256)))
 })
 

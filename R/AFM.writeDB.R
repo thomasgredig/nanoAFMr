@@ -1,40 +1,36 @@
-#' Write AFM object to SQL DB
+#' Write AFM Object to SQL Database
 #'
 #' @description
-#' An AFMdata S4 image is written to an SQL database; the ID will 
-#' save it in a particular table in the database, if another AFM image 
-#' with the same ID exists, it will be overwritten. 
+#' Writes and AFM image to an SQL database; the ID is used to store the image. If an image
+#' already exists with this ID, then it will be overwritten. If you use \code{NULL} as the
+#' \code{obj}, then it will delete that ID. The space is only made available, if you vacuum
+#' the database.
 #' 
-#' Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
-#' 
-#' Close: DBI::dbDisconnect(mydb)
-#' 
-#' You can create a new AFM database in the following way:
-#' 
-#'     mydb <- DBI::dbConnect(RSQLite::SQLite(), "db.sqlite")
-#'     
-#'     AFM.writeDB(NULL, mydb, 0, vacuum=FALSE)
-#'     
-#'     DBI::dbDisconnect(mydb)
 #'
-#' @param obj S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database
-#' @param mydb database connection from DBI package
+#' @param obj S4 AFMdata object, if object is \code{NULL}, then ID will be removed from database
+#' @param con database connection from DBI package
 #' @param ID unique object file ID
 #' @param vacuum vacuums the database, if obj is \code{NULL} and something is deleted; this option saves space
 #' @param verbose if \code{TRUE} outputs verbose comments
 #'
-#' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable
+#' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable dbExecute
 #' @author Thomas Gredig
+#' 
+#' @examples
+#' sql_filename = tempfile(fileext = "sqlite")
+#' con <- DBI::dbConnect(RSQLite::SQLite(), sql_filename)
+#' AFM.writeDB(NULL, con, 0, vacuum=FALSE)
+#' DBI::dbDisconnect(con)
 #'
-#' @seealso [\code{\link{AFM.readDB}}]
+#' @seealso [AFM.readDB()]
 #'
 #' @export
-AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
+AFM.writeDB <- function(obj, con, ID, vacuum = TRUE, verbose=FALSE) {
   # define table names in DB
   myTableAFMname = paste0('afm',ID)
   myTableDataName = paste0('afmData')
   
-  t1 <- dbListTables(mydb)
+  t1 <- dbListTables(con)
   if (!myTableDataName %in% t1) {
     DFempty = data.frame(ID = integer(),
                          channel = character(),
@@ -48,18 +44,20 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
                          date = character(),
                          description = character(),
                          fullFilename = character())
-    dbCreateTable(mydb, myTableDataName, DFempty)
+    dbCreateTable(con, myTableDataName, DFempty)
     if (verbose) print(paste("Created data table:",myTableDataName))
   }
   
   # remove AFM image data from DB, if it exists
   if (myTableAFMname %in% t1) {
-    dbRemoveTable(mydb, myTableAFMname)
+    dbRemoveTable(con, myTableAFMname)
     if (verbose) print(paste("Removed existing table:", myTableAFMname))
   }
-  # exit if there is no object to be added; this can be used to delete an image
+  
+  # exit if there is no object to be added; 
+  # this can be used to delete an image
   if (is.null(obj)) {
-    if (vacuum) dbGetQuery(mydb, "VACUUM;")
+    if (vacuum) dbExecute(con, "VACUUM")
     return(NULL)
   }
   
@@ -75,7 +73,7 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
                   "is not supported for database output."))
     return(NULL)
   }
-  dbWriteTable(mydb, myTableAFMname, dfZ)
+  dbWriteTable(con, myTableAFMname, dfZ)
   
   dfData = data.frame(ID = ID,
                       channel = paste(obj@channel, collapse = ','),
@@ -90,7 +88,7 @@ AFM.writeDB <- function(obj, mydb, ID, vacuum = TRUE, verbose=FALSE) {
                       description = obj@description,
                       fullFilename = obj@fullFilename
   )
-  dbAppendTable(mydb, myTableDataName, dfData)
+  dbAppendTable(con, myTableDataName, dfData)
   
   invisible(TRUE)
 }

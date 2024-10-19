@@ -13,9 +13,10 @@
 #'
 #' @importFrom DBI dbReadTable dbGetQuery dbListTables dbConnect dbDisconnect
 #' @importFrom dplyr group_by "%>%" summarize
+#' @importFrom RSQLite SQLite
+#' @importFrom rlang .data
 #' 
-#' @seealso [\code{\link{AFM.writeRatings}}]
-#'
+#' @seealso [AFM.writeRatings()]
 #'
 #' @export
 AFM.readRatings <- function(dbFileName, meanValues = FALSE, verbose=FALSE) {
@@ -36,8 +37,8 @@ AFM.readRatings <- function(dbFileName, meanValues = FALSE, verbose=FALSE) {
     if (!is.null(df_ratings)) {
       # compute mean values for ratinges
       df_ratings <- df_ratings %>%
-        group_by(ID) %>%
-        summarize(quality = mean(as.numeric(quality))) %>%
+        group_by(.data$ID) %>%
+        summarize(quality = mean(as.numeric(.data$quality))) %>%
         as.data.frame()
     } else {
       df_ratings=data.frame()

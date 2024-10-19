@@ -4,14 +4,14 @@
 \alias{AFM.rate}
 \title{Rate AFM Images}
 \usage{
-AFM.rate(dbFileName, IDs = NA, fIDfile = NA, add2DB = FALSE, verbose = FALSE)
+AFM.rate(dbFileName, IDs = NA, dataRAW, add2DB = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{dbFileName}{full path and name of SQLite database}
 
 \item{IDs}{vector with AFM file IDs}
 
-\item{fIDfile}{path and filename for RAW-ID.csv file}
+\item{dataRAW}{dataRAW object with ID, path and filename information}
 
 \item{add2DB}{logical, if TRUE highly rated AFM images are added to SQL database}
 

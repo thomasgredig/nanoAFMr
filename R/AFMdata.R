@@ -533,8 +533,6 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
 
 
 
-# (simple check only at the moment): NEEDS more work
-
 #' checks if the object is an AFM image
 #'
 #' @param obj AFMdata object
@@ -548,7 +546,7 @@ AFM.isImage <- function(obj) {
   (AFM.dataType(obj)=="image")
 }
 
-#' Get AFMdata object type: image, frequency, force, spectroscopy
+#' Get AFM Data Type as String
 #' 
 #' @description Determine the type of the AFM file; this could be
 #'     an `image` or `frequency` for resonance curve, or `spectroscopy` for
@@ -560,10 +558,10 @@ AFM.isImage <- function(obj) {
 #'
 #' @author Thomas Gredig
 #' @examples
-#' 
 #' # show the data type for each AFM file
 #' fList = AFM.getSampleImages()
-#' sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
+#' dTypes = sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
+#' data.frame(basename(fList), unname(dTypes))
 #' 
 #' @export
 AFM.dataType <- function(obj) {

@@ -158,29 +158,42 @@ read.IFD <- function(q,X) {
 # converts the number to a readable string according to the
 # conventions https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
 # and https://www.loc.gov/preservation/digital/formats/content/tiff_tags.shtml
+#' @param tagID vector with tags
+#' @importFrom dplyr case_match
+#' @noRd
 identifyTIFFtags <- function(tagID) {
-  plyr::mapvalues(tagID,
-            from = c(256,257,258,259,
-                     262,263,264,265,
-                     273,274,277,
-                     278,279,
-                     305,306,315,
-                     320,
-                     50432, 50433,
-                     50434, 50435, 50436,
-                     50437, 50438, 50439
-            ),
-            to = c("ImageWidth","ImageLength","BitsPerSample","Compression",
-                   "PhotometricInterpretation","Thresholding","CellWidth","CellLength",
-                   "StripOffsets","Orientation","SamplesPerPixel",
-                   "RowsPerStrip","StripByteCounts",
-                   "Software","DateTime","Artist",
-                   "ColorMap",
-                   "ParkMagicNumber", "ParkVersion",
-                   "ParkAFMdata", "ParkAFMheader", "ParkComments",
-                   "ParkLineProfile", "ParkSpectroHeader","ParkSpectroData"
-            ),
-            warn_missing=FALSE)
+  stopifnot(is.numeric(tagID))
+  # convert all tagID into strings
+  tagID_converted <- case_match(
+    tagID,
+    256 ~ "ImageWidth",
+    257 ~ "ImageLength",
+    258 ~ "BitsPerSample",
+    259 ~ "Compression",
+    262 ~ "PhotometricInterpretation",
+    263 ~ "Thresholding",
+    264 ~ "CellWidth",
+    265 ~ "CellLength",
+    273 ~ "StripOffsets",
+    274 ~ "Orientation",
+    277 ~ "SamplesPerPixel",
+    278 ~ "RowsPerStrip",
+    279 ~ "StripByteCounts",
+    305 ~ "Software",
+    306 ~ "DateTime",
+    315 ~ "Artist",
+    320 ~ "ColorMap",
+    50432 ~ "ParkMagicNumber",
+    50433 ~ "ParkVersion",
+    50434 ~ "ParkAFMdata",
+    50435 ~ "ParkAFMheader",
+    50436 ~ "ParkComments",
+    50437 ~ "ParkLineProfile",
+    50438 ~ "ParkSpectroHeader",
+    50439 ~ "ParkSpectroData",
+    .default = NA_character_
+  )
+  tagID_converted
 }
 
 # tagsType = type number
@@ -188,14 +201,25 @@ identifyTIFFtags <- function(tagID) {
 # converts the number to a readable string according to the
 # conventions https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
 # and https://www.loc.gov/preservation/digital/formats/content/tiff_tags.shtml
-#' @importFrom plyr mapvalues
+#' @importFrom dplyr case_match
+#' @noRd
 identifyTIFFtypes <- function(tagsType) {
-  plyr::mapvalues(tagsType,
-            from = 1:12,
-            to = c("Byte","ASCII","Short (16-bit)","Long (32-bit)",
-                   "Rational","SByte","Undefined","SShort","SLong","SRational",
-                   "Float","Double"),
-            warn_missing=FALSE)
+  case_match(
+    tagsType,
+    1 ~ "Byte",
+    2 ~ "ASCII",
+    3 ~ "Short (16-bit)",
+    4 ~ "Long (32-bit)",
+    5 ~ "Rational",
+    6 ~ "SByte",
+    7 ~ "Undefined",
+    8 ~ "SShort",
+    9 ~ "SLong",
+    10 ~ "SRational",
+    11 ~ "Float",
+    12 ~ "Double",
+    .default = NA_character_
+  )
 }
 
 

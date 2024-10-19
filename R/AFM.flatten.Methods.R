@@ -62,11 +62,10 @@
   ldf$z.flat = ldf$z - ldf$bgd
   
   if (outGraphs) {
-    ldf %>%
-      ggplot(aes(x,z)) +
-      geom_point(col='red', size=1.5) +
-      geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
-      theme_bw() -> g.Flat
+    ggplot(ldf,aes(x,z)) +
+    geom_point(col='red', size=1.5) +
+    geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
+    theme_bw() -> g.Flat
   } else {
     g.Flat = NULL
   }

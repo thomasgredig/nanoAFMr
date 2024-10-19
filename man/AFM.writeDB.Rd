@@ -2,14 +2,14 @@
 % Please edit documentation in R/AFM.writeDB.R
 \name{AFM.writeDB}
 \alias{AFM.writeDB}
-\title{Write AFM object to SQL DB}
+\title{Write AFM Object to SQL Database}
 \usage{
-AFM.writeDB(obj, mydb, ID, vacuum = TRUE, verbose = FALSE)
+AFM.writeDB(obj, con, ID, vacuum = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{obj}{S4 AFM object from nanoAFMr package, if object is \code{NULL}, then ID will be removed from database}
+\item{obj}{S4 AFMdata object, if object is \code{NULL}, then ID will be removed from database}
 
-\item{mydb}{database connection from DBI package}
+\item{con}{database connection from DBI package}
 
 \item{ID}{unique object file ID}
 
@@ -18,24 +18,20 @@ AFM.writeDB(obj, mydb, ID, vacuum = TRUE, verbose = FALSE)
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
 \description{
-An AFMdata S4 image is written to an SQL database; the ID will 
-save it in a particular table in the database, if another AFM image 
-with the same ID exists, it will be overwritten. 
+Writes and AFM image to an SQL database; the ID is used to store the image. If an image
+already exists with this ID, then it will be overwritten. If you use \code{NULL} as the
+\code{obj}, then it will delete that ID. The space is only made available, if you vacuum
+the database.
+}
+\examples{
+sql_filename = tempfile(fileext = "sqlite")
+con <- DBI::dbConnect(RSQLite::SQLite(), sql_filename)
+AFM.writeDB(NULL, con, 0, vacuum=FALSE)
+DBI::dbDisconnect(con)
 
-Open: mydb <- DBI::dbConnect(RSQLite::SQLite(), "myFile.sqlite")
-
-Close: DBI::dbDisconnect(mydb)
-
-You can create a new AFM database in the following way:
-
-    mydb <- DBI::dbConnect(RSQLite::SQLite(), "db.sqlite")
-    
-    AFM.writeDB(NULL, mydb, 0, vacuum=FALSE)
-    
-    DBI::dbDisconnect(mydb)
 }
 \seealso{
-[\code{\link{AFM.readDB}}]
+[AFM.readDB()]
 }
 \author{
 Thomas Gredig

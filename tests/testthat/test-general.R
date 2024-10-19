@@ -103,3 +103,10 @@ test_that("Check AFM file extension", {
   expect_true(AFM.isFileValid(fileTest))
 })
 
+
+test_that("Park AFM Tags", {
+  expect_equal(identifyTIFFtags(262),"PhotometricInterpretation")
+  expect_equal(identifyTIFFtags(50439),"ParkSpectroData")
+  expect_true(is.na(identifyTIFFtags(3)))
+})
+

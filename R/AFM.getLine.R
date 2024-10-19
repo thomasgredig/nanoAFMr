@@ -1,4 +1,4 @@
-#' AFM horizontal or vertical profile line
+#' Horizontal or Vertical Profile Line of AFM Image
 #'
 #' create a profile data line for a particular
 #' position given in pixels; either a horizontal or a vertical

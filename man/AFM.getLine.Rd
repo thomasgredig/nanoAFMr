@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.getLine.R
 \name{AFM.getLine}
 \alias{AFM.getLine}
-\title{AFM horizontal or vertical profile line}
+\title{Horizontal or Vertical Profile Line of AFM Image}
 \usage{
 AFM.getLine(
   obj,

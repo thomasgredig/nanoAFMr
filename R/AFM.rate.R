@@ -9,14 +9,17 @@
 #'
 #' @param dbFileName full path and name of SQLite database
 #' @param IDs vector with AFM file IDs
-#' @param fIDfile path and filename for RAW-ID.csv file
+#' @param dataRAW dataRAW object with ID, path and filename information
 #' @param add2DB logical, if TRUE highly rated AFM images are added to SQL database
 #' @param verbose logical, if TRUE additional information is output
 #'
 #' @importFrom utils write.csv read.csv
+#' @importFrom DBI dbConnect
+#' @importFrom RSQLite SQLite
 #'
 #' @export
-AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose = FALSE) {
+AFM.rate <- function(dbFileName, IDs=NA, dataRAW, add2DB = FALSE, verbose = FALSE) {
+  if (!inherits(dataRAW,"dataRAW")) stop("dataRAW object must be provided.")
   if (!file.exists(dbFileName)) stop("Cannot find DB file:", dbFileName)
   
   # load existing ratings
@@ -29,8 +32,7 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose =
   if (length(IDs)==0) {
     IDs <- IDs.all
   } 
-  if (!is.na(fIDfile)) rID <- raw.readRAWIDfile(fIDfile) else rID = NULL
-  if (is.null(rID)) warning("RAW-ID.csv data cannot be read.")
+  rID <- as.data.frame(dataRAW)
 
   cat("\n\n--> Rating AFM images.\n")
   saveIDList = c()  # list of IDs that are high-quality
@@ -49,10 +51,6 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose =
       a = AFM.readDB(mydb, ID = IDs[i])
     } else {
       # try to read from local file
-      if (is.null(rID)) {
-        cat("RAW-ID file is empty.")
-        next
-      }
       m <- which(rID$ID==IDs[i])
       if (length(m)==0) {
         cat("ID ",IDs[i]," not found.\n")
@@ -80,10 +78,6 @@ AFM.rate <- function(dbFileName, IDs=NA, fIDfile = NA, add2DB = FALSE, verbose =
   if (verbose) cat("Writing",nrow(df_ratings),"to SQLite database.\n")
   if (nrow(df_ratings)>0) AFM.writeRatings(dbFileName, df_ratings)
   
-  if (add2DB & length(saveIDList)>0) {
-    if (verbose) cat("Saving high-quality AFM images to SQLite database.\n")
-    AFM.add2DB(dbFileName, IDs=saveIDList, fIDfile, verbose=verbose)
-  }
   
   invisible(df_ratings)
 }

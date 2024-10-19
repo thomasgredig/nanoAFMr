@@ -82,7 +82,7 @@ get.Skewness <- function(z) {
 #' @param z z component vector
 #'
 #' @importFrom stats sd
-#'
+#' @noRd
 get.Hsd <- function(z) {sd(z)}
 
 # computes the ratio of pin hole area (height lower than 3 sigma) to total area through pixel counting

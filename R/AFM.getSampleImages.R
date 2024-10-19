@@ -22,7 +22,7 @@ AFM.getSampleImages <- function(type='*') {
                       ibw = "ibw$",
                       nid = "20160301",
                       tiff = "^Park",
-                      veeco= "003$",
+                      veeco= "0\\d\\d$",
                       resonance = "resonance",
                       "*")
   file.list = dir(pfad,pattern=searchFile)

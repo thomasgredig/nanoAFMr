@@ -1,4 +1,8 @@
-# nanoAFMr 2.4.0
+# nanoAFMr 2.3.1
+
+* reduce size and dependencies of code for submission
+* AFM.add2DB is superseeded by writeAFM2DB in dataProjectTemplate
+* AFM images can be removed with AFM.writeDB() instead
 
 # nanoAFMr 2.3.0
 

@@ -1,21 +1,18 @@
-# loads AFM image file
-# (code from previous version to load certain
-# types of images, should be deprecated, when possible)
+#' Imports Nanoscope Files
+#' (code from previous version to load certain
+#' types of images, should be deprecated, when possible)
+#' @noRd
 AFM.read <- function(filename, no=1) {
   # does file exist?
   df = data.frame()
   if (file.exists(filename)) {
-    # get file extension
-    #fext = tolower(tools::file_ext(filename))
-
     df = read.Nanoscope_file(filename,no)
     attr(df,"instrument")='Veeco'
-
-  }  else { warning(paste("File does not exist:",filename)) }
+  } else {
+    warning(paste("File does not exist:",filename)) 
+  }
   df
 }
-
-
 
 
 

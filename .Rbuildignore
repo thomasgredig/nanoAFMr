@@ -2,4 +2,5 @@
 ^\.Rproj\.user$
 docs/
 pkgdown/
-^LICENSE\.md$
+_pkgdown.yml
+^_main.R

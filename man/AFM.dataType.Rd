@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFMdata.R
 \name{AFM.dataType}
 \alias{AFM.dataType}
-\title{Get AFMdata object type: image, frequency, force, spectroscopy}
+\title{Get AFM Data Type as String}
 \usage{
 AFM.dataType(obj)
 }
@@ -19,10 +19,10 @@ Determine the type of the AFM file; this could be
     with data and no image
 }
 \examples{
-
 # show the data type for each AFM file
 fList = AFM.getSampleImages()
-sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
+dTypes = sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
+data.frame(basename(fList), unname(dTypes))
 
 }
 \author{
