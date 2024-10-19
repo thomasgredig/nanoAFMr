@@ -6,7 +6,7 @@
 #'
 #' @param baseSQLfile path and file name of the SQLite database with the AFM images
 #' @param IDs vector with list of unique file IDs to add
-#' @param fIDfile location of RAW-ID.csv file with path information for files
+#' @param dataRAW file with path information for files
 #' @param verbose logical, for verbose output
 #'
 #' @importFrom dplyr "%>%" mutate filter select
@@ -17,7 +17,7 @@
 #' @export
 AFM.add2DB <- function(baseSQLfile, 
                        IDs, 
-                       fIDfile = "data-raw/RAW-ID.csv", 
+                       dataRAW, 
                        verbose=TRUE) {
   if (verbose) cat("AFM SQL dbname:", baseSQLfile,'\n')
   if (!file.exists(baseSQLfile)) stop("AFM database not found.")
@@ -40,7 +40,7 @@ AFM.add2DB <- function(baseSQLfile,
   if (length(IDs)==0) return(0)
   
   # find all AFM files, then add them to the SQL DB
-  df <- raw.readRAWIDfile(fIDfile)
+  df <- dataRAW #raw.readRAWIDfile(fIDfile)
   if (nrow(df)==0) stop("RAW-ID.csv file not found in ", fIDfile)
 
   fileList <- df %>%

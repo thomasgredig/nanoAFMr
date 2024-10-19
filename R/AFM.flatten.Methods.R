@@ -48,6 +48,7 @@
 ###################################################
 # Helper Functions
 ###################################################
+#' @noRd
 .flattenLine <- function(afmd, lineNo, lowLimit=NA, upperLimit=NA, 
                          no=1, outGraphs=TRUE, tau_lower = 0.01) {
   
