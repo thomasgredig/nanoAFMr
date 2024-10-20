@@ -99,7 +99,13 @@ read.NanoSurf_file.v2 <- function(filename) {
     dz = list()
     for(J in seq_len(noImages)) {
       s1 = NID.getChannelScale(hItems,J)
-      units = c(units, s1$units[3])
+      unit_conversion_factor = 1
+      new_units = s1$units[3]
+      if (new_units=="m") {
+        new_units = "nm"
+        unit_conversion_factor = 1E9
+      }
+      units = c(units, new_units)
       channels = c(channels, s1$channelName[3])
 
       # create the rastering sequences for x-, y-axes
@@ -108,7 +114,7 @@ read.NanoSurf_file.v2 <- function(filename) {
       seq_y = seq(from=s1$from[2], to=s1$to[2], length.out = s1$length[2])
       range.z = s1$to[3] - s1$from[3]
 
-      dz[[J]] = r[[J]]* (range.z/s1$length[3])
+      dz[[J]] = r[[J]]* (range.z/s1$length[3]) * unit_conversion_factor
     }
 
     afmNote =paste(get.NIDitem(hItems[[3]],'Date'),get.NIDitem(hItems[[3]],'Time'))

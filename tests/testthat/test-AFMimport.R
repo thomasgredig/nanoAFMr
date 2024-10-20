@@ -125,8 +125,8 @@ test_that("NanoSurf image size check", {
   r = summary(d)
   # min height -294.2nm
   # max height -88.5nm
-  expect_equal(r$z.min[1],-294.2e-9,tolerance = 1e-2)
-  expect_equal(r$z.max[1],-88.5e-9,tolerance = 1e-2)
+  expect_equal(r$z.min[1],-294.2,tolerance = 1e-2)
+  expect_equal(r$z.max[1],-88.5,tolerance = 1e-2)
 })
 
 test_that("verify all sample images", {

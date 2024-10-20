@@ -3,6 +3,7 @@
 * reduce size and dependencies of code for submission
 * AFM.add2DB is superseeded by writeAFM2DB in dataProjectTemplate
 * AFM images can be removed with AFM.writeDB() instead
+* NID files have units converted to nm
 
 # nanoAFMr 2.3.0
 

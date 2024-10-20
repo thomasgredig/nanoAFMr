@@ -1,14 +1,21 @@
-[![DOI](https://zenodo.org/badge/580499036.svg)](https://zenodo.org/badge/latestdoi/580499036)
-
 # nanoAFMr <img src="man/figures/logo.png" align="right" width="250"/>
 
-Imports and analyzes Atomic Force Microsocpy (AFM) images; currently four types are supported, images from Nanosurf (.nid), Bruker / Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
+<!-- badges: start -->
+[![DOI](https://zenodo.org/badge/580499036.svg)](https://zenodo.org/badge/latestdoi/580499036)
+[![CRAN status](https://www.r-pkg.org/badges/version/rigakuXRD)](https://CRAN.R-project.org/package=rigakuXRD)
+<!-- badges: end -->
+
+Imports and analyzes Atomic Force Microsocpy (AFM) images; four file types are supported, images from Nanosurf (.nid), Bruker / Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
 
 This package provides three main advantages:
 
--   Using this data class, a series of images can be analyzed uniformly and quickly within R;
--   Access to each data point allows us to integrate mathematical models directly to the original data;
--   Part of reproducible data science that processes raw data directly into publishable figures.
+-   **Multi-AFM image analysis**: use identical algorithms on a series of AFM images;
+-   **Direct AFM pixel access**: original data is analyzed directly at the pixel level
+-   **Reproducible science**: flattening, cropping and profile lines are woven into the history of the image and can be exactly reproduced
+-   **Instrument independent**: the AFM data is stored in an open-source `AFMdata` object that is independent from the recording instrument
+
+Therefore, a publishable figure can be produced such that it can be exactly reproduced from the original data. The entire process is stored in the AFMdata as a 'history' element. 
+
 
 ## Installation
 
@@ -27,9 +34,37 @@ Several new data structures (S3 and S4) are introduced:
 -   `AFMinfo` - S3 class that contains all parameters of the AFM images, such as vibration frequency, etc.
 -   `AFMmath` - S3 class that contains computed parameters, such as roughness, etc. about a particular AFM image
 
-## Usage
+## Usage Scenario
 
-There is a complete description for nanoAFMr library functions; examples in the Article Vignettes are also available.
+Here is a typical usage scenario for AFM image data processing. In the first step, an AFM image is loaded and graphed, the information about the AFM image is also printed.
+
+``` r
+library(nanoAFMr)
+afm_filename = AFM.getSampleImages("veeco")
+a = AFM.import(afm_filename[1])
+a = AFM.flatten(a)
+print(a)
+plot(a)
+summary(a)
+```
+
+Analysis usually involves plotting a histogram and running a height-height correlation length:
+
+``` r
+AFM.histogram(a)                # graph a histogram
+AFM.hhcf(a, r.percentage = 70)  # find the correlation length
+AFM.math.params(a)              # determine roughness Rq and more
+```
+
+Often, a line profile can be useful to visualize the topography. You can either graph a horizontal line profile or any custom profile:
+
+``` r
+a2 <- AFM.getLine(a, yPixel = 50)  # horizontal line
+plot(a2, addLines = TRUE)          # graph image with line
+AFM.linePlot(a2)                   # graph horizontal line profile
+AFM.lineProfile(obj,21,225,83,191,unitPixels = T) -> a3
+AFM.linePlot(a3) + geom_point(size=2)  # graph arbitrary line profile
+```
 
 ### AFM data
 

@@ -44,14 +44,14 @@ q = plot(afmd, graphType=1, trimPeaks=0.01)
 This graph has a square shape and adds a bar of length 20%; it places the scale inside the graph.
 
 ```{r}
-plot(afmd, graphType=2,trimPeaks=0.01)
+# plot(afmd, graphType=2,trimPeaks=0.01)
 ```
 
 The image can be saved with `ggsave` as it is graphed with ggplot.
 
 ```{r}
-g1 = plot(afmd, graphType=2, size=10, trimPeaks=0.01)
-ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=150)
+# g1 = plot(afmd, graphType=2, size=10, trimPeaks=0.01)
+# ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=150)
 ```
 
 ## graphType 3
@@ -59,7 +59,7 @@ ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=150)
 This graph type is bare and has neither length scales nor legend.
 
 ```{r}
-plot(afmd, graphType=3, trimPeaks=0.01)
+# plot(afmd, graphType=3, trimPeaks=0.01)
 summary(afmd)
 ```
 ## graphType 4
@@ -67,7 +67,7 @@ summary(afmd)
 This graph type is plain with a scale. You can also change the color and the size of the font that displays the scale.
 
 ```{r}
-plot(afmd, graphType=4, col='white', size=10, trimPeaks=0.05, fillOption = 'A')
+# plot(afmd, graphType=4, col='white', size=10, trimPeaks=0.05, fillOption = 'A')
 ```
 
 
@@ -77,7 +77,7 @@ plot(afmd, graphType=4, col='white', size=10, trimPeaks=0.05, fillOption = 'A')
 This graph type is bare and has neither length scales nor legend.
 
 ```{r}
-plot(afmd, graphType=1, trimPeaks=0.01, redBlue = TRUE)
+# plot(afmd, graphType=1, trimPeaks=0.01, redBlue = TRUE)
 ```
 
 
@@ -87,24 +87,24 @@ plot(afmd, graphType=1, trimPeaks=0.01, redBlue = TRUE)
 Use the package `cowplot` to create a graph with two plots. Use `save_plot` to save the graph.
 
 ```{r}
-library(cowplot)
-library(latex2exp)
-fname2 = AFM.getSampleImages(type='ibw')[1]
-afmd = AFM.import(fname2)
+# library(cowplot)
+# library(latex2exp)
+# fname2 = AFM.getSampleImages(type='ibw')[1]
+# afmd = AFM.import(fname2)
 
-g1 = plot(afmd, trimPeaks=0.01, graphType = 1) + 
-  labs(fill='h (nm)') + theme(legend.key.size = unit(1, 'char'))
-g2 = plot(afmd, no=2, trimPeaks=0.01, graphType = 1, mpt=29.6) +
-  labs(fill="A (nm)") + theme(legend.key.size = unit(1, 'char'))
-g3 = plot(afmd, no=3, trimPeaks=0.01, graphType = 1, mpt=65.5) +
-  labs(fill=TeX("$\\phi$ (deg)")) + theme(legend.key.size = unit(1, 'char'))
-g4 = plot(afmd, no=4, trimPeaks=0.01, graphType = 1) + 
-  labs(fill="z (nm)") + theme(legend.key.size = unit(1, 'char'))
-gAll = plot_grid(g1, g2, g3, g4,
-          labels=c('a','b','c','d')) 
-ggdraw(add_sub(gAll, 
-               "Showing surface morphology of a phthalocyanine thin film\n with (a) height h, (b) amplitude A, (c) phase ϕ, and \n (d) z-sensor z response. Sample / image from Gredig\n Lab, CSU Long Beach.",
-               x=0.1, hjust=0))
+# g1 = plot(afmd, trimPeaks=0.01, graphType = 1) + 
+#   labs(fill='h (nm)') + theme(legend.key.size = unit(1, 'char'))
+# g2 = plot(afmd, no=2, trimPeaks=0.01, graphType = 1, mpt=29.6) +
+#   labs(fill="A (nm)") + theme(legend.key.size = unit(1, 'char'))
+# g3 = plot(afmd, no=3, trimPeaks=0.01, graphType = 1, mpt=65.5) +
+#   labs(fill=TeX("$\\phi$ (deg)")) + theme(legend.key.size = unit(1, 'char'))
+# g4 = plot(afmd, no=4, trimPeaks=0.01, graphType = 1) + 
+#   labs(fill="z (nm)") + theme(legend.key.size = unit(1, 'char'))
+# gAll = plot_grid(g1, g2, g3, g4,
+#           labels=c('a','b','c','d')) 
+# ggdraw(add_sub(gAll, 
+#                "Showing surface morphology of a phthalocyanine thin film\n with (a) height h, (b) amplitude A, (c) phase ϕ, and \n (d) z-sensor z response. Sample / image from Gredig\n Lab, CSU Long Beach.",
+#                x=0.1, hjust=0))
 ```
 
 
@@ -114,23 +114,23 @@ You can use the `fillOption` option to change the color palette, see also `? sca
 
 
 ```{r}
-plot(afmd, graphType = 1, fillOption = "magma")
-plot(afmd, graphType = 1, fillOption = "inferno")
-plot(afmd, graphType = 1, fillOption = "plasma")
-plot(afmd, graphType = 1, fillOption = "viridis")
+# plot(afmd, graphType = 1, fillOption = "magma")
+# plot(afmd, graphType = 1, fillOption = "inferno")
+# plot(afmd, graphType = 1, fillOption = "plasma")
+# plot(afmd, graphType = 1, fillOption = "viridis")
 ```
 
 ```{r}
-plot(afmd, graphType = 1, fillOption = "cividis")
-plot(afmd, graphType = 1, fillOption = "rocket")
-plot(afmd, graphType = 1, fillOption = "mako")
-plot(afmd, graphType = 1, fillOption = "turbo")
+# plot(afmd, graphType = 1, fillOption = "cividis")
+# plot(afmd, graphType = 1, fillOption = "rocket")
+# plot(afmd, graphType = 1, fillOption = "mako")
+# plot(afmd, graphType = 1, fillOption = "turbo")
 ```
 
 
 ## Adjusting the scale
 
 ```{r}
-plot(afmd)
+# plot(afmd)
 plot(afmd, setRange=c(-50,50))
 ```
