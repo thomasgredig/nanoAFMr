@@ -29,7 +29,7 @@
 #' AFM.linePlot(afmd2)
 #' head(AFM.linePlot(afmd2, dataOnly=TRUE))
 #'
-#' @seealso [AFM.getLine(), AFM.liniePlot(), plot.AFMdata()]
+#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.liniePlot}}, \code{\link{plot.AFMdata}}
 #'
 #' @importFrom terra rast click
 #' @export

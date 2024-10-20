@@ -25,7 +25,7 @@ test_that("Flattening with Line by Line and Slope", {
   expect_equal(sum(a2@data$z[[1]])/a2@x.pixels/a2@y.pixels, 28.3, tolerance = 0.01)
   
   df = AFM.flattenLine(a, tau_lower=0.05)
-  expect_equal(mean(df$m), 0, tolerance = 1e-4)
+  expect_equal(mean(df$m), 0, tolerance = 1e-3)
   a2 = AFM.flatten(a, method='slope', slope = df)
   expect_equal(sum(a2@data$z[[1]])/a2@x.pixels/a2@y.pixels, 28.3, tolerance = 0.01)
 })

@@ -55,7 +55,7 @@ plot(d2,graphType=2)
 
 }
 \seealso{
-[AFM.flattenLine()]
+[\code{\link{AFM.flattenLine}}]
 }
 \author{
 Thomas Gredig

@@ -20,7 +20,7 @@ data frame with ratings to be saved
 Returns AFM ratings for each AFM image and user.
 }
 \seealso{
-[AFM.writeRatings()]
+[\code{\link{AFM.writeRatings}}]
 }
 \author{
 Thomas Gredig

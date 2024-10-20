@@ -29,7 +29,7 @@
 #' 
 #' @author Thomas Gredig
 #' 
-#' @seealso [AFM.flattenLine()]
+#' @seealso [\code{\link{AFM.flattenLine}}]
 #' 
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))

@@ -66,7 +66,7 @@ plot(d, quiet=TRUE) + ggplot2::labs(fill = "h(nm)")
 
 }
 \seealso{
-[AFM.lineProfile()]
+[\code{\link{AFM.lineProfile}}]
 }
 \author{
 Thomas Gredig

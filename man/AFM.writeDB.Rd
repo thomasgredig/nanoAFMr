@@ -31,7 +31,7 @@ DBI::dbDisconnect(con)
 
 }
 \seealso{
-[AFM.readDB()]
+\code{\link{AFM.readDB}}
 }
 \author{
 Thomas Gredig

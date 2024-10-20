@@ -348,7 +348,7 @@ AFM.raster <- function(obj,no=1) {
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom ggpubr get_legend as_ggplot
 #' 
-#' @seealso [AFM.lineProfile()]
+#' @seealso [\code{\link{AFM.lineProfile}}]
 #'
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))

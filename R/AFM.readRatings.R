@@ -16,7 +16,7 @@
 #' @importFrom RSQLite SQLite
 #' @importFrom rlang .data
 #' 
-#' @seealso [AFM.writeRatings()]
+#' @seealso [\code{\link{AFM.writeRatings}}]
 #'
 #' @export
 AFM.readRatings <- function(dbFileName, meanValues = FALSE, verbose=FALSE) {

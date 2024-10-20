@@ -22,7 +22,7 @@
 #' AFM.writeDB(NULL, con, 0, vacuum=FALSE)
 #' DBI::dbDisconnect(con)
 #'
-#' @seealso [AFM.readDB()]
+#' @seealso \code{\link{AFM.readDB}}
 #'
 #' @export
 AFM.writeDB <- function(obj, con, ID, vacuum = TRUE, verbose=FALSE) {
