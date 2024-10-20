@@ -55,7 +55,7 @@ head(AFM.linePlot(afmd2, dataOnly=TRUE))
 
 }
 \seealso{
-\code{\link{AFM.getLine}}, \code{\link{AFM.liniePlot}}, \code{\link{plot.AFMdata}}
+\code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
 }
 \author{
 Thomas Gredig
