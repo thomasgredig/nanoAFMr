@@ -4,7 +4,7 @@
 \alias{plot.AFMdata}
 \title{Graph of AFMdata object}
 \usage{
-\method{plot}{AFMdata}(
+plot.AFMdata(
   x,
   no = 1,
   mpt = NA,

@@ -8,6 +8,12 @@
 #' @param floorHeight pixels with height below this threshold will be removed as background
 #' @param minParticleSize minimum pixel size of a particle
 #' 
+#' @examples
+#' a <- AFM.artificialImage(21,21, type="calibration", verbose=FALSE)
+#' q <- AFM.particleSize(a, floorHeight = 10)
+#' print(q$ps.table)
+#' 
+#' 
 #' @returns list with AFM image showing particles and also table with particle size
 #' 
 #' @export

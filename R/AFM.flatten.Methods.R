@@ -1,6 +1,6 @@
 # Methods to AFM.flatten
 # ======================
-
+NULL
 
 #### METHOD: lineByLine
 .flattenMethodLineByLine <- function(obj, tau_lower = 0.01, verbose=FALSE, ...) {
@@ -48,32 +48,35 @@
 ###################################################
 # Helper Functions
 ###################################################
+#' @importFrom quantreg rq
+#' @importFrom ggplot2 ggplot geom_point aes geom_line theme_bw
+#' @importFrom rlang .data
 #' @noRd
 .flattenLine <- function(afmd, lineNo, lowLimit=NA, upperLimit=NA, 
                          no=1, outGraphs=TRUE, tau_lower = 0.01) {
   
   ldf = AFM.getLine(afmd, no=no, yPixel= lineNo, dataOnly = TRUE)
   if (!is.na(lowLimit) & !is.na(upperLimit)) {
-    ldf <- subset(ldf, x >= lowLimit & x <= upperLimit)
+    ldf <- subset(ldf, .data$x >= lowLimit & .data$x <= upperLimit)
   }
   fit_lower <- quantreg::rq(ldf$z ~ ldf$x, tau = tau_lower)
   
   ldf$bgd = predict(fit_lower, list(x=ldf$x))
   ldf$z.flat = ldf$z - ldf$bgd
   
-  if (outGraphs) {
-    ggplot(ldf,aes(x,z)) +
-    geom_point(col='red', size=1.5) +
-    geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
-    theme_bw() -> g.Flat
-  } else {
-    g.Flat = NULL
-  }
+  # if (outGraphs) {
+  #   ggplot(ldf,aes(x,z)) +
+  #     geom_point(col='red', size=1.5) +
+  #     geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
+  #     theme_bw() -> g.Flat
+  # } else {
+  #   g.Flat = NULL
+  # }
   
   list(z = ldf$z.flat,
        fit = fit_lower,
-       g2 = g.Flat,
-       b= coef(fit_lower)[1],
-       m=coef(fit_lower)[2])
+       g2 = NULL, #g.Flat,
+       b = coef(fit_lower)[1],
+       m = coef(fit_lower)[2])
 }
 

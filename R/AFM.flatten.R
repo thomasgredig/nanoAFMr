@@ -80,7 +80,9 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zSh
 #' @importFrom stats approx
 #' 
 #' @export
-AFM.flattenLine <- function(obj, no=1, skip = c(), region = NULL, tau_lower = 0.01, verbose=FALSE, ...) {
+AFM.flattenLine <- function(obj, no=1, skip = c(), 
+                            region = NULL, tau_lower = 0.01, 
+                            verbose=FALSE, ...) {
   m = c()
   b = c()
   

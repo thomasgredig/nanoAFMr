@@ -13,7 +13,7 @@
 #' @returns AFMdata object with line data or data frame with data
 #'
 #' @author Thomas Gredig
-#' @seealso \code{\link{AFM.lineProfile}}
+#' @seealso [AFM.lineProfile()]
 #'
 #' @examples
 #' filename = AFM.getSampleImages('ibw')[1]

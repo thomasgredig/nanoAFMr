@@ -35,7 +35,8 @@ AFM.history <- function(obj, verbose=FALSE) {
 #
 #
 # ADD to history of object
+#' @importFrom rlang is_empty
 add.AFM.history <- function(obj, txt) {
-  if (purrr::is_empty(obj@history)) return("")
+  if (is_empty(obj@history)) return("")
   paste(obj@history,txt,";")
 }

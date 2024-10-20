@@ -222,12 +222,14 @@ print.AFMdata <- function(x, ...) {
 #' @param ... other summary parameters
 #' @return summary of AFMdata object
 #' @author Thomas Gredig
+#' 
+#' @importFrom rlang is_empty
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))
 #' summary(d)
 #' @export
 summary.AFMdata <- function(object,...) {
-  if (purrr::is_empty(object@description)) object@description=""
+  if (is_empty(object@description)) object@description=""
 
   dataType = AFM.dataType(object)
   if(dataType == 'image' || dataType == 'spectroscopy') {

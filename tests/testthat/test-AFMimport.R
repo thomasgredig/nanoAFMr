@@ -143,3 +143,18 @@ test_that("verify all sample images", {
   expect_equal(sum(x.pixels), sum(c(128,256,128,256)))
 })
 
+
+test_that("check channel", {
+  filename = AFM.getSampleImages('ibw')
+  a = AFM.import(filename)
+  orig_channels = length(summary(a)$channel)
+  
+  # select only channel "PhaseRetrace"
+  sel_channel = which(summary(a)$channel == "PhaseRetrace")
+  a2 = AFM.selectChannel(a, sel_channel)
+  new_channels = length(summary(a2)$channel)
+  
+  expect_equal(new_channels, 1)
+  expect_true(orig_channels>1)
+  expect_equal(summary(a2)$channel,"PhaseRetrace")
+})

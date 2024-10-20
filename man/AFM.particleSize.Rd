@@ -20,3 +20,10 @@ list with AFM image showing particles and also table with particle size
 The image has to have particles that clearly contrast with the smooth
 background.
 }
+\examples{
+a <- AFM.artificialImage(21,21, type="calibration", verbose=FALSE)
+q <- AFM.particleSize(a, floorHeight = 10)
+print(q$ps.table)
+
+
+}

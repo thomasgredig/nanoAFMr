@@ -41,3 +41,10 @@ test_that("getLine produces proper cut-offs", {
   # t(summary(a4))
   # plot(a4, addLines = TRUE)
 })
+
+test_that("Select Line", {
+  filename = AFM.getSampleImages('tiff')
+  a = AFM.import(filename)
+  line_clicked <- AFM.flattenFindLine(a)
+  expect_true(is.na(line_clicked))
+})

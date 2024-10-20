@@ -44,7 +44,7 @@ head(AFM.linePlot(afmd2, dataOnly = TRUE))
 
 }
 \seealso{
-\code{\link{AFM.lineProfile}}
+[AFM.lineProfile()]
 }
 \author{
 Thomas Gredig
