@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/580499036.svg)](https://zenodo.org/badge/latestdoi/580499036)
-[![CRAN status](https://www.r-pkg.org/badges/version/rigakuXRD)](https://CRAN.R-project.org/package=rigakuXRD)
+[![CRAN status](https://www.r-pkg.org/badges/version/nanoAFMr)](https://CRAN.R-project.org/package=nanoAFMr)
 <!-- badges: end -->
 
 Imports and analyzes Atomic Force Microsocpy (AFM) images; four file types are supported, images from Nanosurf (.nid), Bruker / Veeco Multimode Nanoscope III (.000), Park AFM images (.tiff), and Asylum Research AFM Igor images (.ibw).
