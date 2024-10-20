@@ -4,7 +4,7 @@
 \alias{plot.AFMdata}
 \title{Graph of AFMdata object}
 \usage{
-plot.AFMdata(
+\method{plot}{AFMdata}(
   x,
   no = 1,
   mpt = NA,
@@ -63,9 +63,10 @@ plot(d, quiet=TRUE) + ggplot2::theme_bw(base_size=16)
 
 # change the name of the z-scale
 plot(d, quiet=TRUE) + ggplot2::labs(fill = "h(nm)")
+
 }
 \seealso{
-\code{\link{AFM.lineProfile}}
+[AFM.lineProfile()]
 }
 \author{
 Thomas Gredig

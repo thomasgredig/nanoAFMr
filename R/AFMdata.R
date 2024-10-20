@@ -338,7 +338,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param quiet if \code{TRUE} then no output at all
 #' @param ... other arguments, such as col='white' to change color of bar
 #'
-#' @return ggplot graph
+#' @returns ggplot graph
 #'
 #' @author Thomas Gredig
 #'
@@ -347,7 +347,8 @@ AFM.raster <- function(obj,no=1) {
 #' @importFrom ggplot2 scale_fill_viridis_c
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom ggpubr get_legend as_ggplot
-#' @seealso \code{\link{AFM.lineProfile}}
+#' 
+#' @seealso [AFM.lineProfile()]
 #'
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))
@@ -362,6 +363,7 @@ AFM.raster <- function(obj,no=1) {
 #' 
 #' # change the name of the z-scale
 #' plot(d, quiet=TRUE) + ggplot2::labs(fill = "h(nm)")
+#' 
 #' @export
 plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOption='viridis',
                          addLines=FALSE, redBlue = FALSE, 
