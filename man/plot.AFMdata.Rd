@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFMdata.R
 \name{plot.AFMdata}
 \alias{plot.AFMdata}
-\title{Graph of AFMdata object}
+\title{Graph Atomic Force Microscopy Image}
 \usage{
 \method{plot}{AFMdata}(
   x,
@@ -30,7 +30,7 @@
 
 \item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
 
-\item{fillOption}{can be one of 8 color palettes, use "A" ... "H", see \code{\link{scale_fill_viridis}}}
+\item{fillOption}{can be one of 8 color palettes, use "A" ... "H", see \code{scale_fill_viridis}}
 
 \item{addLines}{if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example}
 
@@ -48,7 +48,13 @@
 ggplot graph
 }
 \description{
-By default, trims 1 percent of the outliers in height data
+Graphs an atomic force microscopy image with or without legends depending on the graphing type.
+An AFM image could include multiple channels (topography, phase, etc.), use \code{summary} to 
+view all channels and the submit the number of the channel. Generally, the image peaks and valleys
+are removed to increas contrast; for example a trimPeak of 0.01 would remove 1 percent of the
+height data points as determined from the histogram. Additionally, the fillOption and redBlue
+can add different colors. Since the returning object is a ggplot graph, it is possible to add
+themes and additional aesthetics.
 }
 \examples{
 d = AFM.import(AFM.getSampleImages(type='ibw'))
@@ -64,9 +70,6 @@ plot(d, quiet=TRUE) + ggplot2::theme_bw(base_size=16)
 # change the name of the z-scale
 plot(d, quiet=TRUE) + ggplot2::labs(fill = "h(nm)")
 
-}
-\seealso{
-[\code{\link{AFM.lineProfile}}]
 }
 \author{
 Thomas Gredig

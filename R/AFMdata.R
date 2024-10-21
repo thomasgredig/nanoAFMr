@@ -321,9 +321,17 @@ AFM.raster <- function(obj,no=1) {
   dr
 }
 
-#' Graph of AFMdata object
+#' Graph Atomic Force Microscopy Image
 #'
-#' By default, trims 1 percent of the outliers in height data
+#' @description
+#' Graphs an atomic force microscopy image with or without legends depending on the graphing type.
+#' An AFM image could include multiple channels (topography, phase, etc.), use \code{summary} to 
+#' view all channels and the submit the number of the channel. Generally, the image peaks and valleys
+#' are removed to increas contrast; for example a trimPeak of 0.01 would remove 1 percent of the
+#' height data points as determined from the histogram. Additionally, the fillOption and redBlue
+#' can add different colors. Since the returning object is a ggplot graph, it is possible to add
+#' themes and additional aesthetics. 
+#' 
 #'
 #' @param x AFMdata object
 #' @param no channel number of the image
@@ -348,7 +356,6 @@ AFM.raster <- function(obj,no=1) {
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom ggpubr get_legend as_ggplot
 #' 
-#' @seealso [\code{\link{AFM.lineProfile}}]
 #'
 #' @examples
 #' d = AFM.import(AFM.getSampleImages(type='ibw'))
