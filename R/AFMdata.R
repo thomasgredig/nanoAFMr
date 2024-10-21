@@ -332,7 +332,7 @@ AFM.raster <- function(obj,no=1) {
 #' @param trimPeaks value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image
 #' @param addLines if \code{TRUE} lines from obj are added to graph, lines can be added with \code{\link{AFM.lineProfile}} for example
 #' @param redBlue if \code{TRUE} output red / blue color scheme
-#' @param fillOption can be one of 8 color palettes, use "A" ... "H", see \code{\link{scale_fill_viridis}}
+#' @param fillOption can be one of 8 color palettes, use "A" ... "H", see \code{scale_fill_viridis}
 #' @param setRange vector with two values, such as c(-30,30) to make the scale from -30 to +30
 #' @param verbose if \code{TRUE} it outputs additional information.
 #' @param quiet if \code{TRUE} then no output at all
@@ -411,8 +411,10 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
     if (is.na(mpt)) mean(d$z) -> mpt
 
     if (verbose) cat(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
-    if (redBlue) sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt)
-    else sFill = scale_fill_viridis(option=fillOption)
+    sFill = scale_fill_viridis(option=fillOption)
+    if (redBlue) {
+      sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt) 
+    } 
 
     if (graphType==1) {
       g1 = ggplot(d, aes(x/1000, y/1000, fill = z)) +
