@@ -4,3 +4,4 @@ docs/
 pkgdown/
 _pkgdown.yml
 ^_main.R
+^cran-comments\.md$
