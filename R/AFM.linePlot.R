@@ -6,7 +6,7 @@
 #' @param dataOnly if \code{TRUE} no graph is returned
 #' @importFrom ggplot2 ggplot geom_path scale_color_discrete xlab theme_bw theme
 #'
-#' @seealso \code{\link{AFM.lineProfile}}, \code{\link{plot.AFMdata}}
+#' @seealso \code{\link{AFM.lineProfile}}
 #' @examples
 #' filename = AFM.getSampleImages(type='ibw')
 #' d = AFM.import(filename)

@@ -29,7 +29,7 @@
 #' AFM.linePlot(afmd2)
 #' head(AFM.linePlot(afmd2, dataOnly=TRUE))
 #'
-#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}, \code{\link{plot.AFMdata}}
+#' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
 #'
 #' @importFrom terra rast click
 #' @export
@@ -60,6 +60,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
   # if no coordinates are provided, use graphical interface
   # to prompt for coordinates
   if (is.na(x1) | is.na(x2) | is.na(y1) | is.na(y2)) {
+    dev.new(noRStudioGD = TRUE)
     dfr = rast(d)
     terra::plot(dfr)
     click(dfr, n=2, xy=TRUE, show=FALSE) -> xy

@@ -1,9 +1,10 @@
 # nanoAFMr 2.3.1
 
 * reduce size and dependencies of code for submission
-* AFM.add2DB is superseeded by writeAFM2DB in dataProjectTemplate
+* AFM.add2DB is superseded by writeAFM2DB in dataProjectTemplate
 * AFM images can be removed with AFM.writeDB() instead
-* NID files have units converted to nm
+* NID files have units converted from `m` to `nm` to be consistent with other formats
+* import `.ibw` through Igor wave files. 
 
 # nanoAFMr 2.3.0
 
@@ -13,8 +14,6 @@
 
 * adding creation date to the AFMdata object (only supported with Park images so far)
 
-# nanoAFMr 2.2.6
-
 # nanoAFMr 2.2.5
 
 * update ggplot `legend.position.inside`
@@ -22,7 +21,7 @@
 
 # nanoAFMr 2.2.4
 
-* AFM rating can automatically save images to the SQL databse
+* AFM rating can automatically save images to the SQL database
 
 # nanoAFMr 2.2.3
 

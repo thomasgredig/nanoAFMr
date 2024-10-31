@@ -1,8 +1,10 @@
 # read Igor AFM image files
+#' @importFrom IgorR read.ibw
+#' @noRd
 read.AR_header.v2 <- function(filename) {
   suppressWarnings({
-    d = read.ibw.image(filename)
     # to get notes, need to read all, not just "header"
+    d = IgorR::read.ibw(filename)
   })
   qNote = attr(d, "Note")
   notes = strsplit(qNote,'\r')[[1]]
@@ -12,6 +14,8 @@ read.AR_header.v2 <- function(filename) {
   )
 }
 
+#' @importFrom IgorR read.ibw
+#' @noRd
 read.AR_file.v2 <- function(filename) {
   h1 = read.AR_eofHeader.V2(filename)
   if (length(h1$DataTypeList)>0) { channels = strsplit(h1$DataTypeList,',')[[1]] }
@@ -19,7 +23,7 @@ read.AR_file.v2 <- function(filename) {
   units = rep('nm', length(channels))
   units[grep('Phase',channels)] = 'deg'    # both Phase and NapPhase channels
   suppressWarnings({
-    d = read.ibw.image(filename)
+    d = IgorR::read.ibw(filename)
   })
   q2 = attr(d, "WaveHeader")
   noChannels <- h1$NumberOfFiles
@@ -100,7 +104,7 @@ read.AR_eofHeader.V2 <- function(wavefile, Verbose = FALSE) {
     p3 = p2[which(sapply(p2, length)==2)]
 
     s3[sapply(p3,'[[',1)] =  sapply(p3,'[[',2)
-  } else { warning("Header size incorrect.") }
+  } else { warning("Igor wave file header size incorrect.") }
   close(con)
 
   s3

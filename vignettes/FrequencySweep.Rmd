@@ -25,7 +25,7 @@ freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) =
 
 ## Frequency Sweep Graph
 
-You can import the frequency file as an `AFMdata` file using the standard import function. Graphing also works with the `plot.AFMdata()` function.
+You can import the frequency file as an `AFMdata` file using the standard import function. Graphing also works with the `plot()` function.
 
 ```{r}
 a = AFM.import(freqAFM[1])

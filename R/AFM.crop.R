@@ -37,6 +37,7 @@ AFM.crop <- function(obj,
   # have the user select the origin via the GUI
   if ( (is.na(x0)) | (is.na(y0)) ) {
     d = AFM.raster(obj)
+    dev.new(noRStudioGD = TRUE)
     dfr = rast(d)
     terra::plot(dfr)
     # returns coordinates according to (x,y)

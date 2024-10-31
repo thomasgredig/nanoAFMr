@@ -67,7 +67,8 @@ AFM.artificialImage <- function(width = 10,
   obj
 }
 
-# creates the height of an artificial calibration grid
+#' Creates the height of an artificial calibration grid
+#' @noRd  
 .artificialCalibration <- function(width, height, minZ, maxZ) {
   # create foundation
   z = rep(minZ, height*width)

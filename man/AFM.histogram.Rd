@@ -28,9 +28,7 @@ d = AFM.import(AFM.getSampleImages(type='ibw'))
 head(AFM.histogram(d, dataOnly=TRUE),n=20)
 AFM.histogram(d)
 
-}
-\seealso{
-\code{\link{plot.AFMdata}}
+
 }
 \author{
 Thomas Gredig

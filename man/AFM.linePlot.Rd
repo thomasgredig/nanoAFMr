@@ -26,7 +26,7 @@ plot(d2,addLines=TRUE)
 head(AFM.linePlot(d2, dataOnly=TRUE))
 }
 \seealso{
-\code{\link{AFM.lineProfile}}, \code{\link{plot.AFMdata}}
+\code{\link{AFM.lineProfile}}
 }
 \author{
 Thomas Gredig

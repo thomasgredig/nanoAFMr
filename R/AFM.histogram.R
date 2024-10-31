@@ -20,7 +20,6 @@
 #' head(AFM.histogram(d, dataOnly=TRUE),n=20)
 #' AFM.histogram(d)
 #'
-#' @seealso \code{\link{plot.AFMdata}}
 #'
 #' @importFrom ggplot2 ggplot aes geom_histogram geom_density after_stat 
 #' @importFrom graphics hist
