@@ -80,7 +80,7 @@ loadBinaryDatafromTIFF <- function(fname) {
   # check for any reading errors
   # this happens if the file size is odd
   if (length(which(is.na(q)==TRUE))>0) {
-    warning(paste("reading error: NA found in",fname,"."))
+    # warning(paste("reading error: NA found in",fname,"."))
     q[is.na(q)] <- 0
   }
   q
