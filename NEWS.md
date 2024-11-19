@@ -5,6 +5,7 @@
 * AFM images can be removed with AFM.writeDB() instead
 * NID files have units converted from `m` to `nm` to be consistent with other formats
 * import `.ibw` through Igor wave files. 
+* fix raster and plot of NID file spectroscopy
 
 # nanoAFMr 2.3.0
 

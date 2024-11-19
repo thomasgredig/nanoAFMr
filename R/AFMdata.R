@@ -308,8 +308,9 @@ AFM.raster <- function(obj,no=1) {
       z = obj@data$z[[no]]
     )
   } else if (AFM.dataType(obj)=='frequency') {
+    nLen = length(obj@data$freq)
     dr = data.frame(
-      freq.Hz = seq(from=obj@z.conv, to=(obj@z.conv + obj@x.nm), by=obj@x.conv),
+      freq.Hz = seq(from=obj@z.conv, to=(obj@z.conv + obj@x.nm), length.out = nLen),
       z.V = obj@data$freq
     )
   } else {  # could be a spectrum
