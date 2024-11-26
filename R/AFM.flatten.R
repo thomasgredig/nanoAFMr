@@ -38,6 +38,7 @@
 #' 
 #' @export
 AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zShift = 0, slope=NULL, verbose=FALSE, ...) {
+  if(!AFM.isImage(obj)) return(obj)  # cannot flatten, if it is not an image
   # set default method
   if (length(method)>1) method='plane'
   

@@ -19,7 +19,7 @@
 #'
 #' @export
 AFM.rate <- function(dbFileName, IDs=NA, dataRAW, add2DB = FALSE, verbose = FALSE) {
-  if (!inherits(dataRAW,"dataRAW")) stop("dataRAW object must be provided.")
+  if (!inherits(dataRAW,"dataRAW")) stop("dataRAW object must be provided, use rawData package.")
   if (!file.exists(dbFileName)) stop("Cannot find DB file:", dbFileName)
   
   # load existing ratings
