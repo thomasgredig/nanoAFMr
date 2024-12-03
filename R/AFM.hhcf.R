@@ -48,6 +48,7 @@
 #' @param xi.percentage a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)
 #' @param randomSeed (optional) a large number, if set, the random numbers are seeded and the results are reproducible
 #' @param allResults if \code{TRUE} returns graph, data and fit parameters as list
+#' @param addFitLabels if \code{TRUE} and `addFit` is also \code{TRUE}, then labels will be added.
 #' @param verbose output time if \code{TRUE}
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_path scale_x_log10 scale_y_log10 theme_bw geom_label theme
@@ -77,6 +78,7 @@ AFM.hhcf <- function(obj, no=1,
                      xi.percentage = 70,
                      randomSeed = NA,
                      allResults = FALSE,
+                     addFitLabels = TRUE,
                      verbose=FALSE) {
   r.nm <- myLabel <- NULL
   results = list()  # keeps track of all results
@@ -180,13 +182,17 @@ AFM.hhcf <- function(obj, no=1,
     scale_y_log10() + ylab('g(r)') + xlab('r (nm)') +
     theme_bw()
 
-  if (addFit) g = g +
-    geom_path(data=dFit, col='red') +
-    geom_label(data = dFitLabels,
-               aes(fill = 'white',label=myLabel),
-               colour = "white",
-               fontface = "bold", hjust=-0.1) +
-    theme(legend.position="none")
+  if (addFit) {
+    g = g +
+      geom_path(data=dFit, col='red') +
+      theme(legend.position="none")
+    if (addFitLabels) {
+      g <- geom_label(data = dFitLabels,
+                      aes(fill = 'white',label=myLabel),
+                      colour = "white",
+                      fontface = "bold", hjust=-0.1)
+    }
+  } 
 
   results$graph = g
   

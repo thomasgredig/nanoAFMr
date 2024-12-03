@@ -15,6 +15,7 @@ AFM.hhcf(
   xi.percentage = 70,
   randomSeed = NA,
   allResults = FALSE,
+  addFitLabels = TRUE,
   verbose = FALSE
 )
 }
@@ -40,6 +41,8 @@ is no fit, the value can be reduced to 70 or 60.}
 \item{randomSeed}{(optional) a large number, if set, the random numbers are seeded and the results are reproducible}
 
 \item{allResults}{if \code{TRUE} returns graph, data and fit parameters as list}
+
+\item{addFitLabels}{if \code{TRUE} and `addFit` is also \code{TRUE}, then labels will be added.}
 
 \item{verbose}{output time if \code{TRUE}}
 }
