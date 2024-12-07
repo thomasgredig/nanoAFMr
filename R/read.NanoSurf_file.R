@@ -69,7 +69,7 @@ read.NanoSurf_file.v2 <- function(filename) {
           get.NIDitem(hItems[[3]], "Date"),
           get.NIDitem(hItems[[3]], "Time"),
           sep="; ")
-    h = NID.getHeaderSet(hItems,2)
+    h = NID.getHeaderSet(hItems,1)
     if (length(r) != 1) warning("Frequency sweep has additional data sets !?!")
     freqStep = get.NIDitem.numeric(h,'Dim0Range') / (get.NIDitem.numeric(h,'Points') - 1)
 
@@ -203,7 +203,9 @@ get.NIDitem.numeric <- function(item, name) {
 NID.getHeaderSet <- function(headerList, imageNo = 1) {
   c1 = switch(imageNo, "Gr0-Ch1","Gr0-Ch2","Gr1-Ch1","Gr1-Ch2",
               "Gr2-Ch1","Gr2-Ch2","Gr3-Ch1","Gr3-Ch2")
-  d.set = get.NIDitem(headerList[[2]],c1)
+  m <- grep("^Gr\\d-Ch\\d", headerList[[2]])[imageNo]
+  # get d.set: DataSet-0:1
+  d.set = gsub("^Gr\\d-Ch\\d=(.*)","\\1",headerList[[2]][m])
   k.set = grep(d.set,headerList[[1]], useBytes = TRUE)
   headerList[[k.set]]
 }

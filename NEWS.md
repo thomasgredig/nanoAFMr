@@ -1,3 +1,7 @@
+# nanoAFMr 2.3.2
+
+* cannot load certain NID files, issue with channels in NID.getHeaderSet()
+
 # nanoAFMr 2.3.1
 
 * reduce size and dependencies of code for submission
