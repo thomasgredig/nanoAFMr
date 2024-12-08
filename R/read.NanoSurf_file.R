@@ -201,8 +201,8 @@ get.NIDitem.numeric <- function(item, name) {
 }
 
 NID.getHeaderSet <- function(headerList, imageNo = 1) {
-  c1 = switch(imageNo, "Gr0-Ch1","Gr0-Ch2","Gr1-Ch1","Gr1-Ch2",
-              "Gr2-Ch1","Gr2-Ch2","Gr3-Ch1","Gr3-Ch2")
+  # c1 = switch(imageNo, "Gr0-Ch1","Gr0-Ch2","Gr1-Ch1","Gr1-Ch2",
+  #             "Gr2-Ch1","Gr2-Ch2","Gr3-Ch1","Gr3-Ch2")
   m <- grep("^Gr\\d-Ch\\d", headerList[[2]])[imageNo]
   # get d.set: DataSet-0:1
   d.set = gsub("^Gr\\d-Ch\\d=(.*)","\\1",headerList[[2]][m])
