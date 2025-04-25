@@ -40,7 +40,7 @@ Here is a typical usage scenario for AFM image data processing. In the first ste
 
 ``` r
 library(nanoAFMr)
-afm_filename = AFM.getSampleImages("veeco")
+afm_filename = AFM.getSampleImages("gredig")
 a = AFM.import(afm_filename[1])
 a = AFM.flatten(a)
 print(a)

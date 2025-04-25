@@ -6,7 +6,7 @@
 #' @return AFMinfo class object
 #' @author Thomas Gredig
 #' @examples
-#' filename = AFM.getSampleImages(type='veeco')
+#' filename = AFM.getSampleImages(type='gredig')
 #' h = AFMinfo(filename)
 #' summary(h)
 #' @export
@@ -91,7 +91,7 @@ AFMinfo <- function(filename) {
 #' @return if \code{itemName} is empty, returns list of names, otherwise the value for the specific data item
 #' @author Thomas Gredig
 #' @examples
-#' filename = AFM.getSampleImages(type='veeco')
+#' filename = AFM.getSampleImages(type='gredig')
 #' h = AFMinfo(filename)
 #' allNames = AFMinfo.item(h)
 #' AFMinfo.item(h,"Description")

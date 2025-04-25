@@ -9,6 +9,9 @@ AFM.partial(afmd)
 \arguments{
 \item{afmd}{AFMdata object}
 }
+\value{
+\code{TRUE} if AFM image has not been completed; i.e. some lines are not recorded
+}
 \description{
 Sometimes an AFM image is recorded partially, this function
 returns \code{TRUE}, if the image is a partial AFM image.

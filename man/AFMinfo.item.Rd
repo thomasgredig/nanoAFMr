@@ -21,7 +21,7 @@ on the instrument; to find possible item names, leave
 \code{itemName} empty.
 }
 \examples{
-filename = AFM.getSampleImages(type='veeco')
+filename = AFM.getSampleImages(type='gredig')
 h = AFMinfo(filename)
 allNames = AFMinfo.item(h)
 AFMinfo.item(h,"Description")

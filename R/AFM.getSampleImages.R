@@ -22,6 +22,7 @@ AFM.getSampleImages <- function(type='*') {
                       ibw = "ibw$",
                       nid = "20160301",
                       tiff = "^Park",
+                      gredig = "^Park",
                       veeco= "0\\d\\d$",
                       resonance = "resonance",
                       "*")
