@@ -19,6 +19,7 @@
 #'      \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
 #'      \item{"lineByLine"}{Fit each line and substract a linear fit}
 #'      \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
+#'      \item{"autoMask"}{Use auto-masking and then remove line-by-line background, use verbose=TRUE to see parameters.}
 #'   }
 #' @param zShift vertical offset in the same units as the channel units
 #' @param slope data.frame obtained from `AFM.flattenLine()`
@@ -49,6 +50,9 @@ AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope'), zSh
   if (method == 'lineByLine') {
     if (verbose) cat("Method: Line by Line\n")
     z.new = .flattenMethodLineByLine(AFMcopy, verbose=verbose, ...)
+  } else if (method == "autoMask") {
+    if (verbose) cat("Method: Auto Masking\n")
+    z.new = .flattenAutoMask(AFMcopy, no, verbose=verbose, ...)
   } else if (method == 'slope') {
     if (verbose) cat("Method: Slope\n")
     z.new = .flattenMethodSlope(AFMcopy, no, slope)

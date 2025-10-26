@@ -1,3 +1,8 @@
+# nanoAFMr 2.3.3
+
+* add new flatten method: AutoMask for flat surfaces with particles
+* `AFM.getCSV` creates a CSV file for export
+
 # nanoAFMr 2.3.2
 
 * cannot load certain NID files, issue with channels in NID.getHeaderSet()

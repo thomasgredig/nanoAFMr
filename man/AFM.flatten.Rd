@@ -24,6 +24,7 @@ AFM.flatten(
    \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
    \item{"lineByLine"}{Fit each line and substract a linear fit}
    \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
+   \item{"autoMask"}{Use auto-masking and then remove line-by-line background, use verbose=TRUE to see parameters.}
 }}
 
 \item{zShift}{vertical offset in the same units as the channel units}

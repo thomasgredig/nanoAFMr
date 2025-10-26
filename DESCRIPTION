@@ -1,7 +1,7 @@
 Type: Package
 Package: nanoAFMr
 Title: Load and Analyze Atomic Force Microscopy Data Files
-Version: 2.3.2
+Version: 2.3.3
 Author: Thomas Gredig [aut, cre, cph] (<https://orcid.org/0000-0002-5824-7626>)
 Authors@R: 
     person("Thomas", "Gredig", , "tgredig@csulb.edu", 
@@ -18,7 +18,7 @@ URL: https://github.com/thomasgredig/nanoAFMr
 BugReports: https://github.com/thomasgredig/nanoAFMr/issues
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 License: AGPL (>= 3)
 Depends: 
     R (>= 3.1.0)

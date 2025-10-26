@@ -45,6 +45,62 @@ NULL
   z - (x*solvX[1] + y*solvX[2] + solvX[3])
 }
 
+
+
+#### METHOD: autoMask
+.flattenAutoMask <- function(obj, no, verbose=FALSE, quartile_cutoff = 0.94, fit_order = 4) {
+  # store new data in z
+  z = c()
+  
+  # get image size
+  maxY = obj@y.pixels
+  q=c()
+  for (i in 1:maxY) {
+    l1 = AFM.getLine(obj, y=i, dataOnly = TRUE, no=no)
+    q = c(q,abs(diff(l1$z)))
+  }
+  # this is the cut-off to mask objects
+  m_high = quantile(q, quartile_cutoff)
+  if (verbose) { 
+    cat("Cut-off z position is [quartile_cutoff=",quartile_cutoff,"]", m_high," nm.\n") 
+    cat("Fitting: [fit_order=", fit_order, "] th order polynomial.\n")
+  }
+  
+  # fit each line to a polynomial and then remove the residuals
+  for (i in 1:maxY) {
+    l1 = AFM.getLine(obj, yPixel=i, dataOnly = TRUE, no=no)
+    zhigh = which(c(0, abs(diff(l1$z)))>m_high)
+    # fill in any gaps, if needed
+    zhigh_dx = diff(zhigh)
+    zhigh = sort( c(zhigh, zhigh[which(zhigh_dx==2)]+1) )
+    zhigh = c(zhigh, zhigh[which(zhigh_dx==2)]+1)
+
+    # these are the background pixels    
+    l2 = l1[-zhigh,]
+    if (nrow(l2)>0) {
+      fit <- lm(z ~ poly(x, fit_order, raw = TRUE), data = l2)
+  
+      # Get fitted (predicted) values from the model
+      fitted_vals <- predict(fit, newdata = l1)
+    } else {
+      fitted_vals = rep(0, length(l1$x))
+      if (verbose) {
+        warning("Cannot fit line: ",i,"\n")
+      }
+    }
+    
+    # Remove fitted trend (residuals)
+    lineData <- l1$z - fitted_vals
+    z = c(z, lineData)
+    # plot(l1$x, lineData)
+    # plot(l1$x, l1$z)
+    # a1 <- AFM.setLine(a1, lineData, yPixel=i)
+  }
+  
+  z
+}
+
+
 ###################################################
 # Helper Functions
 ###################################################
