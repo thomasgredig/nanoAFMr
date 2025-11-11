@@ -40,6 +40,7 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
                          verbose=FALSE, quiet=FALSE, setRange = c(0,0), ...) {
   
   y <- z <- myLabel <- freq.Hz <- z.V <- NULL
+  
   # check parameters
   if (no>length(x@channel)) stop("imageNo out of bounds.")
   if (!quiet) cat("Graphing:",x@channel[no])
@@ -63,9 +64,10 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
     }
     
     # bit of a hack to set the range
-    if (!(setRange[1]==0 & setRange[2]==0)) {
-      d$z[1]=setRange[1]
-      d$z[2]=setRange[2]
+    if (setRange[1]==0 & setRange[2]==0) {
+      setRange = c(min(d$z), max(d$z))
+      # d$z[1]=setRange[1]
+      # d$z[2]=setRange[2]
     }
     
     if (addLines) {
@@ -82,9 +84,9 @@ plot.AFMdata <- function(x, no=1, mpt=NA, graphType=1, trimPeaks=0.01, fillOptio
     if (is.na(mpt)) mean(d$z) -> mpt
     
     if (verbose) cat(paste("z range: ",min(d$z)," to ",max(d$z)," midpoint",mpt))
-    sFill = scale_fill_viridis(option=fillOption)
+    sFill = scale_fill_viridis(option=fillOption, limits = setRange)
     if (redBlue) {
-      sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt) 
+      sFill = scale_fill_gradient2(low='red', mid='white', high='blue', midpoint=mpt,limits = setRange) 
     } 
     
     if (graphType==1) {

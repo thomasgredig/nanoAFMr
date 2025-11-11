@@ -7,7 +7,7 @@
 AFM.flatten(
   obj,
   no = 1,
-  method = c("plane", "lineByLine", "slope"),
+  method = c("plane", "lineByLine", "slope", "autoMask"),
   zShift = 0,
   slope = NULL,
   verbose = FALSE,
