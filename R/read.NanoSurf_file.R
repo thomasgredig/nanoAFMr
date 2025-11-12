@@ -285,6 +285,10 @@ read.NID_header <- function(filename) {
 
   con <- file(filename,"rb")
   header = readLines(con, n=(i-1))
+  header <- iconv(header, from = "", to = "UTF-8", sub = "byte")
+  # Replace various encodings of "micro"
+  header <- gsub("<b5>", "u", header, fixed = TRUE)  # fix broken encoding
+  
   close(con)
 
   list(header.len = dlen.header, header = header)

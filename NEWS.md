@@ -3,6 +3,7 @@
 * add new flatten method: AutoMask for flat surfaces with particles
 * `AFM.getCSV` creates a CSV file for export
 * fix setRange() argument in `plot.AFMdata`, so that pixels are not overwritten
+* add more items to `AFMinfo()`: image size in um and scanning angle
 
 # nanoAFMr 2.3.2
 

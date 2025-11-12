@@ -2,23 +2,80 @@
 % Please edit documentation in R/AFMinfo.R
 \name{AFMinfo}
 \alias{AFMinfo}
-\title{AFMinfo object}
+\title{AFMinfo}
 \usage{
 AFMinfo(filename)
 }
 \arguments{
-\item{filename}{full file name of instrument AFM file}
+\item{filename}{Character scalar. Full path to the instrument AFM file.}
 }
 \value{
-AFMinfo class object
+An object of class **`AFMinfo`** (list) with the following elements:
+\itemize{
+  \item `data` — instrument-specific header key/value table.
+  \item `type` — character; inferred vendor type (`"Cypher"`, `"Park"`,
+                `"NanoSurf"`, `"Veeco"`).
+  \item `filename` — character; original file path.
+  \item `imageSize.um` — numeric; scan size in micrometers (µm).
+  \item `widthPixel` — numeric; number of pixels/samples in X.
+  \item `heightPixel` — numeric; number of pixels/samples in Y.
+  \item `scanRate.Hz` — numeric; line (or effective) scan rate in Hz.
+  \item `scanAngle` — numeric; scan rotation angle in degrees.
+  \item `imagingMode` — character; instrument imaging/operation mode.
+  \item `cantilever` — character; cantilever or probe descriptor.
+  \item `resFrequency` — numeric; resonance frequency in Hz (0 if unavailable).
+  \item `noChannels` — integer; number of data channels detected.
+  \item `note` — character; free-form note (instrument dependent).
+}
 }
 \description{
-header information about the AFM image, includes scan rate, widths, etc.
+Parses instrument-specific headers and returns a compact summary of AFM scan
+settings. Numeric outputs are coerced into consistent base units:
+
+- `imageSize.um` in micrometers (µm)
+
+- `scanRate.Hz` in hertz (Hz)
+
+- `resFrequency` in hertz (Hz)
+
+- `scanAngle` in degrees
+}
+\details{
+Read and normalize header/metadata from AFM image files produced by several
+instrument vendors (Asylum/Cypher `.ibw`, Park `.tiff`, Nanosurf `.nid`,
+and Bruker/Veeco Nanoscope). The function extracts commonly used fields such
+as scan size, pixel dimensions, scan angle, scan rate, imaging mode,
+cantilever information, and resonance frequency, and returns them in a
+consistent structure with standardized units.
+
+
+**Supported formats and field mapping (high level):**
+- **Asylum/Cypher (`.ibw`)**: Reads fields such as `ScanSize`, `PointsLines`,
+  `ScanLines`, `ScanAngle`, `ScanRate`, `ImagingMode`, `ThermalLever`,
+  `ResFreq1`, `ImageNote`, `BaseName`. The image size is converted to µm,
+  resonance frequency to Hz.
+- **Park (`.tiff`)**: Reads `dfXScanSizeum`, `nWidth`, `nHeight`, `dfAngle`,
+  `dfScanRateHz`, `imageMode`, `Cantilever`, `dfNCMFrequency`, `sourceName`.
+  Image size is provided directly in µm; frequencies are normalized to Hz.
+- **Nanosurf (`.nid`)**: Uses `get_NID_imageSize()` to derive scan size (µm),
+  reads `Points`, `Lines`, `Rotation` (parsed as degrees), `Time/Line`
+  (converted to `scanRate.Hz = 1 / (time per line)`), `Op. mode`,
+  `Cantilever type`, `Vibration freq` (kHz → Hz). Channel count is inferred
+  from `Gr\\d-Ch\\d` entries.
+- **Bruker/Veeco Nanoscope (other)**: Reads `Scan size`, valid data lengths,
+  `Feature scan angle`, `Scan rate`, and misc. notes. Image size is expressed
+  in µm. Some fields may be instrument/firmware dependent.
 }
 \examples{
-filename = AFM.getSampleImages(type='gredig')
-h = AFMinfo(filename)
+filename <- AFM.getSampleImages(type = "gredig")
+h <- AFMinfo(filename)
 summary(h)
+
+}
+\seealso{
+\code{read.AR_header.v2}, \code{read.Park_header.v2},
+  \code{read.NanoSurf_header.v2}, \code{read.Nanoscope_file},
+  \code{get_NID_imageSize}
 }
 \author{
 Thomas Gredig
