@@ -1,9 +1,14 @@
+# nanoAFMr 2.3.4
+
+* fix reading SQL AFM image that is neither Park nor Cypher image
+
 # nanoAFMr 2.3.3
 
 * add new flatten method: AutoMask for flat surfaces with particles
 * `AFM.getCSV` creates a CSV file for export
 * fix setRange() argument in `plot.AFMdata`, so that pixels are not overwritten
 * add more items to `AFMinfo()`: image size in um and scanning angle
+* fix warning in loading NID header, when end of line is missing
 
 # nanoAFMr 2.3.2
 

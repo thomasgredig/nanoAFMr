@@ -55,11 +55,11 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
     dfData = dfData[1,]
     channelData = unlist(strsplit(dfData$channel,',')[[1]])
     # load data
-    if (dfData$instrument == "Park") {
+    if (isTRUE(dfData$instrument[1] == "Park")) {
       dfAFM <- DBI::dbReadTable(mydb, myTableAFMname)
       z = as.vector(dfAFM$z)
       zList = list(z)
-    } else if (dfData$instrument == "Cypher") {
+    } else if (isTRUE(dfData$instrument == "Cypher")) {
       dfAFM <- dbReadTable(mydb, myTableAFMname)
       # find out how many?
       if (length(channelData)==4) {
@@ -71,6 +71,10 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
       } else if (length(channelData)==1) {
         zList = list(dfAFM$V1)
       }
+    } else {
+      # cannot load data properly
+      warning("AFM.readDB: ID=",ID,"is not a readable AFM image.")
+      return(NULL)
     }
     
     str_creation_date = ""
