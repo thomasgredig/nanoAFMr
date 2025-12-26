@@ -45,6 +45,13 @@ NULL
   z - (x*solvX[1] + y*solvX[2] + solvX[3])
 }
 
+.flattenMethodPoly2 <- function(d, verbose=FALSE) {
+  fit <- lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
+  if (verbose) print(coef(fit))
+  d$z - predict(fit, newdata=d)
+}
+
+
 
 
 #### METHOD: autoMask

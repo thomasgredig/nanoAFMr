@@ -38,34 +38,63 @@
 #' plot(d2,graphType=2)
 #' 
 #' @export
-AFM.flatten <- function(obj, no=1, method = c('plane','lineByLine','slope','autoMask'), 
-                        zShift = 0, slope=NULL, verbose=FALSE, ...) {
-  if(!AFM.isImage(obj)) return(obj)  # cannot flatten, if it is not an image
-  # set default method
-  if (length(method)>1) method='plane'
+AFM.flatten <- function(
+    obj,
+    no = 1,
+    method = c("plane", "lineByLine", "slope", "autoMask", "2Dpoly"),
+    zShift = 0,
+    slope = NULL,
+    verbose = FALSE,
+    ...
+) {
+  if (!AFM.isImage(obj)) return(obj)
   
-  # set history
+  # Resolve method, handling default
+  method <- match.arg(method)
+  
+  # Copy + History 
   AFMcopy <- obj
-  AFMcopy@history <- add.AFM.history(AFMcopy, paste0("AFM.flatten(obj,",no,",method='",method,"')"))
+  AFMcopy@history <- add.AFM.history(
+    AFMcopy,
+    sprintf("AFM.flatten(obj,%d,method='%s')", no, method)
+  )
   
-  if (method == 'lineByLine') {
-    if (verbose) cat("Method: Line by Line\n")
-    z.new = .flattenMethodLineByLine(AFMcopy, verbose=verbose, ...)
-  } else if (method == "autoMask") {
-    if (verbose) cat("Method: Auto Masking\n")
-    z.new = .flattenAutoMask(AFMcopy, no, verbose=verbose, ...)
-  } else if (method == 'slope') {
-    if (verbose) cat("Method: Slope\n")
-    z.new = .flattenMethodSlope(AFMcopy, no, slope)
-  } else { 
-    if (verbose) cat("Method: Plane\n")
-    d = AFM.raster(AFMcopy,no)
-    z.new = .flattenMethodPlane(d)
-  }
-
-  AFMcopy@data$z[[no]] =  z.new + zShift
+  # Helpers
+  say <- function(msg) if (verbose) cat(msg, "\n")
+  raster_d <- function() AFM.raster(AFMcopy, no)
+  
+  # Dispatch
+  z.new <- switch(
+    method,
+    lineByLine = {
+      say("Method: Line by Line")
+      .flattenMethodLineByLine(AFMcopy, verbose = verbose, ...)
+    },
+    autoMask = {
+      say("Method: Auto Masking")
+      .flattenAutoMask(AFMcopy, no, verbose = verbose, ...)
+    },
+    slope = {
+      say("Method: Slope")
+      .flattenMethodSlope(AFMcopy, no, slope)
+    },
+    `2Dpoly` = {
+      say("Method: 2D polynomial")
+      d <- raster_d()
+      .flattenMethodPoly2(d, verbose = verbose)
+    },
+    plane = {
+      say("Method: Plane")
+      d <- raster_d()
+      .flattenMethodPlane(d, verbose = verbose)
+    }
+  )
+  
+  # Write back result (with optional z-shift)
+  AFMcopy@data$z[[no]] <- z.new + zShift
   AFMcopy
 }
+
 
 
 
