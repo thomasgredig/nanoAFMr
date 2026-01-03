@@ -97,7 +97,7 @@ get16bit <- function(q, num) {
     res = n %% 65536
   } else {
     res = floor(n / 65536)
-    if (res<0) { res = res + 2^16 }
+    if (res < 0) { res = res + 2^16 }
   }
   res
 }
@@ -484,7 +484,7 @@ flatten.AFMimage <- function(x1,y1,z1) {
 # ________________________________________________
 # returns 32-bit integers with data
 loadBinaryAFMDatafromTIFF <- function(fname, dataStart, dataLen, dataType) {
-  if (dataType != 2) { warning("Data type is not 32-bit float.") }
+  if (dataType != 2) { warning("Data type is not 32-bit float. [",dataType,"]"); return(NULL) }
   if ((dataLen %% 4) != 0) { warning("Data Length not 32-bit multiple.") }
 
   to.read = file(fname, 'rb')

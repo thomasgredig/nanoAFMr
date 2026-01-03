@@ -55,14 +55,14 @@ read.Park_file.v2 <- function(filename) {
   dataLen = tiffTags[which(tiffTags$tag==50434),]$count
   # warning(paste("length:",dataLen))
   df = loadBinaryAFMDatafromTIFF(filename, dataStart, dataLen, params$nDataType)
-
+  if (is.null(df)) {return(NULL) }
 
   # create image
   imWidth = params$nWidth # tiff.getValue(tiffTags, 'ImageWidth')
   imHeight = params$nHeight # tiff.getValue(tiffTags, 'ImageLength')
   
   if (length(df) != params$nWidth * params$nHeight) {
-    warning("AFM Image is not square ==> improvising.")
+    warning("AFM Image ",filename," is not square ==> improvising.")
     imHeight = sqrt(length(df))
     imWidth = imHeight
   }
