@@ -1,3 +1,8 @@
+# nanoAFMr 2.3.5
+
+* add `AFM.removeStreaks()` to crudely remove streaks from AFM images
+* upgrade to dplyr 1.2: use `recode_values()` instead of `case_match()`
+
 # nanoAFMr 2.3.4
 
 * fix reading SQL AFM image that is neither Park nor Cypher image
@@ -12,7 +17,7 @@
 
 # nanoAFMr 2.3.2
 
-* cannot load certain NID files, issue with channels in NID.getHeaderSet()
+* cannot load certain NID files, issue with channels in `NID.getHeaderSet()`
 
 # nanoAFMr 2.3.1
 

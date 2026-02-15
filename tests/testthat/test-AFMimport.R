@@ -158,3 +158,10 @@ test_that("check channel", {
   expect_true(orig_channels>1)
   expect_equal(summary(a2)$channel,"PhaseRetrace")
 })
+
+test_that("remove streaks from image", {
+  f <- AFM.getSampleImages()[3]
+  a <- AFM.import(f)
+  a2 <- AFM.removeStreaks(a, threshold = 0.8)
+  expect_equal(length(grep("removeStreaks",summary(a2)$history)),1)
+})

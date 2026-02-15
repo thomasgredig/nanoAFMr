@@ -159,12 +159,12 @@ read.IFD <- function(q,X) {
 # conventions https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
 # and https://www.loc.gov/preservation/digital/formats/content/tiff_tags.shtml
 #' @param tagID vector with tags
-#' @importFrom dplyr case_match
+#' @importFrom dplyr recode_values
 #' @noRd
 identifyTIFFtags <- function(tagID) {
   stopifnot(is.numeric(tagID))
   # convert all tagID into strings
-  tagID_converted <- case_match(
+  tagID_converted <- dplyr::recode_values(
     tagID,
     256 ~ "ImageWidth",
     257 ~ "ImageLength",
@@ -191,7 +191,7 @@ identifyTIFFtags <- function(tagID) {
     50437 ~ "ParkLineProfile",
     50438 ~ "ParkSpectroHeader",
     50439 ~ "ParkSpectroData",
-    .default = NA_character_
+    default = NA_character_
   )
   tagID_converted
 }
@@ -201,10 +201,10 @@ identifyTIFFtags <- function(tagID) {
 # converts the number to a readable string according to the
 # conventions https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
 # and https://www.loc.gov/preservation/digital/formats/content/tiff_tags.shtml
-#' @importFrom dplyr case_match
+#' @importFrom dplyr recode_values
 #' @noRd
 identifyTIFFtypes <- function(tagsType) {
-  case_match(
+  recode_values(
     tagsType,
     1 ~ "Byte",
     2 ~ "ASCII",
@@ -218,7 +218,7 @@ identifyTIFFtypes <- function(tagsType) {
     10 ~ "SRational",
     11 ~ "Float",
     12 ~ "Double",
-    .default = NA_character_
+    default = NA_character_
   )
 }
 
