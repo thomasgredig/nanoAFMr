@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.AFMdata}
 \alias{plot.AFMdata}
-\title{Graph Atomic Force Microscopy Image}
+\title{Plot Atomic Force Microscopy Data}
 \usage{
 \method{plot}{AFMdata}(
   x,
@@ -10,7 +10,7 @@
   mpt = NA,
   graphType = 1,
   trimPeaks = 0.01,
-  fillOption = "viridis",
+  fillOption = "D",
   addLines = FALSE,
   redBlue = FALSE,
   verbose = FALSE,
@@ -20,41 +20,65 @@
 )
 }
 \arguments{
-\item{x}{AFMdata object}
+\item{x}{An `AFMdata` object.}
 
-\item{no}{channel number of the image}
+\item{no}{Integer channel number to plot.}
 
-\item{mpt}{midpoint for coloring}
+\item{mpt}{Numeric midpoint for `redBlue = TRUE`. If `NA`, the midpoint is set
+to the mean of the plotted `z` values.}
 
-\item{graphType}{1 = graph with legend outside, 2 = square graph with line bar, 3 = plain graph, 4 = plain graph with scale, 5 = legend only}
+\item{graphType}{Integer plot style:
+\describe{
+  \item{1}{Image with axes and legend outside.}
+  \item{2}{Image with scale bar and legend inside.}
+  \item{3}{Plain image without axes or legend.}
+  \item{4}{Plain image with scale bar, without axes or legend.}
+  \item{5}{Legend only.}
+}}
 
-\item{trimPeaks}{value from 0 to 1, where 0=trim 0\% and 1=trim 100\% of data points, generally a value less than 0.01 is useful to elevate the contrast of the image}
+\item{trimPeaks}{Numeric value from 0 to 1 giving the fraction of extreme data
+values to trim from the histogram tails before plotting. Values less than
+`0.01` are typically useful.}
 
-\item{fillOption}{can be one of 8 color palettes, use "A" ... "H", see scale_fill_viridis}
+\item{fillOption}{Character viridis palette option passed to
+[ggplot2::scale_fill_viridis_c()], usually a letter from "A" through "H".}
 
-\item{addLines}{if \code{TRUE} lines from obj are added to graph, lines can be added with  AFM.lineProfile for example}
+\item{addLines}{Logical; if `TRUE`, stored line profiles are overlaid by
+assigning them the minimum color value.}
 
-\item{redBlue}{if \code{TRUE} output red / blue color scheme}
+\item{redBlue}{Logical; if `TRUE`, use a red-white-blue diverging color scale
+instead of viridis.}
 
-\item{verbose}{if \code{TRUE} it outputs additional information.}
+\item{verbose}{Logical; if `TRUE`, print additional diagnostic information.}
 
-\item{quiet}{if \code{TRUE} then no output at all}
+\item{quiet}{Logical; if `TRUE`, suppress normal console output.}
 
-\item{setRange}{vector with two values, such as c(-30,30) to make the scale from -30 to +30}
+\item{setRange}{Numeric vector of length 2 giving the plotting range, for
+example `c(-30, 30)`. Values outside this range are clipped to the nearest
+endpoint before plotting. If `c(0, 0)`, the range is taken from the image
+data.}
 
-\item{...}{other arguments, such as col='white' to change color of bar}
+\item{...}{Additional arguments passed to `geom_line()` and `geom_text()` used
+for the scale bar, for example `color = "white"`.}
 }
 \value{
-ggplot graph
+A `ggplot` object.
 }
 \description{
-Graphs an atomic force microscopy image with or without legends depending on the graphing type.
-An AFM image could include multiple channels (topography, phase, etc.), use \code{summary} to 
-view all channels and the submit the number of the channel. Generally, the image peaks and valleys
-are removed to increas contrast; for example a trimPeak of 0.01 would remove 1 percent of the
-height data points as determined from the histogram. Additionally, the fillOption and redBlue
-can add different colors. Since the returning object is a ggplot graph, it is possible to add
-themes and additional aesthetics.
+Plots an atomic force microscopy (AFM) image or frequency spectrum.
+
+AFM images may contain multiple channels (for example, topography or phase).
+Use `summary()` to inspect available channels, then select the desired channel
+with `no`. Image contrast can be enhanced by trimming extreme high and low
+values with `trimPeaks`. Alternatively, `setRange` can be used to explicitly
+define the displayed color scale range. Values below the requested minimum are
+clipped to the minimum color, and values above the requested maximum are
+clipped to the maximum color.
+
+Several plot styles are available through `graphType`, including plain image,
+image with legend, image with scale bar, and legend-only output. Since the
+returned object is a `ggplot`, additional themes or layers can be added by the
+user.
 }
 \author{
 Thomas Gredig

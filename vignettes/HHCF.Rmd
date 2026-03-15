@@ -47,14 +47,14 @@ The computation is implemented in this package as follows, the image is flattene
 filename = AFM.getSampleImages(type='tiff')
 a = AFM.import(filename)
 a = AFM.flatten(a)
-AFM.hhcf(a, numIterations= 2e5)
+AFM.hhcf(a, numIterations= 1e5)
 ```
 
 You can see the fit parameters, and make a custom plot from the data, if you export all results from the function
 
 ```{r, message=FALSE, warning=FALSE}
 library(pander)
-h = AFM.hhcf(a, numIterations= 2e5, allResults = TRUE)
+h = AFM.hhcf(a, numIterations= 1e5, allResults = TRUE)
 
 ## show the fit parameters
 pander(h$fitParams)

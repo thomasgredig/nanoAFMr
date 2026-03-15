@@ -46,16 +46,17 @@ NULL
 }
 
 .flattenMethodPoly2 <- function(d, verbose=FALSE) {
-  fit <- lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
+  fit <- stats::lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
   if (verbose) print(coef(fit))
-  d$z - predict(fit, newdata=d)
+  d$z - Stats::predict(fit, newdata=d)
 }
 
 
 
 
 #### METHOD: autoMask
-.flattenAutoMask <- function(obj, no, verbose=FALSE, quartile_cutoff = 0.94, fit_order = 4) {
+.flattenAutoMask <- function(obj, no, verbose=FALSE, 
+                             quartile_cutoff = 0.94, fit_order = 4) {
   # store new data in z
   z = c()
   
@@ -63,11 +64,11 @@ NULL
   maxY = obj@y.pixels
   q=c()
   for (i in 1:maxY) {
-    l1 = AFM.getLine(obj, y=i, dataOnly = TRUE, no=no)
+    l1 = AFM.getLine(obj, yPixel=i, dataOnly = TRUE, no=no)
     q = c(q,abs(diff(l1$z)))
   }
   # this is the cut-off to mask objects
-  m_high = quantile(q, quartile_cutoff)
+  m_high = stats::quantile(q, quartile_cutoff)
   if (verbose) { 
     cat("Cut-off z position is [quartile_cutoff=",quartile_cutoff,"]", m_high," nm.\n") 
     cat("Fitting: [fit_order=", fit_order, "] th order polynomial.\n")
@@ -85,7 +86,7 @@ NULL
     # these are the background pixels    
     l2 = l1[-zhigh,]
     if (nrow(l2)>0) {
-      fit <- lm(z ~ poly(x, fit_order, raw = TRUE), data = l2)
+      fit <- stats::lm(z ~ poly(x, fit_order, raw = TRUE), data = l2)
   
       # Get fitted (predicted) values from the model
       fitted_vals <- predict(fit, newdata = l1)

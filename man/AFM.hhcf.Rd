@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.hhcf.R
 \name{AFM.hhcf}
 \alias{AFM.hhcf}
-\title{Height-Height Correlation Function for AFM Image}
+\title{Height-height correlation function for AFM image}
 \usage{
 AFM.hhcf(
   obj,
@@ -20,77 +20,70 @@ AFM.hhcf(
 )
 }
 \arguments{
-\item{obj}{AFMdata object}
+\item{obj}{An `AFMdata` object.}
 
-\item{no}{channel number}
+\item{no}{Integer channel number.}
 
-\item{numIterations}{Number of iterations (must be > 1000), but 10^6 recommended}
+\item{numIterations}{Number of random iterations. Must be at least 1000.}
 
-\item{addFit}{if \code{TRUE} a fit is added to the data}
+\item{addFit}{Logical; if `TRUE`, fit the HHCF model to the computed data.}
 
-\item{dataOnly}{if \code{TRUE} returns data frame, otherwise returns a graph (OBSOLETE, use allResults)}
+\item{dataOnly}{Logical; if `TRUE`, return only the HHCF data frame.
+Deprecated in spirit; prefer `allResults = TRUE`.}
 
-\item{degRes}{resolution of angle, the higher the better, should be >100, 1000 is also good, but takes more time}
+\item{degRes}{Angular resolution factor. Larger values give finer angular
+sampling.}
 
-\item{r.percentage}{a number from 10 to 100 representing the distance to compute, since the image is
-square, there are not as many points that are separated by the full length, 80 is a good value, if there
-is no fit, the value can be reduced to 70 or 60.}
+\item{r.percentage}{Maximum distance as a percentage of image width.}
 
-\item{xi.percentage}{a number from 10 to 100 representing where correlation length could be found from maximum (used for fitting)}
+\item{xi.percentage}{Percentage of the asymptotic amplitude used to estimate
+the initial guess for correlation length.}
 
-\item{randomSeed}{(optional) a large number, if set, the random numbers are seeded and the results are reproducible}
+\item{randomSeed}{Optional integer seed for reproducibility.}
 
-\item{allResults}{if \code{TRUE} returns graph, data and fit parameters as list}
+\item{allResults}{Logical; if `TRUE`, return a list with graph, data, fit
+curve, and fit parameters.}
 
-\item{addFitLabels}{if \code{TRUE} and `addFit` is also \code{TRUE}, then labels will be added.}
+\item{addFitLabels}{Logical; if `TRUE` and `addFit = TRUE`, annotate the fit
+parameters on the graph.}
 
-\item{verbose}{output time if \code{TRUE}}
+\item{verbose}{Logical; if `TRUE`, print progress and timing information.}
 }
 \value{
-graph, data frame with g(r) and $num indicating number of computations used for r, or
-   a list with graph, data.frame, fit parameters
+If `dataOnly = TRUE` and `allResults = FALSE`, a data frame with
+  columns `r.nm`, `g`, and `num`. Otherwise returns a `ggplot` object, or a
+  list containing `graph`, `data`, `fitData`, and `fitParams` if
+  `allResults = TRUE`.
 }
 \description{
-Computes the height-height correlation function for an AFM data object; note
-that any background should be removed first. Since the full computation would 
-be lengthy, yet a random subset generally converges to the full result, the
-\code{numIterations} parameter is used to limit the iterations. It should be 
-increased for images with more pixel resolution. With higher resolution, the 
-\code{degRes} should also be increased. For each iteration a random pixel 
-and a random angle with resolution \code{degRes} is generated Then, the height-height 
-correlation \eqn{g(r) = |h(x) - h(x+r)|^2} for that point is computed,
-where \eqn{r} stretches from 1 to pixel resolution of the image (scaled by 
-\code{r.percentage}). Since the AFM image is generally square, some locations / angles 
-will not have data for large r and are ignored. Given the random numbers, slightly
-different results may be obtained in different runs. To limit the variation, the 
-same random numbers can be used, when the \code{randomSeed} is populated with a
-prime number. It is recommended to run with \code{allResults = TRUE}.
+Computes the height-height correlation function (HHCF) for an `AFMdata`
+object. Background removal should generally be performed first.
 
-The resulting data curve \eqn{g(r)} is fit to the following equation:
-\eqn{2 \sigma^2  (1 - \exp \left[ -(\frac{r}{\xi})^{2H} \right] ) }
+To reduce computation time, the HHCF is estimated from a random subset of
+point pairs rather than from all possible pixel pairs. For each iteration,
+a random starting pixel and random angle are selected, and the quantity
+\eqn{g(r) = |h(x) - h(x+r)|^2} is evaluated for distances from 1 pixel up to
+the maximum distance determined by `r.percentage`.
 
+Since AFM images are usually square, some point-angle combinations do not
+remain inside the image for large \eqn{r}; those cases are ignored.
+Results may vary slightly between runs unless `randomSeed` is set.
+
+If `addFit = TRUE`, the HHCF data are fit to
+\deqn{2 \sigma^2 \left(1 - \exp\left[-\left(\frac{r}{\xi}\right)^{2H}\right]\right)}
+
+where:
 \itemize{
-  \item \eqn{\sigma}: roughness
-  \item \eqn{\xi}: correlation length
-  \item \eqn{H}: Hurst parameter, \eqn{\alpha=2H}
+  \item \eqn{\sigma} is the roughness
+  \item \eqn{\xi} is the correlation length
+  \item \eqn{H} is the Hurst parameter
 }
 
-Publication: http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069
-Title: Height-Height Correlation Function to Determine Grain
-       Size in Iron Phthalocyanine Thin Films
-Authors: Thomas Gredig, Evan A. Silverstein, Matthew P Byrne
-Journal: J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).
-}
-\examples{
-filename = AFM.getSampleImages(type='tiff')
-a = AFM.import(filename)
-a = AFM.flatten(a)
-r = AFM.hhcf(a, numIterations = 1e4, allResults = TRUE)
-head(r$data)        # output HHCF data
-head(r$fitData)     # fit data curve data
-head(r$fitParams)   # output fit parameters
-# r$graph           # output ggplot2 graph
-
+Reference:
+Thomas Gredig, Evan A. Silverstein, Matthew P. Byrne,
+\emph{Height-Height Correlation Function to Determine Grain Size in Iron
+Phthalocyanine Thin Films},
+Journal of Physics: Conference Series 417, 012069 (2013).
 }
 \author{
 Thomas Gredig

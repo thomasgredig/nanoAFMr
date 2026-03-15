@@ -160,8 +160,8 @@ test_that("check channel", {
 })
 
 test_that("remove streaks from image", {
-  f <- AFM.getSampleImages()[3]
+  f <- AFM.getSampleImages()[2]
   a <- AFM.import(f)
-  a2 <- AFM.removeStreaks(a, threshold = 0.8)
+  a2 <- AFM.removeStreaks(a, threshold = 0.4)
   expect_equal(length(grep("removeStreaks",summary(a2)$history)),1)
 })

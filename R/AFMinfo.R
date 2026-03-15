@@ -200,27 +200,47 @@ summary.AFMinfo <- function(object, ...) {
 }
 
 
-
-# returns the image size for a NID AFM file
-# s = string, such as "200nm" etc.
+#' Convert NID image size string to micrometers
+#'
+#' @description
+#' Converts an NID image size string such as `"200nm"`, `"2 um"`, or `"0.5 mm"`
+#' to a numeric value in micrometers.
+#'
+#' @param s Character string containing a numeric value and a length unit.
+#'
+#' @returns Numeric image size in micrometers. Returns `NA_real_` if the input
+#'   cannot be parsed or the unit is not recognized.
+#'
+#' @examples
+#' get_NID_imageSize("200nm")
+#' get_NID_imageSize("2 um")
+#' get_NID_imageSize("0.5 mm")
+#'
+#' @noRd
 get_NID_imageSize <- function(s) {
-  # Normalize the string (remove spaces and lowercase)
+  if (!is.character(s) || length(s) != 1L || is.na(s)) {
+    return(NA_real_)
+  }
+  
   s <- trimws(tolower(s))
-
-  # Extract numeric part
+  
   value <- as.numeric(gsub("[^0-9eE+\\.-]", "", s))
   
-  # Determine scale based on unit
-  if (grepl("nm", s)) {
-    return(value * 1e-3)      # nm → µm
-  } else if (grepl("µm|um", s)) {
-    return(value)             # already in µm
-  } else if (grepl("mm", s)) {
-    return(value * 1e3)       # mm → µm
-  } else if (grepl("m", s)) {
-    return(value * 1e6)       # m → µm
-  } else {
-    return(NA)
-    # warning("Unknown or missing unit in NID image size:", s)
+  if (is.na(value)) {
+    return(NA_real_)
   }
+  
+  if (grepl("nm", s)) {
+    value <- value * 1e-3
+  } else if (grepl("µm|um", s)) {
+    value <- value
+  } else if (grepl("mm", s)) {
+    value <- value * 1e3
+  } else if (grepl("^.*(?<![numk])m$", s, perl = TRUE)) {
+    value <- value * 1e6
+  } else {
+    return(NA_real_)
+  }
+  
+  value
 }

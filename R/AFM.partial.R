@@ -9,6 +9,7 @@
 #' @param afmd AFMdata object
 #' 
 #' @importFrom dplyr "%>%"
+#' @importFrom utils head tail
 #'
 #' @export
 AFM.partial <- function(afmd) {

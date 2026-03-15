@@ -1,3 +1,8 @@
+# nanoAFMr 2.4.0
+
+* update the `plot()` function to streamline its functionality better
+* improve speed of `AFM.hhcf()` slightly, refactoring
+
 # nanoAFMr 2.3.5
 
 * add `AFM.removeStreaks()` to crudely remove streaks from AFM images
