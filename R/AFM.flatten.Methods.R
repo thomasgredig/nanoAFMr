@@ -46,9 +46,9 @@ NULL
 }
 
 .flattenMethodPoly2 <- function(d, verbose=FALSE) {
-  fit <- stats::lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
+  fit <- lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
   if (verbose) print(coef(fit))
-  d$z - Stats::predict(fit, newdata=d)
+  d$z - predict(fit, newdata=d)
 }
 
 
