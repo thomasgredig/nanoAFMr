@@ -7,7 +7,7 @@ NULL
   z = c()
   
   for(j in 1:obj@y.pixels) {
-    .flattenLine(obj, j, outGraphs = FALSE, tau_lower = tau_lower, ...) -> d
+    .flattenLine(obj, j, tau_lower = tau_lower, ...) -> d
     z = c(z, d$z)
   }
   z
@@ -117,7 +117,7 @@ NULL
 #' @importFrom rlang .data
 #' @noRd
 .flattenLine <- function(afmd, lineNo, lowLimit=NA, upperLimit=NA, 
-                         no=1, outGraphs=TRUE, tau_lower = 0.01) {
+                         no=1,   tau_lower = 0.01) {
   
   ldf = AFM.getLine(afmd, no=no, yPixel= lineNo, dataOnly = TRUE)
   if (!is.na(lowLimit) & !is.na(upperLimit)) {
@@ -128,14 +128,6 @@ NULL
   ldf$bgd = predict(fit_lower, list(x=ldf$x))
   ldf$z.flat = ldf$z - ldf$bgd
   
-  # if (outGraphs) {
-  #   ggplot(ldf,aes(x,z)) +
-  #     geom_point(col='red', size=1.5) +
-  #     geom_line(data=data.frame(x=ldf$x, z=ldf$bgd), col='blue') +
-  #     theme_bw() -> g.Flat
-  # } else {
-  #   g.Flat = NULL
-  # }
   
   list(z = ldf$z.flat,
        fit = fit_lower,
