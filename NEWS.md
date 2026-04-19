@@ -1,3 +1,5 @@
+# nanoAFMr 2.4.1
+
 # nanoAFMr 2.4.0
 
 * update the `plot()` function to streamline its functionality better

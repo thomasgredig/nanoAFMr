@@ -91,14 +91,27 @@ loadBinaryDatafromTIFF <- function(fname) {
 # ________________________________________
 # add a function to get the 16bit values
 # can return negative number
+# get16bit <- function(q, num) {
+#   n = q[floor(num/4)+1]
+#   if ((num %% 4)==0) {
+#     res = n %% 65536
+#   } else {
+#     res = floor(n / 65536)
+#     if (res < 0) { res = res + 2^16 }
+#   }
+#   res
+# }
 get16bit <- function(q, num) {
-  n = q[floor(num/4)+1]
-  if ((num %% 4)==0) {
-    res = n %% 65536
+  idx <- floor(num / 4) + 1
+  if (idx > length(q)) stop("num points past end of q:", num)
+  n <- q[idx]
+  
+  if ((num %% 4) == 0) {
+    res <- n %% 65536
   } else {
-    res = floor(n / 65536)
-    if (res < 0) { res = res + 2^16 }
+    res <- floor(n / 65536) %% 65536
   }
+   
   res
 }
 

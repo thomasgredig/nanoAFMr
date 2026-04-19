@@ -164,4 +164,18 @@ test_that("remove streaks from image", {
   a <- AFM.import(f)
   a2 <- AFM.removeStreaks(a, threshold = 0.4)
   expect_equal(length(grep("removeStreaks",summary(a2)$history)),1)
+  
+  expect_true(!AFM.partial(a2))
 })
+
+test_that("remove streaks from image", {
+  q <- c(0x12345678,2,4)
+  expect_equal(get16bit(q, 0), 0x5678)
+  expect_equal(get16bit(q, 2), 0x1234)
+  
+  q1 <- c(0x12345678, 0xABCDEF01)
+  expect_equal(get32bit(q1, 0), 0x12345678)
+  expect_equal(get32bit(q1, 4), 0xABCDEF01)
+  expect_equal(get32bit(q1, 2), 0xEF011234)
+})
+

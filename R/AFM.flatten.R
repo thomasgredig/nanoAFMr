@@ -125,9 +125,9 @@ AFM.flattenLine <- function(obj, no=1, skip = c(),
     if (j %in% region$lines) {
       .flattenLine(obj, j, lowLimit = region$fit.px.lower[which(region$lines==j)],
                    upperLimit = region$fit.px.upper[which(region$lines==j)],
-                   outGraphs = FALSE, tau_lower = tau_lower, ...) -> d
+                   tau_lower = tau_lower, ...) -> d
     } else {
-      .flattenLine(obj, j, outGraphs = FALSE, tau_lower = tau_lower, ...) -> d
+      .flattenLine(obj, j, tau_lower = tau_lower, ...) -> d
     }
     m = c(m, d$m)
     b = c(b, d$b)
