@@ -10,7 +10,7 @@ NULL
 tagReader <- function(fname) {
   # check if file exists
   if (!file.exists(fname)) stop(paste("File",fname,"not found!"))
-
+  if (file.info(fname)$size < 3000) stop(paste("File", fname,"too small!"))
   # load TIFF file portion
   q = loadBinaryDatafromTIFF(fname)
 
@@ -73,6 +73,11 @@ tagReader <- function(fname) {
 loadBinaryDatafromTIFF <- function(fname) {
   # find the file size and then read in binary format
   nLen = ceiling(file.info(fname)$size/2)
+  # check that file is not empty
+  if (nLen == 0 ) {
+    warning(paste("File", fname, "has no binary data that can be loaded."))
+  }
+    
   to.read = file(fname, 'rb')
   q <- readBin(to.read, integer(), n=nLen, endian = "little")
   close(to.read)
@@ -83,6 +88,7 @@ loadBinaryDatafromTIFF <- function(fname) {
     # warning(paste("reading error: NA found in",fname,"."))
     q[is.na(q)] <- 0
   }
+
   q
 }
 

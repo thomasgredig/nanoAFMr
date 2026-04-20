@@ -168,7 +168,7 @@ AFM.flattenCheck <- function(obj, lns = c(1:4*5), no=1, tau_lower=0.01) {
   g = list()
   k = 1
   for(j in lns) {
-    .flattenLine(obj, j, outGraphs = TRUE, tau_lower = tau_lower) -> d
+    .flattenLine(obj, j,  tau_lower = tau_lower) -> d
     g[[k]] = d$g2 + ggtitle(paste0("Line:",j))
     k = k + 1
   }
