@@ -6,3 +6,4 @@
 _*.R
 /docs
 tests/testthat/Rplots.pdf
+man/figures/logo2.png
