@@ -43,6 +43,7 @@ Suggests:
     knitr,
     latex2exp,
     pander,
+    rprojroot,
     rmarkdown,
     scales,
     showtext,
