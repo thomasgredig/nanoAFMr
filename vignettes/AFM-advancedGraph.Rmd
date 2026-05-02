@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   fig.width = 6,
+  warning = FALSE,
   comment = "#>"
 )
 ```
@@ -18,9 +19,10 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(nanoAFMr)
 library(ggplot2)
-library(scales)
-filename = AFM.getSampleImages(type='tiff')
-afmd = AFM.import(filename)
+afmd <- AFM.artificialImage(
+  width = 100, height = 100, type = "gradient",
+  addNoise = TRUE, verbose = FALSE
+)
 plot(afmd)
 ```
  
@@ -42,12 +44,12 @@ plot(afmd, trimPeaks = 0.01)
 Graphing a subset of the data points using the `AFM.raster()` function to obtain the 3D data point set.
 
 ```{r}
-dr = AFM.raster(afmd)
+dr <- AFM.raster(afmd)
 head(dr)
 # data points higher than 90% of peak
-lowerBound = -0.3
-upperBound = 0.8
-dr1 =dr[which(dr$z>lowerBound & dr$z<upperBound),]
+lowerBound <- quantile(dr$z, 0.1)
+upperBound <- quantile(dr$z, 0.9)
+dr1 <- dr[which(dr$z > lowerBound & dr$z < upperBound), ]
 plot(afmd, trimPeaks = 0.01) + 
-  geom_raster(data=dr1,fill='white')
+  geom_raster(data = dr1, fill = "white")
 ```

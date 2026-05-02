@@ -2,28 +2,35 @@
 % Please edit documentation in R/AFM.linePlot.R
 \name{AFM.linePlot}
 \alias{AFM.linePlot}
-\title{Plots AFM line}
+\title{Plot AFM line profiles}
 \usage{
 AFM.linePlot(obj, no = 1, dataOnly = FALSE)
 }
 \arguments{
-\item{obj}{AFMdata object}
+\item{obj}{An `AFMdata` object.}
 
-\item{no}{channel number}
+\item{no}{Integer channel number.}
 
-\item{dataOnly}{if \code{TRUE} no graph is returned}
+\item{dataOnly}{Logical; if `TRUE`, return the underlying data and do not
+draw a plot.}
+}
+\value{
+If `dataOnly = TRUE`, a data frame with columns `x`, `z`, and
+  `type`; otherwise a `ggplot2` object.
 }
 \description{
-Plots AFM line
+Plots all profile lines stored in an `AFMdata` object for one channel.
+Use [AFM.lineProfile()] or [AFM.getLine()] first to attach one or more lines.
 }
 \examples{
-filename = AFM.getSampleImages(type='ibw')
-d = AFM.import(filename)
-AFM.lineProfile(d, 0,0, 2000,2000) -> d1
-AFM.lineProfile(d1, 0,0, 100,2500) -> d2
-AFM.linePlot(d2)
-plot(d2,addLines=TRUE)
-head(AFM.linePlot(d2, dataOnly=TRUE))
+img <- AFM.artificialImage(
+  width = 80, height = 80, type = "gradient",
+  addNoise = FALSE, verbose = FALSE
+)
+img <- AFM.lineProfile(img, 0, 100, 1000, 100, unitPixels = FALSE)
+img <- AFM.lineProfile(img, 0, 300, 1000, 300, unitPixels = FALSE)
+AFM.linePlot(img)
+head(AFM.linePlot(img, dataOnly = TRUE))
 }
 \seealso{
 \code{\link{AFM.lineProfile}}

@@ -9,4 +9,5 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^pkgdown$
-
+^\.squad$
+^\.copilot$

@@ -50,6 +50,20 @@
 #'
 #' @author Thomas Gredig
 #'
+#' @examples
+#' img <- AFM.artificialImage(
+#'   width = 80, height = 80, type = "calibration",
+#'   addNoise = FALSE, verbose = FALSE
+#' )
+#' plot(img)
+#' plot(img, graphType = 2, trimPeaks = 0.02, color = "white")
+#' plot(img, graphType = 1, redBlue = TRUE, setRange = c(0, 100))
+#'
+#' img <- AFM.lineProfile(img, 0, 200, 1000, 200, unitPixels = FALSE)
+#' plot(img, graphType = 4, addLines = TRUE, color = "white")
+#'
+#' AFM.histogram(img)
+#'
 #' @importFrom ggplot2 ggplot aes geom_raster geom_line geom_text theme_bw
 #' @importFrom ggplot2 scale_fill_gradient2 scale_fill_viridis_c
 #' @importFrom ggplot2 xlab ylab labs scale_y_continuous scale_x_continuous
@@ -261,8 +275,16 @@ make_fill_scale <- function(redBlue, fillOption, setRange, mpt) {
   }
 }
 
+#' @importFrom rlang .data
 make_base_image_plot <- function(d, fill_scale, z_lab, show_axes = TRUE, show_legend = TRUE) {
-  p <- ggplot2::ggplot(d, ggplot2::aes(x / 1000, y / 1000, fill = z)) +
+  p <- ggplot2::ggplot(
+    d,
+    ggplot2::aes(
+      x = .data$x / 1000,
+      y = .data$y / 1000,
+      fill = .data$z
+    )
+  ) +
     ggplot2::geom_raster() +
     fill_scale +
     ggplot2::scale_y_continuous(expand = c(0, 0)) +
@@ -308,15 +330,20 @@ add_scale_bar <- function(p, x, show_legend_inside = FALSE, ...) {
   p <- p +
     ggplot2::geom_line(
       data = d_line,
-      ggplot2::aes(x / 1000, y / 1000),
+      ggplot2::aes(
+        x = .data$x / 1000,
+        y = .data$y / 1000
+      ),
       linewidth = 4,
       inherit.aes = FALSE,
       ...
     ) +
     ggplot2::geom_text(
       data = d_line,
-      ggplot2::aes( x / 1000, y / 1000,
-        label =  myLabel
+      ggplot2::aes(
+        x = .data$x / 1000,
+        y = .data$y / 1000,
+        label = .data$myLabel
       ),
       vjust = -1,
       hjust = 0,

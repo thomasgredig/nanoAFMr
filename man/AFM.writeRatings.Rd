@@ -13,6 +13,9 @@ AFM.writeRatings(dbFileName, df_ratings, verbose = FALSE)
 
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
+\value{
+Invisibly returns `TRUE` after writing ratings.
+}
 \description{
 User rating information of specific AFM images is stored separately
 in the AFM SQLite database.

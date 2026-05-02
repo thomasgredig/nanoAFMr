@@ -8,6 +8,7 @@
 #' @param dbFileName full path and name of SQLite database
 #' @param df_ratings data frame with ratings to be saved
 #' @param verbose if \code{TRUE} outputs verbose comments
+#' @returns Invisibly returns `TRUE` after writing ratings.
 #'
 #' @importFrom DBI dbConnect dbRemoveTable dbWriteTable dbListTables dbCreateTable dbDisconnect
 #' @importFrom RSQLite SQLite
@@ -15,6 +16,14 @@
 #'
 #' @export
 AFM.writeRatings <- function(dbFileName, df_ratings, verbose=FALSE) {
+  if (!is.data.frame(df_ratings)) {
+    stop("df_ratings must be a data.frame.")
+  }
+  required_cols <- c("ID", "user", "quality")
+  missing_cols <- setdiff(required_cols, names(df_ratings))
+  if (length(missing_cols) > 0) {
+    stop("df_ratings is missing required columns: ", paste(missing_cols, collapse = ", "))
+  }
   if (!file.exists(dbFileName)) {
     if (verbose) cat("DB file does not exist. Creating file:", dbFileName,"\n")
     file.create(dbFileName)

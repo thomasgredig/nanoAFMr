@@ -80,6 +80,21 @@ image with legend, image with scale bar, and legend-only output. Since the
 returned object is a `ggplot`, additional themes or layers can be added by the
 user.
 }
+\examples{
+img <- AFM.artificialImage(
+  width = 80, height = 80, type = "calibration",
+  addNoise = FALSE, verbose = FALSE
+)
+plot(img)
+plot(img, graphType = 2, trimPeaks = 0.02, color = "white")
+plot(img, graphType = 1, redBlue = TRUE, setRange = c(0, 100))
+
+img <- AFM.lineProfile(img, 0, 200, 1000, 200, unitPixels = FALSE)
+plot(img, graphType = 4, addLines = TRUE, color = "white")
+
+AFM.histogram(img)
+
+}
 \author{
 Thomas Gredig
 }

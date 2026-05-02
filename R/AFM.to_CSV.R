@@ -2,16 +2,19 @@
 #' 
 #' @param obj AFMdata object
 #' @param no channel number
+#' @return Numeric matrix of `z` values with `y` rows and `x` columns.
 #' @author Thomas Gredig
 #' @importFrom ggplot2 ggplot geom_path scale_color_discrete xlab theme_bw theme
 #'
 #' @examples
+#' \dontrun{
 #' filename = AFM.getSampleImages(type='ibw')
 #' d = AFM.import(filename)
-#' m <- AFM.getCSV(d)
+#' m <- AFM.to_CSV(d)
 #' write.csv(m, "data.csv")
+#' }
 #' @export
-AFM.getCSV <- function(obj, no=1) {
+AFM.to_CSV <- function(obj, no=1) {
   df <- AFM.raster(obj, no=no)
   num_x = obj@x.pixels
   num_y = obj@y.pixels

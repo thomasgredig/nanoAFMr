@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   fig.width = 6,
+  warning = FALSE,
   comment = "#>"
 )
 ```
@@ -19,8 +20,10 @@ Find all the frequency sweep files:
 
 ```{r setup}
 library(nanoAFMr)
-filesAFM = AFM.getSampleImages()
-freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) == 'frequency') })]
+filesAFM <- AFM.getSampleImages()
+freqAFM <- filesAFM[
+  sapply(filesAFM, function(x) AFM.dataType(AFM.import(x)) == "frequency")
+]
 ```
 
 ## Frequency Sweep Graph
@@ -28,16 +31,16 @@ freqAFM = filesAFM[sapply(filesAFM, function(x) { (AFM.dataType(AFM.import(x)) =
 You can import the frequency file as an `AFMdata` file using the standard import function. Graphing also works with the `plot()` function.
 
 ```{r}
-a = AFM.import(freqAFM[1])
-plot(a)
+freq <- AFM.import(freqAFM[1])
+plot(freq)
 ```
 
 
 ## Frequency Sweep Info
 
 ```{r}
-print(a)
-summary(a)
+print(freq)
+summary(freq)
 ```
 
 
@@ -47,6 +50,6 @@ You can extract the data from the graph using the `AFM.raster()` function:
 
 
 ```{r}
-d = AFM.raster(a)
-head(d)
+freq_data <- AFM.raster(freq)
+head(freq_data)
 ```

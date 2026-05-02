@@ -16,28 +16,31 @@ knitr::opts_chunk$set(
 
 # Summary Data for AFM Images
 
-Each instrument uses a different set of parameters for describing the systems. Here are a few examples.
+This vignette demonstrates summary workflows using deterministic synthetic
+images so examples are fast and reproducible.
 
 ```{r setup}
 library(nanoAFMr)
-file.list = AFM.getSampleImages()
-for(filename in file.list) {
-  print(basename(filename))
-  print(summary(AFM.import(filename)))
+set.seed(42)
+img_list <- list(
+  random = AFM.artificialImage(type = "random", addNoise = FALSE, verbose = FALSE),
+  gradient = AFM.artificialImage(type = "gradient", addNoise = FALSE, verbose = FALSE),
+  calibration = AFM.artificialImage(type = "calibration", addNoise = FALSE, verbose = FALSE)
+)
+for (nm in names(img_list)) {
+  print(nm)
+  print(summary(img_list[[nm]]))
 }
 ```
 
-# AFMinfo class
+# AFMmath summary
 
-Additional information can be found using the `AFMinfo` object:
+Computed metrics can be inspected with `AFM.math.params()` and `summary()`:
 
 ```{r}
-for(filename in file.list[1:3]) {
-  print(basename(filename))
-  h = AFMinfo(filename)
-  print(h)
+for (nm in names(img_list)) {
+  print(nm)
+  print(summary(AFM.math.params(img_list[[nm]])))
 }
 ```
-
-
 

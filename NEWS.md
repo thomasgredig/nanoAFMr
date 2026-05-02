@@ -1,4 +1,7 @@
-# nanoAFMr 2.4.1
+# nanoAFMr 2.5.0
+
+* update documentation for all functions
+* fix binding errors and update code in vignettes
 
 # nanoAFMr 2.4.0
 

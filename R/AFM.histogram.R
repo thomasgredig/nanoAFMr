@@ -1,24 +1,29 @@
-#' Histogram of AFM image
-#' 
-#' @description
-#' Histogram for the AFMdata object is generated. You can set the number of bins
-#' and either output an image or a data table.
-#' 
+#' Histogram of AFM height data
 #'
-#' @param obj AFMdata object
-#' @param no channel number of the image
-#' @param binNo number of bins in the histogram
-#' @param dataOnly logical, if \code{TRUE} a data frame with the histogram
-#' data is returned
-#' 
-#' @return data frame or ggplot
+#' @description
+#' Computes and optionally plots a histogram of one channel in an `AFMdata`
+#' object. This is useful for checking whether a few outlier pixels dominate
+#' the dynamic range before choosing `trimPeaks` or `setRange` in [plot()].
+#'
+#' @param obj An `AFMdata` object.
+#' @param no Integer channel number.
+#' @param binNo Integer number of bins to use.
+#' @param dataOnly Logical; if `TRUE`, return histogram summary data instead of
+#'   a plot.
+#'
+#' @return A `ggplot` object when `dataOnly = FALSE`, otherwise a data frame
+#'   with columns `mids` and `zDensity`.
 #'
 #' @author Thomas Gredig
 #'
 #' @examples
-#' d = AFM.import(AFM.getSampleImages(type='ibw'))
-#' head(AFM.histogram(d, dataOnly=TRUE),n=20)
-#' AFM.histogram(d)
+#' img <- AFM.artificialImage(
+#'   width = 64, height = 64, type = "gradient",
+#'   addNoise = FALSE, verbose = FALSE
+#' )
+#' hist_data <- AFM.histogram(img, binNo = 40, dataOnly = TRUE)
+#' head(hist_data, n = 6)
+#' AFM.histogram(img, binNo = 40)
 #'
 #'
 #' @importFrom ggplot2 ggplot aes geom_histogram geom_density after_stat 
@@ -43,4 +48,3 @@ AFM.histogram <- function(obj, no=1, binNo = 200, dataOnly=FALSE) {
   }
   result
 }
-

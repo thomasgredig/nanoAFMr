@@ -10,6 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
@@ -24,33 +25,33 @@ library(ggplot2)
 This example illustrates how to extract force versus distance spectroscopy data from Park AFM images:
 
 ```{r}
-f = AFM.getSampleImages('force')
-a = AFM.import(f)
-a = AFM.flatten(a)
-plot(a) + labs(fill="z (nm)")
+f <- AFM.getSampleImages("force")
+force_img <- AFM.import(f)
+force_img <- AFM.flatten(force_img)
+plot(force_img) + labs(fill = "z (nm)")
 ```
 
 Spectroscopy data files are recognized as such:
 
 ```{r}
-AFM.dataType(a)
+AFM.dataType(force_img)
 ```
 
 
 The file can be graphed like a regular AFM file, but additionally, it contains the spectroscopy data. Several channels are recorded:
 
 ```{r}
-AFM.specHeader(a)
+AFM.specHeader(force_img)
 ```
 
 
 The data from these channels is extracted as follows:
 
 ```{r}
-df = AFM.specData(a)
-ggplot(df, aes(`Z Scan`, Force, col=factor(Point))) + 
+df <- AFM.specData(force_img)
+ggplot(df, aes(`Z Scan`, Force, col = factor(Point))) + 
   geom_point() + 
   theme_bw() +
-  theme(legend.position = c(0.95,0.99),
-        legend.justification = c(1,1))
+  theme(legend.position = c(0.95, 0.99),
+        legend.justification = c(1, 1))
 ```

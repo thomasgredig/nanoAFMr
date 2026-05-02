@@ -17,6 +17,10 @@ AFM.writeDB(obj, con, ID, vacuum = TRUE, verbose = FALSE)
 
 \item{verbose}{if \code{TRUE} outputs verbose comments}
 }
+\value{
+Invisibly returns `TRUE` when data are written, or `NULL` when
+  deleting/unsupported.
+}
 \description{
 Writes and AFM image to an SQL database; the ID is used to store the image. If an image
 already exists with this ID, then it will be overwritten. If you use \code{NULL} as the

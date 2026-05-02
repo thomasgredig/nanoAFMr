@@ -12,6 +12,8 @@
 #' @param ID unique object file ID
 #' @param vacuum vacuums the database, if obj is \code{NULL} and something is deleted; this option saves space
 #' @param verbose if \code{TRUE} outputs verbose comments
+#' @returns Invisibly returns `TRUE` when data are written, or `NULL` when
+#'   deleting/unsupported.
 #'
 #' @importFrom DBI dbRemoveTable dbWriteTable dbListTables dbCreateTable dbAppendTable dbExecute
 #' @author Thomas Gredig

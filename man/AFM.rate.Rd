@@ -17,6 +17,9 @@ AFM.rate(dbFileName, IDs = NA, dataRAW, add2DB = FALSE, verbose = FALSE)
 
 \item{verbose}{logical, if TRUE additional information is output}
 }
+\value{
+Invisibly returns the ratings data frame.
+}
 \description{
 The images are displayed and rated by a user; if the user has rated
 an image already, it will not show up anymore, if the image has not

@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   message = FALSE,
+  warning = FALSE,
   fig.width = 6,
   comment = "#>"
 )
@@ -18,15 +19,15 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(nanoAFMr)
-library(ggplot2)
-library(scales)
 ```
 
 ## Loading AFM image
 
 ```{r}
-fname = AFM.getSampleImages()[1]
-afmd = AFM.import(fname)
+afmd <- AFM.artificialImage(
+  width = 80, height = 80, type = "calibration",
+  addNoise = FALSE, verbose = FALSE
+)
 ```
 
 The AFM image can be displayed using graphTypes:
@@ -36,7 +37,8 @@ The AFM image can be displayed using graphTypes:
 This is the basic and default graph for an AFM image:
 
 ```{r}
-q = plot(afmd, graphType=1, trimPeaks=0.01)
+q <- plot(afmd, graphType = 1, trimPeaks = 0.01)
+q
 ```
 
 ## graphType 2
@@ -44,14 +46,14 @@ q = plot(afmd, graphType=1, trimPeaks=0.01)
 This graph has a square shape and adds a bar of length 20%; it places the scale inside the graph.
 
 ```{r}
-# plot(afmd, graphType=2,trimPeaks=0.01)
+plot(afmd, graphType = 2, trimPeaks = 0.01, color = "white")
 ```
 
 The image can be saved with `ggsave` as it is graphed with ggplot.
 
 ```{r}
 # g1 = plot(afmd, graphType=2, size=10, trimPeaks=0.01)
-# ggsave(tempfile(pattern = "", fileext = ".png"), plot=g1, dpi=150)
+# ggsave("afm-graphtype2.png", plot = g1, dpi = 150)
 ```
 
 ## graphType 3
@@ -59,7 +61,7 @@ The image can be saved with `ggsave` as it is graphed with ggplot.
 This graph type is bare and has neither length scales nor legend.
 
 ```{r}
-# plot(afmd, graphType=3, trimPeaks=0.01)
+plot(afmd, graphType = 3, trimPeaks = 0.01)
 summary(afmd)
 ```
 ## graphType 4
@@ -67,7 +69,7 @@ summary(afmd)
 This graph type is plain with a scale. You can also change the color and the size of the font that displays the scale.
 
 ```{r}
-# plot(afmd, graphType=4, col='white', size=10, trimPeaks=0.05, fillOption = 'A')
+plot(afmd, graphType = 4, color = "white", size = 4, trimPeaks = 0.05, fillOption = "A")
 ```
 
 
@@ -77,7 +79,7 @@ This graph type is plain with a scale. You can also change the color and the siz
 This graph type is bare and has neither length scales nor legend.
 
 ```{r}
-# plot(afmd, graphType=1, trimPeaks=0.01, redBlue = TRUE)
+plot(afmd, graphType = 1, trimPeaks = 0.01, redBlue = TRUE)
 ```
 
 
@@ -114,23 +116,21 @@ You can use the `fillOption` option to change the color palette, see also `? sca
 
 
 ```{r}
-# plot(afmd, graphType = 1, fillOption = "magma")
-# plot(afmd, graphType = 1, fillOption = "inferno")
-# plot(afmd, graphType = 1, fillOption = "plasma")
-# plot(afmd, graphType = 1, fillOption = "viridis")
+plot(afmd, graphType = 1, fillOption = "A")
+plot(afmd, graphType = 1, fillOption = "C")
+plot(afmd, graphType = 1, fillOption = "E")
+plot(afmd, graphType = 1, fillOption = "H")
 ```
 
 ```{r}
-# plot(afmd, graphType = 1, fillOption = "cividis")
-# plot(afmd, graphType = 1, fillOption = "rocket")
-# plot(afmd, graphType = 1, fillOption = "mako")
-# plot(afmd, graphType = 1, fillOption = "turbo")
+# The underlying viridis options are letters A through H.
+# See ?ggplot2::scale_fill_viridis_c for current palette mapping.
 ```
 
 
 ## Adjusting the scale
 
 ```{r}
-# plot(afmd)
-plot(afmd, setRange=c(-50,50))
+plot(afmd)
+plot(afmd, setRange = c(10, 90))
 ```

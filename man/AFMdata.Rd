@@ -63,6 +63,9 @@ AFMdata(
 
 \item{fullFilename}{name of file}
 }
+\value{
+An initialized `AFMdata` object.
+}
 \description{
 A S4 class to store and manipulate images from Atomic Force Microscopes.
 It contains the names of channels (exact naming depends on the type/instrument)

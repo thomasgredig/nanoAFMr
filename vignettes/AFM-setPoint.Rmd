@@ -10,6 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
@@ -22,9 +23,9 @@ You can find the setpoint and other information about an AFM image by retrieving
 library(nanoAFMr)
 
 # loading the test file 
-filename = AFM.getSampleImages('ibw')
+filename <- AFM.getSampleImages("ibw")[1]
 # retrieving an AFMinfo object
-h = AFMinfo(filename)
+h <- AFMinfo(filename)
 ```
 
 
@@ -39,13 +40,13 @@ summary(h)
 Finding additional special information, using the function `AFMinfo.item`; note that the search string is case-sensitive.
 
 ```{r}
-sp =  AFMinfo.item(h, 'Setpoint')
-print(paste("Setpoint:",sp,"V"))
+sp <- AFMinfo.item(h, "Setpoint")
+print(paste("Setpoint:", sp, "V"))
 ```
 
 The names of the items can be found with the same function; here is a list of the first few item names that can be used:
 
 ```{r}
-allNames = AFMinfo.item(h)
+allNames <- AFMinfo.item(h)
 print(allNames[1:50])
 ```

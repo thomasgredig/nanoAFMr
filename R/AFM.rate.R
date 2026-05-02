@@ -12,6 +12,7 @@
 #' @param dataRAW dataRAW object with ID, path and filename information
 #' @param add2DB logical, if TRUE highly rated AFM images are added to SQL database
 #' @param verbose logical, if TRUE additional information is output
+#' @returns Invisibly returns the ratings data frame.
 #'
 #' @importFrom utils write.csv read.csv
 #' @importFrom DBI dbConnect
@@ -41,7 +42,7 @@ AFM.rate <- function(dbFileName, IDs=NA, dataRAW, add2DB = FALSE, verbose = FALS
     if (interactive()) user.name <- readline("Last name of user: ")
   }
   
-  for(i in 1:length(IDs)) {
+  for(i in seq_along(IDs)) {
     # skip if this user has rated the image already
     m1 <- which(df_ratings$ID == IDs[i] & df_ratings$user==user.name)
     if (length(m1)>0) next
@@ -66,6 +67,7 @@ AFM.rate <- function(dbFileName, IDs=NA, dataRAW, add2DB = FALSE, verbose = FALS
     a = AFM.flatten(a)
     print(plot(a))
     print(a)
+    qual <- "3"
     if (interactive()) qual <- readline("Quality, q=exit, 1=high, 2=ok, 3=low [low]: ")
     if (qual=='q') break
     if (qual=="") qual=3

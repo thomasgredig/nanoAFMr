@@ -45,6 +45,7 @@ NULL
   z - (x*solvX[1] + y*solvX[2] + solvX[3])
 }
 
+#' @importFrom stats lm coef
 .flattenMethodPoly2 <- function(d, verbose=FALSE) {
   fit <- lm(z ~ x + y + I(x^2) + I(x*y) + I(y^2), data=d)
   if (verbose) print(coef(fit))

@@ -2,31 +2,37 @@
 % Please edit documentation in R/AFM.histogram.R
 \name{AFM.histogram}
 \alias{AFM.histogram}
-\title{Histogram of AFM image}
+\title{Histogram of AFM height data}
 \usage{
 AFM.histogram(obj, no = 1, binNo = 200, dataOnly = FALSE)
 }
 \arguments{
-\item{obj}{AFMdata object}
+\item{obj}{An `AFMdata` object.}
 
-\item{no}{channel number of the image}
+\item{no}{Integer channel number.}
 
-\item{binNo}{number of bins in the histogram}
+\item{binNo}{Integer number of bins to use.}
 
-\item{dataOnly}{logical, if \code{TRUE} a data frame with the histogram
-data is returned}
+\item{dataOnly}{Logical; if `TRUE`, return histogram summary data instead of
+a plot.}
 }
 \value{
-data frame or ggplot
+A `ggplot` object when `dataOnly = FALSE`, otherwise a data frame
+  with columns `mids` and `zDensity`.
 }
 \description{
-Histogram for the AFMdata object is generated. You can set the number of bins
-and either output an image or a data table.
+Computes and optionally plots a histogram of one channel in an `AFMdata`
+object. This is useful for checking whether a few outlier pixels dominate
+the dynamic range before choosing `trimPeaks` or `setRange` in [plot()].
 }
 \examples{
-d = AFM.import(AFM.getSampleImages(type='ibw'))
-head(AFM.histogram(d, dataOnly=TRUE),n=20)
-AFM.histogram(d)
+img <- AFM.artificialImage(
+  width = 64, height = 64, type = "gradient",
+  addNoise = FALSE, verbose = FALSE
+)
+hist_data <- AFM.histogram(img, binNo = 40, dataOnly = TRUE)
+head(hist_data, n = 6)
+AFM.histogram(img, binNo = 40)
 
 
 }

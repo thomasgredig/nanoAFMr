@@ -121,6 +121,7 @@ setMethod(f="initialize",
 #' @param date date when file was created
 #' @param description AFM image description or note
 #' @param fullFilename name of file
+#' @returns An initialized `AFMdata` object.
 #' @export
 AFMdata <- function(data,
                     x.conv,
@@ -387,4 +388,3 @@ AFM.isFileValid <- function(filename) {
   }
   validFile
 }
-

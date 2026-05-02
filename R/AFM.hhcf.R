@@ -290,9 +290,16 @@ fit_hhcf_curve <- function(obj, hhcf_data, xi.percentage, verbose = FALSE) {
   )
 }
 
+#' @importFrom rlang .data
 plot_hhcf_data <- function(hhcf_data, fit_curve = NULL, fit_labels = NULL,
                            addFit = TRUE, addFitLabels = TRUE) {
-  g <- ggplot2::ggplot(hhcf_data, ggplot2::aes(r.nm, g)) +
+  g <- ggplot2::ggplot(
+    hhcf_data,
+    ggplot2::aes(
+      x = .data$r.nm,
+      y = .data$g
+    )
+  ) +
     ggplot2::geom_point(col = "blue", size = 2) +
     ggplot2::scale_x_log10() +
     ggplot2::scale_y_log10() +
@@ -302,7 +309,15 @@ plot_hhcf_data <- function(hhcf_data, fit_curve = NULL, fit_labels = NULL,
   
   if (addFit && !is.null(fit_curve)) {
     g <- g +
-      ggplot2::geom_path(data = fit_curve, col = "red") +
+      ggplot2::geom_path(
+        data = fit_curve,
+        ggplot2::aes(
+          x = .data$r.nm,
+          y = .data$g
+        ),
+        col = "red",
+        inherit.aes = FALSE
+      ) +
       ggplot2::theme(legend.position = "none")
   }
   
@@ -310,7 +325,11 @@ plot_hhcf_data <- function(hhcf_data, fit_curve = NULL, fit_labels = NULL,
     g <- g +
       ggplot2::geom_label(
         data = fit_labels,
-        aes(x=r.nm, y=g, label = myLabel),
+        ggplot2::aes(
+          x = .data$r.nm,
+          y = .data$g,
+          label = .data$myLabel
+        ),
         fill = "white",
         colour = "black",
         fontface = "bold",
@@ -321,3 +340,5 @@ plot_hhcf_data <- function(hhcf_data, fit_curve = NULL, fit_labels = NULL,
   
   g
 }
+
+

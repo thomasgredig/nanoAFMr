@@ -1,20 +1,28 @@
-#' Plots AFM line
+#' Plot AFM line profiles
 #'
-#' @param obj AFMdata object
-#' @param no channel number
+#' @description
+#' Plots all profile lines stored in an `AFMdata` object for one channel.
+#' Use [AFM.lineProfile()] or [AFM.getLine()] first to attach one or more lines.
+#'
+#' @param obj An `AFMdata` object.
+#' @param no Integer channel number.
 #' @author Thomas Gredig
-#' @param dataOnly if \code{TRUE} no graph is returned
+#' @param dataOnly Logical; if `TRUE`, return the underlying data and do not
+#'   draw a plot.
+#' @returns If `dataOnly = TRUE`, a data frame with columns `x`, `z`, and
+#'   `type`; otherwise a `ggplot2` object.
 #' @importFrom ggplot2 ggplot geom_path scale_color_discrete xlab theme_bw theme
 #'
 #' @seealso \code{\link{AFM.lineProfile}}
 #' @examples
-#' filename = AFM.getSampleImages(type='ibw')
-#' d = AFM.import(filename)
-#' AFM.lineProfile(d, 0,0, 2000,2000) -> d1
-#' AFM.lineProfile(d1, 0,0, 100,2500) -> d2
-#' AFM.linePlot(d2)
-#' plot(d2,addLines=TRUE)
-#' head(AFM.linePlot(d2, dataOnly=TRUE))
+#' img <- AFM.artificialImage(
+#'   width = 80, height = 80, type = "gradient",
+#'   addNoise = FALSE, verbose = FALSE
+#' )
+#' img <- AFM.lineProfile(img, 0, 100, 1000, 100, unitPixels = FALSE)
+#' img <- AFM.lineProfile(img, 0, 300, 1000, 300, unitPixels = FALSE)
+#' AFM.linePlot(img)
+#' head(AFM.linePlot(img, dataOnly = TRUE))
 #' @export
 AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
   if (is.null(obj@data$line)) { warning("No lines in object."); return() }

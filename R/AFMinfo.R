@@ -11,7 +11,7 @@
 #' Parses instrument-specific headers and returns a compact summary of AFM scan
 #' settings. Numeric outputs are coerced into consistent base units:
 #' 
-#' - `imageSize.um` in micrometers (µm)
+#' - `imageSize.um` in micrometers (um)
 #' 
 #' - `scanRate.Hz` in hertz (Hz)
 #' 
@@ -23,38 +23,38 @@
 #' **Supported formats and field mapping (high level):**
 #' - **Asylum/Cypher (`.ibw`)**: Reads fields such as `ScanSize`, `PointsLines`,
 #'   `ScanLines`, `ScanAngle`, `ScanRate`, `ImagingMode`, `ThermalLever`,
-#'   `ResFreq1`, `ImageNote`, `BaseName`. The image size is converted to µm,
+#'   `ResFreq1`, `ImageNote`, `BaseName`. The image size is converted to um,
 #'   resonance frequency to Hz.
 #' - **Park (`.tiff`)**: Reads `dfXScanSizeum`, `nWidth`, `nHeight`, `dfAngle`,
 #'   `dfScanRateHz`, `imageMode`, `Cantilever`, `dfNCMFrequency`, `sourceName`.
-#'   Image size is provided directly in µm; frequencies are normalized to Hz.
-#' - **Nanosurf (`.nid`)**: Uses `get_NID_imageSize()` to derive scan size (µm),
+#'   Image size is provided directly in um; frequencies are normalized to Hz.
+#' - **Nanosurf (`.nid`)**: Uses `get_NID_imageSize()` to derive scan size (um),
 #'   reads `Points`, `Lines`, `Rotation` (parsed as degrees), `Time/Line`
 #'   (converted to `scanRate.Hz = 1 / (time per line)`), `Op. mode`,
-#'   `Cantilever type`, `Vibration freq` (kHz → Hz). Channel count is inferred
+#'   `Cantilever type`, `Vibration freq` (kHz to Hz). Channel count is inferred
 #'   from `Gr\\d-Ch\\d` entries.
 #' - **Bruker/Veeco Nanoscope (other)**: Reads `Scan size`, valid data lengths,
 #'   `Feature scan angle`, `Scan rate`, and misc. notes. Image size is expressed
-#'   in µm. Some fields may be instrument/firmware dependent.
+#'   in um. Some fields may be instrument/firmware dependent.
 #'
 #' @param filename Character scalar. Full path to the instrument AFM file.
 #'
 #' @return An object of class **`AFMinfo`** (list) with the following elements:
 #' \itemize{
-#'   \item `data` — instrument-specific header key/value table.
-#'   \item `type` — character; inferred vendor type (`"Cypher"`, `"Park"`,
+#'   \item `data` - instrument-specific header key/value table.
+#'   \item `type` - character; inferred vendor type (`"Cypher"`, `"Park"`,
 #'                 `"NanoSurf"`, `"Veeco"`).
-#'   \item `filename` — character; original file path.
-#'   \item `imageSize.um` — numeric; scan size in micrometers (µm).
-#'   \item `widthPixel` — numeric; number of pixels/samples in X.
-#'   \item `heightPixel` — numeric; number of pixels/samples in Y.
-#'   \item `scanRate.Hz` — numeric; line (or effective) scan rate in Hz.
-#'   \item `scanAngle` — numeric; scan rotation angle in degrees.
-#'   \item `imagingMode` — character; instrument imaging/operation mode.
-#'   \item `cantilever` — character; cantilever or probe descriptor.
-#'   \item `resFrequency` — numeric; resonance frequency in Hz (0 if unavailable).
-#'   \item `noChannels` — integer; number of data channels detected.
-#'   \item `note` — character; free-form note (instrument dependent).
+#'   \item `filename` - character; original file path.
+#'   \item `imageSize.um` - numeric; scan size in micrometers (um).
+#'   \item `widthPixel` - numeric; number of pixels/samples in X.
+#'   \item `heightPixel` - numeric; number of pixels/samples in Y.
+#'   \item `scanRate.Hz` - numeric; line (or effective) scan rate in Hz.
+#'   \item `scanAngle` - numeric; scan rotation angle in degrees.
+#'   \item `imagingMode` - character; instrument imaging/operation mode.
+#'   \item `cantilever` - character; cantilever or probe descriptor.
+#'   \item `resFrequency` - numeric; resonance frequency in Hz (0 if unavailable).
+#'   \item `noChannels` - integer; number of data channels detected.
+#'   \item `note` - character; free-form note (instrument dependent).
 #' }
 #'
 #' @examples
@@ -223,6 +223,8 @@ get_NID_imageSize <- function(s) {
   }
   
   s <- trimws(tolower(s))
+  s <- gsub("\u00b5", "u", s, fixed = TRUE)
+  s <- gsub("\u03bc", "u", s, fixed = TRUE)
   
   value <- as.numeric(gsub("[^0-9eE+\\.-]", "", s))
   
@@ -232,7 +234,7 @@ get_NID_imageSize <- function(s) {
   
   if (grepl("nm", s)) {
     value <- value * 1e-3
-  } else if (grepl("µm|um", s)) {
+  } else if (grepl("um", s)) {
     value <- value
   } else if (grepl("mm", s)) {
     value <- value * 1e3

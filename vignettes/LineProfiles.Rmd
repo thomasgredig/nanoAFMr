@@ -26,12 +26,13 @@ It can be useful to look at a line profile, for example in the height data. You 
 
 ```{r}
 library(ggplot2)
-library(scales)
-filename = AFM.getSampleImages(type='tiff')
-afmd = AFM.import(filename)
+afmd <- AFM.artificialImage(
+  width = 120, height = 120, type = "gradient",
+  addNoise = TRUE, verbose = FALSE
+)
 # afmd2 = AFM.lineProfile(afmd)  # click on two points on the image
-afmd2 = AFM.lineProfile(afmd, 200,2050, 800,2050, verbose = TRUE)
-afmd2 = AFM.lineProfile(afmd2, 200,2080, 800,2080)
+afmd2 <- AFM.lineProfile(afmd, 100, 300, 900, 300, verbose = TRUE)
+afmd2 <- AFM.lineProfile(afmd2, 100, 700, 900, 700)
 
 plot(afmd2, addLines = TRUE, trimPeaks = 0.01)
 ```
@@ -40,7 +41,7 @@ This shows where the profile line is measured; the units are in `nm`, according 
 
 ```{r}
 AFM.linePlot(afmd2)
-dLine = AFM.linePlot(afmd2, dataOnly = TRUE)
+dLine <- AFM.linePlot(afmd2, dataOnly = TRUE)
 head(dLine)
 ```
 

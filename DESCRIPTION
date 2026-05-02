@@ -1,7 +1,7 @@
 Type: Package
 Package: nanoAFMr
 Title: Load and Analyze Atomic Force Microscopy Data Files
-Version: 2.4.1
+Version: 2.5.0
 Author: Thomas Gredig [aut, cre, cph] (<https://orcid.org/0000-0002-5824-7626>)
 Authors@R: 
     person("Thomas", "Gredig", , "tgredig@csulb.edu", 
@@ -41,9 +41,7 @@ Suggests:
     cowplot,
     hexSticker,
     knitr,
-    latex2exp,
     pander,
-    rprojroot,
     rmarkdown,
     scales,
     showtext,
