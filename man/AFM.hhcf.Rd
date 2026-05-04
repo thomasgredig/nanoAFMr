@@ -16,6 +16,7 @@ AFM.hhcf(
   randomSeed = NA,
   allResults = FALSE,
   addFitLabels = TRUE,
+  useWeights = FALSE,
   verbose = FALSE
 )
 }
@@ -46,6 +47,8 @@ curve, and fit parameters.}
 
 \item{addFitLabels}{Logical; if `TRUE` and `addFit = TRUE`, annotate the fit
 parameters on the graph.}
+
+\item{useWeights}{Logical; if `TRUE` will fig Hurst parameter better}
 
 \item{verbose}{Logical; if `TRUE`, print progress and timing information.}
 }

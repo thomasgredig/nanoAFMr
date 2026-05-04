@@ -46,6 +46,7 @@
 #'   curve, and fit parameters.
 #' @param addFitLabels Logical; if `TRUE` and `addFit = TRUE`, annotate the fit
 #'   parameters on the graph.
+#' @param useWeights Logical; if `TRUE` will fig Hurst parameter better
 #' @param verbose Logical; if `TRUE`, print progress and timing information.
 #'
 #' @returns If `dataOnly = TRUE` and `allResults = FALSE`, a data frame with
@@ -58,6 +59,7 @@
 #' @importFrom ggplot2 ggplot aes geom_point geom_path scale_x_log10 scale_y_log10
 #' @importFrom ggplot2 theme_bw geom_label theme xlab ylab
 #' @importFrom stats runif nls predict coef
+#' @importFrom minpack.lm nlsLM
 #' @export
 AFM.hhcf <- function(
     obj,
@@ -71,6 +73,7 @@ AFM.hhcf <- function(
     randomSeed = NA,
     allResults = FALSE,
     addFitLabels = TRUE,
+    useWeights = FALSE,
     verbose = FALSE
 ) {
   myLabel <- NULL
@@ -171,6 +174,7 @@ AFM.hhcf <- function(
       obj = obj,
       hhcf_data = hhcf_data,
       xi.percentage = xi.percentage,
+      useWeigths = useWeights,
       verbose = verbose
     )
     
@@ -205,7 +209,7 @@ AFM.hhcf <- function(
   graph
 }
 
-fit_hhcf_curve <- function(obj, hhcf_data, xi.percentage, verbose = FALSE) {
+fit_hhcf_curve <- function(obj, hhcf_data, xi.percentage, useWeigths, verbose = FALSE) {
   valid <- is.finite(hhcf_data$g) & hhcf_data$g > 0
   d <- hhcf_data[valid, , drop = FALSE]
   
@@ -228,15 +232,33 @@ fit_hhcf_curve <- function(obj, hhcf_data, xi.percentage, verbose = FALSE) {
     xi_guess <- d$r.nm[xi_idx]
   }
   
-  fit <- tryCatch(
-    stats::nls(
-      g ~ 2 * sigma^2 * (1 - exp(-(r.nm / xi)^(2 * H))),
-      data = d,
-      start = list(sigma = sigma_guess, xi = xi_guess, H = 1)
-    ),
-    error = function(e) NULL
-  )
-  
+  if (useWeigths) {
+    r_min <- min(d$r.nm[d$r.nm > 0], na.rm = TRUE)
+    
+    w <- 1 / pmax(d$r.nm, r_min)^2
+    w <- w / mean(w, na.rm = TRUE)
+    
+    fit <- tryCatch(
+      minpack.lm::nlsLM(
+        g ~ 2 * sigma^2 * (1 - exp(-(r.nm / xi)^(2 * H))),
+        data = d,
+        start = list(
+          sigma = sigma_guess,
+          xi = xi_guess,
+          H = 1
+        ),
+        weights = w
+      ),
+      error = function(e) NULL
+    ) 
+  } else {
+    fit <- tryCatch( 
+      stats::nls( g ~ 2 * sigma^2 * (1 - exp(-(r.nm / xi)^(2 * H))), 
+                  data = d, 
+                  start = list(sigma = sigma_guess, xi = xi_guess, H = 1) ), 
+      error = function(e) NULL )
+  }
+
   if (is.null(fit)) {
     if (verbose) {
       cat("Cannot fit data; fit disabled.\n")

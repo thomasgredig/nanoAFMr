@@ -11,3 +11,5 @@
 ^pkgdown$
 ^\.squad$
 ^\.copilot$
+^\.positai$
+^\.claude$

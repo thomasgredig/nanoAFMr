@@ -31,6 +31,7 @@ Imports:
     ggpubr,
     grDevices,
     methods,
+    minpack.lm,
     quantreg,
     rlang,
     stats,
