@@ -15,13 +15,22 @@ test_that("Read and write of AFM image to database", {
   expect_type(b1, "S4")
   AFM.writeDB(b1, mydb, 46, verbose=FALSE)
   
+  # save NID file to DB
+  fname <- AFM.getSampleImages("nid")[1]
+  c1 <- AFM.import(fname)
+  expect_type(c1, "S4")
+  AFM.writeDB(c1, mydb, 47, verbose=FALSE)
+  
+  
   # read the images back from the database
   a2 = AFM.readDB(mydb, 45)
   b2 = AFM.readDB(mydb, 46)
+  c2 = AFM.readDB(mydb, 47)
   DBI::dbDisconnect(mydb)
   
   # compare the images
   expect_equal(summary(a1), summary(a2))
   expect_equal(summary(b1), summary(b2))
-  
+  expect_equal(summary(c1), summary(c2))
 })
+

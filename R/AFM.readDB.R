@@ -71,6 +71,14 @@ AFM.readDB <- function(mydb, ID = NA, verbose=TRUE) {
       } else if (length(channelData)==1) {
         zList = list(dfAFM$V1)
       }
+    } else if (isTRUE(dfData$instrument == "NanoSurf") ) {
+      dfAFM <- dbReadTable(mydb, myTableAFMname)
+      # find out how many?
+      if (length(channelData)==4) {
+        zList = list(dfAFM$V1, dfAFM$V2, dfAFM$V3, dfAFM$V4)
+      } else if (length(channelData)==1) {
+        zList = list(dfAFM$V1)
+      }
     } else {
       # cannot load data properly
       warning("AFM.readDB: ID=",ID,"is not a readable AFM image.")

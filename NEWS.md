@@ -1,3 +1,7 @@
+# nanoAFMr 2.5.1
+
+* support DB export of `.nid` files
+
 # nanoAFMr 2.5.0
 
 * update documentation for all functions

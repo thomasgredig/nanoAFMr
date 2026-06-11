@@ -69,6 +69,8 @@ AFM.writeDB <- function(obj, con, ID, vacuum = TRUE, verbose=FALSE) {
     dfZ = as.data.frame(z)
   } else if (obj@instrument == "Cypher") {
     dfZ = as.data.frame(sapply(obj@data$z, rbind))
+  } else if (obj@instrument == "NanoSurf") {
+    dfZ = as.data.frame(sapply(obj@data$z, rbind))
   } else {
     warning(paste("File format",
                   obj@instrument,
