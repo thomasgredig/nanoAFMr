@@ -13,7 +13,7 @@ tagReader <- function(fname) {
   if (file.info(fname)$size < 3000) stop(paste("File", fname,"too small!"))
   # load TIFF file portion
   q = loadBinaryDatafromTIFF(fname)
-
+  if (length(q)<2) stop("No binary data in TIFF file:", fname)
   # check whether it is a TIFF file
   if (!isTIFF(q)) stop("Unrecognized TIFF format.")
   if (isBigEndian(q)) stop("Big Endian encoding not supported yet.")
@@ -109,7 +109,7 @@ loadBinaryDatafromTIFF <- function(fname) {
 # }
 get16bit <- function(q, num) {
   idx <- floor(num / 4) + 1
-  if (idx > length(q)) stop("num points past end of q:", num)
+  if (idx > length(q)) stop("Number of points (num=",num,") goes past end of q.")
   n <- q[idx]
   
   if ((num %% 4) == 0) {
