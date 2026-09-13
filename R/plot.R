@@ -265,12 +265,14 @@ make_fill_scale <- function(redBlue, fillOption, setRange, mpt) {
       mid = "white",
       high = "blue",
       midpoint = mpt,
-      limits = setRange
+      limits = setRange,
+      labels = scales::label_number(style_negative = "minus")
     )
   } else {
     ggplot2::scale_fill_viridis_c(
       option = fillOption,
-      limits = setRange
+      limits = setRange,
+      labels = scales::label_number(style_negative = "minus")
     )
   }
 }
@@ -374,6 +376,8 @@ strip_plot <- function(p) {
     )
 }
 
+#' @importFrom scales label_number
+#' @importFrom ggplot2 scale_colour_continuous
 legend_only_plot <- function(p) {
   p <- p +
     ggplot2::theme_bw() +
@@ -383,7 +387,7 @@ legend_only_plot <- function(p) {
         colour = "transparent"
       )
     )
-  
+
   g1l <- ggpubr::get_legend(p)
   ggpubr::as_ggplot(g1l)
 }

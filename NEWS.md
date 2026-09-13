@@ -1,3 +1,7 @@
+# nanoAFMr 2.5.2
+
+* add unicode \u2212 for minus in legend and change font
+
 # nanoAFMr 2.5.1
 
 * support DB export of `.nid` files
