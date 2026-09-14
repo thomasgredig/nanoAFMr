@@ -18,12 +18,10 @@ Numeric matrix of `z` values with `y` rows and `x` columns.
 Converts AFM data to a 2D matrix
 }
 \examples{
-\dontrun{
 filename = AFM.getSampleImages(type='ibw')
 d = AFM.import(filename)
 m <- AFM.to_CSV(d)
-write.csv(m, "data.csv")
-}
+write.csv(m, file.path(tempdir(), "data.csv"))
 }
 \author{
 Thomas Gredig

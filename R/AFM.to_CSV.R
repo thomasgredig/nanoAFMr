@@ -7,12 +7,10 @@
 #' @importFrom ggplot2 ggplot geom_path scale_color_discrete xlab theme_bw theme
 #'
 #' @examples
-#' \dontrun{
 #' filename = AFM.getSampleImages(type='ibw')
 #' d = AFM.import(filename)
 #' m <- AFM.to_CSV(d)
-#' write.csv(m, "data.csv")
-#' }
+#' write.csv(m, file.path(tempdir(), "data.csv"))
 #' @export
 AFM.to_CSV <- function(obj, no=1) {
   df <- AFM.raster(obj, no=no)

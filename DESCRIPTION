@@ -8,12 +8,14 @@ Authors@R:
           role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-5824-7626"))
 Maintainer: Thomas Gredig <tgredig@csulb.edu>
-Description: Import and graph atomic force microscopy (AFM) image files 
-    for analysis. The supported file formats include NanoSurf NID
-    files, Bruker and VEECO NanoScope files, Park AFM files, and  Igor wave files. 
-    It supports image flattening, height-height correlation function analysis, 
-    line profiles, and other basic data analysis functions. 
-    It can also handle spectroscopy data for Park AFM files. 
+Description: Import and graph atomic force microscopy (AFM) image files for
+    analysis. The supported file formats include 'NanoSurf' NID files, Bruker
+    and VEECO NanoScope files, Park AFM files, and 'Igor' wave files. It
+    supports image flattening, height-height correlation function analysis,
+    line profiles, and other basic data analysis functions. It can also handle
+    spectroscopy data for Park AFM files. The height-height correlation
+    function method is described in Gredig et al. (2013)
+    <doi:10.1088/1742-6596/417/1/012069>.
 URL: https://github.com/thomasgredig/nanoAFMr
 BugReports: https://github.com/thomasgredig/nanoAFMr/issues
 Encoding: UTF-8

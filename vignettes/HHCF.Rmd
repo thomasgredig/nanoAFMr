@@ -21,7 +21,7 @@ library(nanoAFMr)
 library(ggplot2)
 ```
 
-The Height-Height Correlation Function is discussed in the publication: [Height-Height Correlation Function to Determine Grain Size in Iron Phthalocyanine Thin Films](http://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069) *Thomas Gredig, Evan A. Silverstein, Matthew P Byrne*, Journal: **J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).**
+The Height-Height Correlation Function is discussed in the publication: [Height-Height Correlation Function to Determine Grain Size in Iron Phthalocyanine Thin Films](https://iopscience.iop.org/article/10.1088/1742-6596/417/1/012069) *Thomas Gredig, Evan A. Silverstein, Matthew P Byrne*, Journal: **J of Phys: Conf. Ser. Vol 417, p. 012069 (2013).**
 
 It defines a correlation function $g(r)$ as follows:
 

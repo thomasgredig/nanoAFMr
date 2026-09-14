@@ -352,7 +352,6 @@ AFM.isImage <- function(obj) {
 #'
 #' @author Thomas Gredig
 #' @examples
-#' # show the data type for each AFM file
 #' fList = AFM.getSampleImages()
 #' dTypes = sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
 #' data.frame(basename(fList), unname(dTypes))

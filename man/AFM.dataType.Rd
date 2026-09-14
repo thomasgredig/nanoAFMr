@@ -19,7 +19,6 @@ Determine the type of the AFM file; this could be
     with data and no image
 }
 \examples{
-# show the data type for each AFM file
 fList = AFM.getSampleImages()
 dTypes = sapply(fList, function(x) { AFM.dataType(AFM.import(x)) })
 data.frame(basename(fList), unname(dTypes))
