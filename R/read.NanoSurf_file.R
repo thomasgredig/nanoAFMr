@@ -277,7 +277,7 @@ read.NID_header <- function(filename) {
   dlen.header = 0
   while( TRUE ) {
     rline = readLines(con, n=1, skipNul=TRUE, warn = FALSE)
-    if (substr(rline,1,2) == "#!" ) break
+    if (length(rline) > 0 && startsWith(rline, "#!"))  break
     i = i + 1
     dlen.header = dlen.header + nchar(rline, type="bytes") + 2
   }
