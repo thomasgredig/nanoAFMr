@@ -1,3 +1,5 @@
+* `AFM.linePlot` provides two more columns with xPixel and yPixel
+
 # nanoAFMr 2.5.2
 
 * add unicode \u2212 for minus in legend for publishing standards

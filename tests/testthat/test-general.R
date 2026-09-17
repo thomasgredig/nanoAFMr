@@ -27,6 +27,8 @@ test_that("line Profile", {
   q = AFM.linePlot(d2, dataOnly=TRUE)
   expect_equal(sum(q$z), -159.4684, tolerance = 1e-4)
   expect_equal(nlevels(as.factor(q$type)), 2)
+  expect_equal(sum(q$xPixel), 2174L)  # v.2.5.3 also provides xPixel and yPixel
+  expect_equal(sum(q$yPixel), 5176L)
 })
 
 test_that("getLine for particular pixel", {

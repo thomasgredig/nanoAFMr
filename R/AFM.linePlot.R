@@ -31,7 +31,17 @@ AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
   i=1
   r = data.frame()
   for(ln in obj@data$line) {
-    dz = data.frame(x=obj@data$line.nm[[i]],z=zData[ln])
+    dz = data.frame(x=obj@data$line.nm[[i]],
+                    z=zData[ln])
+    p <- obj@data$line[[i]]
+    nx <- obj@x.pixels   
+    ny <- obj@y.pixels
+    dx <- obj@x.conv
+    
+    dz$xPixel <- ((p - 1) %% nx) + 1
+    dz$yPixel <- ((p - 1) %/% nx) + 1
+    dz$x = (dz$xPixel-1) * dx
+
     dz$type=i
     i=i+1
     r=rbind(r, dz)

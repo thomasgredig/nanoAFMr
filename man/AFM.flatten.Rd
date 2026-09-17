@@ -25,6 +25,7 @@ AFM.flatten(
    \item{"lineByLine"}{Fit each line and substract a linear fit}
    \item{"slope"}{Remove given slopes from each line, must provide `slope` parameter}
    \item{"autoMask"}{Use auto-masking and then remove line-by-line background, use verbose=TRUE to see parameters.}
+   \item{"2Dpoly"}{Will use a second order polynomial for background removal}
 }}
 
 \item{zShift}{vertical offset in the same units as the channel units}
