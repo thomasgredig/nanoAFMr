@@ -1,3 +1,5 @@
+# nanoAFMr 2.5.3
+
 * `AFM.linePlot` provides two more columns with xPixel and yPixel
 
 # nanoAFMr 2.5.2
