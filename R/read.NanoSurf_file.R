@@ -31,7 +31,10 @@ read.NanoSurf_header.v2 <- function(filename) {
 read.NanoSurf_file.v2 <- function(filename) {
   # file must be in NID format
   if (!file.exists(filename)) stop(paste("File",filename,"does NOT exist."))
-  if (!(NID.checkFile(filename)==0)) stop("NID file is corrupted.")
+  if (!(NID.checkFile(filename)==0)) {
+    warning("NID file is corrupted: ", filename)
+    return(NULL)
+  }
 
   # read the header
   hItems = read.NID_headerItems(filename)

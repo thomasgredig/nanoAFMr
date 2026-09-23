@@ -1,6 +1,7 @@
 # nanoAFMr 2.5.3
 
 * `AFM.linePlot` provides two more columns with xPixel and yPixel
+* return NULL if NID file is corrupt
 
 # nanoAFMr 2.5.2
 
