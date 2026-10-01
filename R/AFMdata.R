@@ -387,3 +387,80 @@ AFM.isFileValid <- function(filename) {
   }
   validFile
 }
+
+#' Creates a new AFMdata object from a height matrix
+#' @export
+AFM.create <- function(df, z.units = "nm", instrument = "reconstructed") {
+  stopifnot(all(c("x", "y", "z") %in% names(df)))
+  
+  # Unique coordinate values
+  xs <- sort(unique(df$x))
+  ys <- sort(unique(df$y))
+  
+  nx <- length(xs)
+  ny <- length(ys)
+  
+  # Check that the points form a complete rectangular grid
+  if (nrow(df) != nx * ny) {
+    stop("The x-y coordinates do not form a complete rectangular grid.")
+  }
+  
+  ij <- cbind(match(df$y, ys), match(df$x, xs))
+  
+  if (anyDuplicated(ij)) {
+    stop("Duplicate x-y coordinates found.")
+  }
+  
+  # Height matrix: rows correspond to y, columns to x
+  h <- matrix(NA_real_, nrow = ny, ncol = nx)
+  h[ij] <- df$z
+  
+  if (anyNA(h)) {
+    stop("Some x-y grid points are missing.")
+  }
+  
+  # Pixel-to-nanometer conversion factors
+  dx <- diff(xs)
+  dy <- diff(ys)
+  
+  if (length(dx) == 0 || length(dy) == 0) {
+    stop("At least two distinct x and y positions are required.")
+  }
+  
+  if (!isTRUE(all.equal(dx, rep(dx[1], length(dx)))) ||
+      !isTRUE(all.equal(dy, rep(dy[1], length(dy))))) {
+    warning("The x or y coordinates are not uniformly spaced.")
+  }
+  
+  x.conv <- median(dx)
+  y.conv <- median(dy)
+  
+  # nanoAFMr uses x as the fastest-varying coordinate
+  z.vector <- as.vector(t(h))
+  
+  afm <- methods::new(
+    "AFMdata",
+    data = list(z = list(z.vector)),
+    x.conv = x.conv,
+    y.conv = y.conv,
+    x.pixels = nx,
+    y.pixels = ny,
+    z.conv = 1,
+    z.units = z.units,
+    channel = "Height",
+    instrument = instrument,
+    history = "Reconstructed from data.frame(x, y, z)",
+    description = "",
+    fullFilename = ""
+  )
+    
+  #   list(
+  #     AFMdata = afm,
+  #     height_matrix = h,
+  #     x.conv = x.conv,
+  #     y.conv = y.conv
+  #   )
+ 
+afm
+}
+
