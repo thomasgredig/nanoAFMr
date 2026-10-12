@@ -59,6 +59,7 @@ AFM.artificialImage <- function(width = 10,
     z.units = "nm",
     instrument = "artificial",
     history = '',
+    date = as.character(Sys.Date()),
     description = paste("Artificial image with width=",width, "and height=",height),
     fullFilename = "artificial.000"
   )

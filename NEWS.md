@@ -1,3 +1,8 @@
+# nanoAFMr 2.5.4
+
+* allow more instrument names in AFMdata
+* `AFM.create` creates an AFMdata class based on `x,y,z` data frame
+
 # nanoAFMr 2.5.3
 
 * `AFM.linePlot` provides two more columns with xPixel and yPixel

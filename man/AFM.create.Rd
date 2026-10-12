@@ -4,8 +4,33 @@
 \alias{AFM.create}
 \title{Creates a new AFMdata object from a height matrix}
 \usage{
-AFM.create(df, z.units = "nm", instrument = "reconstructed")
+AFM.create(
+  df,
+  z.units = "nm",
+  description = "from data frame",
+  channelName = "Height",
+  instrument = "reconstructed"
+)
+}
+\arguments{
+\item{df}{data.frame with `x`, `y`, and `z` coordinates for an AFM image}
+
+\item{z.units}{string for units of the z-axis}
+
+\item{description}{AFM image description}
+
+\item{instrument}{string for name of instrument}
+}
+\value{
+AFMdata class object
 }
 \description{
 Creates a new AFMdata object from a height matrix
+}
+\examples{
+ a <- AFM.artificialImage(8,5,-2,2, type="gradient", v=F)
+ d <- AFM.raster(a)
+ a_new <- AFM.create(d)
+ print(a_new)
+
 }

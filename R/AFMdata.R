@@ -40,8 +40,11 @@ AFMdata<-setClass("AFMdata",
                   validity =
                     function(object) {
                       errors <- character()
-
-                      if (!(object@instrument %in% c('Cypher','Park','NanoSurf','Veeco','artificial'))) {
+                      valid_instruments <- c('Cypher','Park','NanoSurf','Veeco','artificial','reconstructed')
+                      if (!any(vapply( valid_instruments,
+                        \(prefix) startsWith(object@instrument, prefix),
+                        logical(1)
+                      ))) {
                         msg <- paste('Object has invalid instrument:',object@instrument)
                         errors <- c(errors,msg)
                       }
@@ -175,6 +178,23 @@ cpf <- function(...) cat(paste0(sprintf(...), "\n"))
 #' 
 #' @export
 AFM.import <- function(filename, verbose=FALSE) {
+  if (file.access(filename, 4) == -1) {
+    warning("Access to read file denied: ", filename)
+    return(NULL)
+  }
+  if (file.size(filename)<1000L) {
+    warning("File size under 1kB, likely not an AFM data file: ", filename)
+    return(NULL)
+  }
+  
+  con <- file(filename, "rb")
+  bytes=readBin(con,"integer",2,size=1)
+  close(con)
+  if (length(bytes)!=2) {
+    warning("AFM data cannot be read: ", filename)
+    return(NULL)    
+  }
+  
   if (grepl('ibw$',filename)) obj = read.AR_file.v2(filename)
   else if (grepl('tiff$',filename)) obj = read.Park_file.v2(filename)
   else if (grepl('nid$',filename)) obj = read.NanoSurf_file.v2(filename)
@@ -389,8 +409,24 @@ AFM.isFileValid <- function(filename) {
 }
 
 #' Creates a new AFMdata object from a height matrix
+#' @param df data.frame with `x`, `y`, and `z` coordinates for an AFM image
+#' @param z.units string for units of the z-axis
+#' @param description AFM image description
+#' @param instrument string for name of instrument
+#' @examples
+#'  a <- AFM.artificialImage(8,5,-2,2, type="gradient", v=F)
+#'  d <- AFM.raster(a)
+#'  a_new <- AFM.create(d)
+#'  print(a_new)
+#' 
+#' @return AFMdata class object
+#' 
+#' @importFrom stats median
 #' @export
-AFM.create <- function(df, z.units = "nm", instrument = "reconstructed") {
+AFM.create <- function(df, z.units = "nm", 
+                       description = "from data frame", 
+                       channelName = "Height",
+                       instrument = "reconstructed") {
   stopifnot(all(c("x", "y", "z") %in% names(df)))
   
   # Unique coordinate values
@@ -403,6 +439,7 @@ AFM.create <- function(df, z.units = "nm", instrument = "reconstructed") {
   # Check that the points form a complete rectangular grid
   if (nrow(df) != nx * ny) {
     stop("The x-y coordinates do not form a complete rectangular grid.")
+    
   }
   
   ij <- cbind(match(df$y, ys), match(df$x, xs))
@@ -447,10 +484,11 @@ AFM.create <- function(df, z.units = "nm", instrument = "reconstructed") {
     y.pixels = ny,
     z.conv = 1,
     z.units = z.units,
-    channel = "Height",
+    channel = channelName,
     instrument = instrument,
     history = "Reconstructed from data.frame(x, y, z)",
-    description = "",
+    date = as.character(Sys.Date()),
+    description = description,
     fullFilename = ""
   )
     
