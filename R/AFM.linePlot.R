@@ -37,6 +37,7 @@ AFM.linePlot <- function(obj,no=1,dataOnly=FALSE) {
     nx <- obj@x.pixels   
     ny <- obj@y.pixels
     dx <- obj@x.conv
+ 
     
     dz$xPixel <- ((p - 1) %% nx) + 1
     dz$yPixel <- ((p - 1) %/% nx) + 1

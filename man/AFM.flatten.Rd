@@ -6,8 +6,8 @@
 \usage{
 AFM.flatten(
   obj,
-  no = 1,
   method = c("plane", "lineByLine", "slope", "autoMask", "2Dpoly"),
+  no = 1,
   zShift = 0,
   slope = NULL,
   verbose = FALSE,
@@ -17,8 +17,6 @@ AFM.flatten(
 \arguments{
 \item{obj}{AFMdata object}
 
-\item{no}{channel number}
-
 \item{method}{use the method to flatten the image:
 \describe{
    \item{"plane"}{`Default`: Fit a flat plane to the entire image and subtract}
@@ -27,6 +25,8 @@ AFM.flatten(
    \item{"autoMask"}{Use auto-masking and then remove line-by-line background, use verbose=TRUE to see parameters.}
    \item{"2Dpoly"}{Will use a second order polynomial for background removal}
 }}
+
+\item{no}{channel number}
 
 \item{zShift}{vertical offset in the same units as the channel units}
 

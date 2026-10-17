@@ -14,13 +14,28 @@ NULL
 }
 
 #### METHOD: Slope
-.flattenMethodSlope <- function(AFMcopy, no, slope) {
-  if (nrow(slope) != AFMcopy@x.pixels) warning("Slope parameter is incorrect length.")
+.flattenMethodSlope <- function(AFMcopy, no) {
+  d <- AFM.raster(AFMcopy)
   
-  d = AFM.raster(AFMcopy,no)
-  m.vec = rep(slope$m, each = AFMcopy@y.pixels)
-  b.vec = rep(slope$b, each = AFMcopy@y.pixels)
-  z = d$z - m.vec*d$x - b.vec
+  AFM.linePlot(AFMcopy, dataOnly = TRUE) -> q1
+  if (nrow(q1) < 2) {
+    warning("Slope flattening needs to have lines in image.")
+    return(d$z)
+  }
+  ny <- AFMcopy@y.pixels
+  nx <- AFMcopy@x.pixels
+  
+  y0 = 1
+  z=d$z
+  for(i in 1:ny) {
+    q1[which(q1$yPixel==i),] -> q2
+    if (nrow(q2)>=2) {
+      fit <- lm(z ~ x, data=q2)
+      z_off <- predict(fit, list(x= d$x[y0:(y0+nx-1)]))
+      z[y0:(y0+nx-1)] = z[y0:(y0+nx-1)] - z_off
+    }
+    y0 = y0 + nx
+  }
   
   z
 }

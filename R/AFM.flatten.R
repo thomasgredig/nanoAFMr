@@ -41,14 +41,17 @@
 #' @export
 AFM.flatten <- function(
     obj,
-    no = 1,
     method = c("plane", "lineByLine", "slope", "autoMask", "2Dpoly"),
+    no = 1,
     zShift = 0,
     slope = NULL,
     verbose = FALSE,
     ...
 ) {
-  if (!AFM.isImage(obj)) return(obj)
+  if (!AFM.isImage(obj)) {
+    message("Cannot flatten non-AFM images.")
+    return(obj)
+  }
   
   # Resolve method, handling default
   method <- match.arg(method)
@@ -57,7 +60,7 @@ AFM.flatten <- function(
   AFMcopy <- obj
   AFMcopy@history <- add.AFM.history(
     AFMcopy,
-    sprintf("AFM.flatten(obj,%d,method='%s')", no, method)
+    sprintf("AFM.flatten(obj,method='%s',no=%d)", method, no)
   )
   
   # Helpers
@@ -77,7 +80,7 @@ AFM.flatten <- function(
     },
     slope = {
       say("Method: Slope")
-      .flattenMethodSlope(AFMcopy, no, slope)
+      .flattenMethodSlope(AFMcopy, no)
     },
     `2Dpoly` = {
       say("Method: 2D polynomial")

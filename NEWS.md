@@ -1,3 +1,7 @@
+# nanoAFMr 2.5.5
+
+* implement `slope` method for flattening to use lines
+
 # nanoAFMr 2.5.4
 
 * allow more instrument names in AFMdata

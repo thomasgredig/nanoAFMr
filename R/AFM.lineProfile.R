@@ -31,7 +31,7 @@
 #'
 #' @seealso \code{\link{AFM.getLine}}, \code{\link{AFM.linePlot}}
 #'
-#' @importFrom terra rast click
+
 #' @export
 AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             N=1,
@@ -49,6 +49,7 @@ AFM.lineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
 
 
 # ==============================================================
+#' @importFrom terra rast click
 .singleLineProfile <- function(obj,x1=NA,y1=NA,x2=NA,y2=NA,
                             unitPixels = FALSE, verbose=FALSE) {
   AFMcopy <- obj
